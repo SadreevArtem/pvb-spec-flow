@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useJwtToken } from "../../shared/hooks/useJwtToken";
 import { Login } from "@/components/Login/Login";
 import { AdminPanel } from "@/components/AdminPanel/AdminPanel";
+import { GetStaticPropsContext } from "next";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,6 +16,14 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../../messages/${locale}.json`)).default,
+    },
+  };
+}
 
 export default function Home() {
   const token = useAuthStore((state) => state.token);

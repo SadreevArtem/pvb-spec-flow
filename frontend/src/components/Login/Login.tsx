@@ -46,13 +46,16 @@ export const Login: React.FC = () => {
           className="md:w-[30%] py-4 flex flex-col md:gap-6 gap-4"
         >
           <LocaleSwitcher className="" />
-          <Image
-            src="/logo-max.png"
-            alt="logo"
-            width={220}
-            height={100}
-            className="self-center"
-          />
+          <div className="flex items-center justify-between">
+            <Image
+              src="/logo-max.png"
+              alt="logo"
+              width={220}
+              height={100}
+              className="self-center"
+            />
+            <h2 className="text-2xl font-bold text-primary">SPEC FLOW</h2>
+          </div>
           <Controller
             name="username"
             rules={{ required: true }}
