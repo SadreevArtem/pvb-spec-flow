@@ -11,6 +11,8 @@ import { WinstonModule } from 'nest-winston';
 import { UsersModule } from './users/users.module';
 import * as winston from 'winston';
 import { AuthModule } from './auth/auth.module';
+import { CustomersModule } from './customers/customers.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     CacheModule.register({ ttl: 5, max: 10, isGlobal: true }),
     UsersModule,
+    CustomersModule,
+    OrdersModule,
     AuthModule,
   ],
   controllers: [AppController],

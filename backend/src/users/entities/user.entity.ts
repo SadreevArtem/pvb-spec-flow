@@ -1,9 +1,11 @@
 import { IsEmail, Length } from 'class-validator';
+import { Order } from 'src/orders/entities/order.entity';
 import { UserRole } from 'src/types';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -46,8 +48,8 @@ export class User {
   })
   role: UserRole;
 
-  // @OneToMany(() => Order, (order) => order.owner)
-  // orders: Order[];
+  @OneToMany(() => Order, (order) => order.owner)
+  orders: Order[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -50,7 +50,7 @@ export default function Home() {
         {!isAuth ? (
           <Login />
         ) : isAdmin ? (
-          <AdminPanel title="PVB-CONTROL" />
+          <AdminPanel title="PVB-SpecFlow" />
         ) : (
           <>User panel</>
         )}

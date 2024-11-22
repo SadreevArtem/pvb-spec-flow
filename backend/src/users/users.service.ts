@@ -57,11 +57,6 @@ export class UsersService {
     if (role !== UserRole.ADMIN) {
       throw new BadRequestException('Недостаточно прав');
     }
-    // if (await this.userExists(updateUserDto)) {
-    //   throw new BadRequestException(
-    //     'Пользователь с указанными данными уже зарегистрирован',
-    //   );
-    // }
     return this.userRepository.update({ id }, updateUserDto);
   }
   findById(id: number) {

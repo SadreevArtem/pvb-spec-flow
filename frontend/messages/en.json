@@ -44,5 +44,15 @@
     "save": "Save",
     "delete": "Delete",
     "back": "Back"
+  },
+  "Orders": {
+    "add": "Add",
+    "ID": "Order ID",
+    "count": "Count",
+    "customerName": "Customer",
+    "contractNumber": "Contract Number",
+    "complectName": "Order Name",
+    "owner": "Responsible",
+    "created": "Created"
   }
 }
