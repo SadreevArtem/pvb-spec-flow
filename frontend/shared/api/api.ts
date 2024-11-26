@@ -1,4 +1,4 @@
-import { Customer, Order, User } from "../types";
+import { Customer, Item, Order, User } from "../types";
 
 class API {
   baseUrl: string;
@@ -355,6 +355,53 @@ class API {
       return await response.json();
     } catch (error) {
       console.error("Delete order request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление позиции
+  updateItemRequest = async (input: Item, token: string) => {
+    if (!input.id) {
+      throw new Error("Item ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/items/${input.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update item request failed:", error);
+      throw error;
+    }
+  };
+  createItemRequest = async (input: Item, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/items`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create item request failed:", error);
       throw error;
     }
   };

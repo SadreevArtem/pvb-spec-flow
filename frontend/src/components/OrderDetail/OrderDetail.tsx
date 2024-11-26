@@ -10,7 +10,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Customer, Order, User } from "../../../shared/types";
+import { Customer, Item, Order, User } from "../../../shared/types";
 import { useAuthStore } from "../../../shared/stores/auth";
 import { Button } from "../Button";
 import { appToast } from "../AppToast/components/lib/appToast";
@@ -23,6 +23,7 @@ type Props = {
 };
 
 type Inputs = Order & { customerId: number; ownerId: number };
+type InputItem = Item & { orderId: number };
 
 export const OrderDetail: React.FC<Props> = ({ id }) => {
   const isEdit = id !== 0;
@@ -55,13 +56,16 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     queryFn: getOrderById,
     enabled: id !== 0,
   });
-
+  const [formData, setFormData] = React.useState<Record<number, Item>>({});
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<Inputs>();
+
+  console.log(formData);
 
   const updateOrderFunc = (input: Order) =>
     api.updateOrderRequest(input, token);
@@ -69,12 +73,25 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     api.createOrderRequest(input, token);
   const deleteFunc = () => api.deleteOrderRequest(id, token);
 
-  const { mutate: mutation, isPending } = useMutation({
+  const updateItemFunc = (input: InputItem) =>
+    api.updateItemRequest(input, token);
+  const createItemFunc = (input: InputItem) =>
+    api.createItemRequest(input, token);
+
+  const { mutateAsync: mutation, isPending } = useMutation({
     mutationFn: isEdit ? updateOrderFunc : createOrderFunc,
     onSuccess: () => {
       appToast.success(isEdit ? t("updated") : t("added"));
-      queryClient.invalidateQueries({ queryKey: ["order"] });
-      router.back();
+      queryClient.invalidateQueries({ queryKey: getQueryKey(id) });
+    },
+    onError: () => {
+      appToast.error(t("error"));
+    },
+  });
+  const { mutateAsync: mutationItem } = useMutation({
+    mutationFn: isEdit ? updateItemFunc : createItemFunc,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: getQueryKey(id) });
     },
     onError: () => {
       appToast.error(t("error"));
@@ -85,7 +102,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     mutationFn: deleteFunc,
     onSuccess: () => {
       appToast.success(t("deleted"));
-      queryClient.invalidateQueries({ queryKey: ["order"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       router.back();
     },
     onError: () => {
@@ -109,14 +126,26 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    mutation({ ...data });
+    mutation({
+      ...data,
+    }).then(async (data) => {
+      await Promise.all(
+        Array.from(Object.values(formData), (item) =>
+          mutationItem({
+            ...item,
+            ...(isEdit ? { orderId: id } : { orderId: data.id }),
+          })
+        )
+      );
+      router.back();
+    });
   };
 
   useEffect(() => {
     if (!order) return;
     Object.keys(order).forEach((key) => {
       if (key in order) {
-        setValue(key as keyof Inputs, order[key as keyof Order] as string);
+        setValue(key as keyof Inputs, order[key as keyof Order]);
       }
     });
     if (order.customer) {
@@ -127,6 +156,14 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     if (order.owner) {
       setOwner(order.owner.id);
       setValue("ownerId", order.owner.id);
+    }
+    if (order.items) {
+      setFormData(
+        order.items.reduce((acc, item) => {
+          acc[item.id] = item;
+          return acc;
+        }, {} as Record<number, (typeof order.items)[number]>)
+      );
     }
   }, [order, setValue]);
 
@@ -166,6 +203,8 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               )}
               <TextField
                 variant="outlined"
+                defaultValue={order?.count}
+                disabled={isEdit}
                 label={t("count")}
                 type="number"
                 onChange={(event) => {
@@ -228,6 +267,84 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </div>
             </form>
           }
+          {!isEdit &&
+            Array.from({ length: watch("count") }, (_, index) => (
+              <>
+                <span className="">{`Задвижка ${index + 1}`}</span>
+                <div key={index} className="flex my-3">
+                  <TextField
+                    label={"TAG номер"}
+                    className="!mr-3"
+                    variant="outlined"
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [index + 1]: {
+                          ...prev[index + 1],
+                          tagNumber: e.target.value,
+                        },
+                      }))
+                    }
+                    value={formData[index + 1]?.tagNumber || ""}
+                  />
+                  <TextField
+                    label={"Номер по ТЗ"}
+                    variant="outlined"
+                    className=""
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [index + 1]: {
+                          ...prev[index + 1],
+                          techTaskNumber: e.target.value,
+                        },
+                      }))
+                    }
+                    value={formData[index + 1]?.techTaskNumber || ""}
+                  />
+                </div>
+              </>
+            ))}
+          {isEdit &&
+            Object.values(formData).map((item, index) => (
+              <>
+                <span className="">{`Задвижка ${index + 1}`}</span>
+                <div key={index} className="flex my-3">
+                  <TextField
+                    label="TAG номер"
+                    defaultValue={item.tagNumber}
+                    className="!mr-3"
+                    variant="outlined"
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [item.id]: {
+                          ...prev[item.id],
+                          tagNumber: e.target.value,
+                        },
+                      }))
+                    }
+                    // value={formData[item.id]?.tagNumber || ""}
+                  />
+                  <TextField
+                    label="Номер по ТЗ"
+                    defaultValue={item.techTaskNumber}
+                    variant="outlined"
+                    className=""
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [item.id]: {
+                          ...prev[item.id],
+                          techTaskNumber: e.target.value,
+                        },
+                      }))
+                    }
+                    // value={formData[item.id]?.techTaskNumber || ""}
+                  />
+                </div>
+              </>
+            ))}
         </section>
       )}
     </>

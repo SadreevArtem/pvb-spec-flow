@@ -1,11 +1,13 @@
 import { Length } from 'class-validator';
 import { Customer } from 'src/customers/entities/customer.entity';
+import { Item } from 'src/items/entities/item.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -31,6 +33,9 @@ export class Order {
 
   @ManyToOne(() => User, (user) => user.orders)
   owner: User; // связь с пользователем, который является владельцем заказа
+
+  @OneToMany(() => Item, (item) => item.order, { cascade: true })
+  items: Item[]; // Связь с массивом комплектов
 
   @CreateDateColumn()
   createdAt: Date;

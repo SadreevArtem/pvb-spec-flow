@@ -36,6 +36,13 @@ export type Order = {
   count: number;
   customer: Customer;
   owner: User;
+  items?: Item[];
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type Item = {
+  id: number;
+  tagNumber: string;
+  techTaskNumber: string;
 };

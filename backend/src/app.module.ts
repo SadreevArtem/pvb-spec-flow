@@ -13,6 +13,7 @@ import * as winston from 'winston';
 import { AuthModule } from './auth/auth.module';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { OrdersModule } from './orders/orders.module';
     CustomersModule,
     OrdersModule,
     AuthModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [

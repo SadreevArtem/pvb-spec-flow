@@ -21,7 +21,7 @@ export const Orders = () => {
   const token = useAuthStore((state) => state.token);
   const getOrders = () => api.getAllOrdersRequest(token);
   const { data: orders = [], isLoading } = useQuery<Order[]>({
-    queryKey: ["order"],
+    queryKey: ["orders"],
     queryFn: getOrders,
   });
   const t = useTranslations("Orders");
