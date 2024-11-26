@@ -6,12 +6,14 @@ import { Order } from './entities/order.entity';
 import { UsersModule } from 'src/users/users.module';
 import { CustomersModule } from 'src/customers/customers.module';
 import { ItemsModule } from 'src/items/items.module';
+import { EquipmentTypesModule } from 'src/equipment-types/equipment-types.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Order]),
     UsersModule,
     CustomersModule,
+    EquipmentTypesModule,
     forwardRef(() => ItemsModule),
   ],
   exports: [OrdersService],

@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
 import { ItemsModule } from './items/items.module';
+import { EquipmentTypesModule } from './equipment-types/equipment-types.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { ItemsModule } from './items/items.module';
     OrdersModule,
     AuthModule,
     ItemsModule,
+    EquipmentTypesModule,
   ],
   controllers: [AppController],
   providers: [

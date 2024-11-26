@@ -405,6 +405,121 @@ class API {
       throw error;
     }
   };
+  // запрос на получение справочника вида оборудования
+  getAllEquipmentTypesRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/equipment-types`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get equipment-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение вида оборудования по id
+  getEquipmentTypeByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/equipment-types/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get equipment-types request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание вида оборудования
+  createEquipmentTypeRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/equipment-types`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create equipment-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление вида оборудования
+  updateEquipmentTypeRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("Equipment type ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/equipment-types/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update equipment-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление вида оборудования
+  deleteEquipmentTypeRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/equipment-types/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete equipment-types request failed:", error);
+      throw error;
+    }
+  };
 }
 
 export const api = new API("http://localhost:4000");

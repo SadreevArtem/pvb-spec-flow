@@ -10,19 +10,31 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Customer, Item, Order, User } from "../../../shared/types";
+import {
+  Customer,
+  EquipmentType,
+  Item,
+  Order,
+  User,
+} from "../../../shared/types";
 import { useAuthStore } from "../../../shared/stores/auth";
 import { Button } from "../Button";
 import { appToast } from "../AppToast/components/lib/appToast";
 import { api } from "../../../shared/api/api";
 import { useTranslations } from "next-intl";
 import { useJwtToken } from "../../../shared/hooks/useJwtToken";
+import { UpdateForm } from "./components/UpdateForm/UpdateForm";
+import { CreateForm } from "./components/CreateForm/CreateForm";
 
 type Props = {
   id: number;
 };
 
-type Inputs = Order & { customerId: number; ownerId: number };
+type Inputs = Order & {
+  customerId: number;
+  ownerId: number;
+  equipmentTypeId: number;
+};
 type InputItem = Item & { orderId: number };
 
 export const OrderDetail: React.FC<Props> = ({ id }) => {
@@ -32,6 +44,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const queryClient = useQueryClient();
   const [customer, setCustomer] = React.useState<number>(0);
   const [owner, setOwner] = React.useState<number>(0);
+  const [equipmentType, setEquipmentType] = React.useState<number>(0);
   const router = useRouter();
   const { sub } = useJwtToken();
   const isAdmin = Number(sub) === 1;
@@ -47,6 +60,12 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     queryFn: getUsers,
     enabled: isAdmin,
   });
+  const getEquipmentType = () => api.getAllEquipmentTypesRequest(token);
+  const { data: equipmentTypes = [], isLoading: isLoadingEquipmentType } =
+    useQuery<EquipmentType[]>({
+      queryKey: ["equipment-type"],
+      queryFn: getEquipmentType,
+    });
 
   const getOrderById = () => api.getOrderByIdRequest(id, token);
   const getQueryKey = (id: number) => ["order"].concat(id.toString());
@@ -64,8 +83,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-
-  console.log(formData);
 
   const updateOrderFunc = (input: Order) =>
     api.updateOrderRequest(input, token);
@@ -124,6 +141,11 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     event.preventDefault();
     deleteMutation.mutate();
   };
+  const handleChangeEquipmentType = (event: SelectChangeEvent) => {
+    setEquipmentType(+event.target.value as number);
+    setValue("equipmentTypeId", +event.target.value as number);
+  };
+  const currentTypes = equipmentTypes.find((item) => item.id === equipmentType);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     mutation({
@@ -165,6 +187,10 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
         }, {} as Record<number, (typeof order.items)[number]>)
       );
     }
+    if (order.equipmentType) {
+      setEquipmentType(order.equipmentType.id);
+      setValue("equipmentTypeId", order.equipmentType.id);
+    }
   }, [order, setValue]);
 
   return (
@@ -172,7 +198,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       {!isLoading && (
         <section className="container px-40 rounded-lg pt-4 mt-[60px]">
           <div className="flex mt-8 justify-between gap-4">
-            <h2 className="text-xl">{t("edit")}</h2>
+            <h2 className="text-xl">{t(isEdit ? "edit" : "add")}</h2>
             <Button
               onButtonClick={() => router.back()}
               title={t("back")}
@@ -217,19 +243,38 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               )}
               <FormControl fullWidth required>
                 <InputLabel id="demo-simple-select-label">
-                  {t("customer")}
+                  {t("customerName")}
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={customer.toString()}
                   disabled={isLoadingCustomers}
-                  label={t("customer")}
+                  label={t("customerName")}
                   onChange={handleChangeCustomer}
                 >
                   {customers.map((customer, i) => (
                     <MenuItem key={i} value={customer.id}>
                       {customer.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth required>
+                <InputLabel id="demo-simple-select-label">
+                  {t("equipmentType")}
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={equipmentType.toString()}
+                  disabled={isLoadingEquipmentType}
+                  label={t("equipmentType")}
+                  onChange={handleChangeEquipmentType}
+                >
+                  {equipmentTypes.map((type, i) => (
+                    <MenuItem key={i} value={type.id}>
+                      {type.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -269,81 +314,23 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
           }
           {!isEdit &&
             Array.from({ length: watch("count") }, (_, index) => (
-              <>
-                <span className="">{`Задвижка ${index + 1}`}</span>
-                <div key={index} className="flex my-3">
-                  <TextField
-                    label={"TAG номер"}
-                    className="!mr-3"
-                    variant="outlined"
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [index + 1]: {
-                          ...prev[index + 1],
-                          tagNumber: e.target.value,
-                        },
-                      }))
-                    }
-                    value={formData[index + 1]?.tagNumber || ""}
-                  />
-                  <TextField
-                    label={"Номер по ТЗ"}
-                    variant="outlined"
-                    className=""
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [index + 1]: {
-                          ...prev[index + 1],
-                          techTaskNumber: e.target.value,
-                        },
-                      }))
-                    }
-                    value={formData[index + 1]?.techTaskNumber || ""}
-                  />
-                </div>
-              </>
+              <CreateForm
+                key={index}
+                index={index}
+                currentTypes={currentTypes}
+                setFormData={setFormData}
+                formData={formData}
+              />
             ))}
           {isEdit &&
             Object.values(formData).map((item, index) => (
-              <>
-                <span className="">{`Задвижка ${index + 1}`}</span>
-                <div key={index} className="flex my-3">
-                  <TextField
-                    label="TAG номер"
-                    defaultValue={item.tagNumber}
-                    className="!mr-3"
-                    variant="outlined"
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [item.id]: {
-                          ...prev[item.id],
-                          tagNumber: e.target.value,
-                        },
-                      }))
-                    }
-                    // value={formData[item.id]?.tagNumber || ""}
-                  />
-                  <TextField
-                    label="Номер по ТЗ"
-                    defaultValue={item.techTaskNumber}
-                    variant="outlined"
-                    className=""
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [item.id]: {
-                          ...prev[item.id],
-                          techTaskNumber: e.target.value,
-                        },
-                      }))
-                    }
-                    // value={formData[item.id]?.techTaskNumber || ""}
-                  />
-                </div>
-              </>
+              <UpdateForm
+                key={index}
+                item={item}
+                index={index}
+                setFormData={setFormData}
+                currentTypes={currentTypes}
+              />
             ))}
         </section>
       )}

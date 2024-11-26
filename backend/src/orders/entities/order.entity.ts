@@ -1,5 +1,6 @@
 import { Length } from 'class-validator';
 import { Customer } from 'src/customers/entities/customer.entity';
+import { EquipmentType } from 'src/equipment-types/entities/equipment-type.entity';
 import { Item } from 'src/items/entities/item.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
@@ -36,6 +37,9 @@ export class Order {
 
   @OneToMany(() => Item, (item) => item.order, { cascade: true })
   items: Item[]; // Связь с массивом комплектов
+
+  @ManyToOne(() => EquipmentType, (equipmentType) => equipmentType.orders)
+  equipmentType: EquipmentType; // Вид оборудования
 
   @CreateDateColumn()
   createdAt: Date;

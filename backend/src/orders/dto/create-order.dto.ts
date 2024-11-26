@@ -15,4 +15,6 @@ export class CreateOrderDto {
 
   @IsNotEmpty()
   customerId: number;
+  @IsNotEmpty()
+  equipmentTypeId: number;
 }
