@@ -46,11 +46,20 @@ export type Item = {
   id: number;
   tagNumber: string;
   techTaskNumber: string;
+  productType: ProductType;
 };
 
 export type EquipmentType = {
   id: number;
   name: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type ProductType = {
+  id: number;
+  name: string;
+  model: string;
   createdAt: Date;
   updatedAt: Date;
 };

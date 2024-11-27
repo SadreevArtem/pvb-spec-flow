@@ -2,17 +2,19 @@ import clsx from "clsx";
 import { References } from "../../types";
 import { reference } from "./static";
 import { useRouter } from "next/router";
+import { useReferenceTabsStore } from "../../../../../shared/stores/referenceTabs";
 
+// type Props = {
+//   currentTab: string;
+//   setTab: (tab: References) => void;
+// };
 
-
-type Props = {
-    currentTab: string;
-    setTab: (tab: References) => void;
-}
-
-
-export const Tabs: React.FC<Props> = ({ currentTab, setTab }) => {
-  const {locale='ru'} = useRouter();
+export const Tabs: React.FC = () => {
+  const { currentTab, setTab } = useReferenceTabsStore();
+  const { locale = "ru" } = useRouter();
+  const handleMenuClick = (tab: References) => {
+    setTab(tab);
+  };
   return (
     <>
       <div className="flex">
@@ -21,12 +23,11 @@ export const Tabs: React.FC<Props> = ({ currentTab, setTab }) => {
             <li
               className={clsx(
                 {
-                  "border-b-4 border-red":
-                    currentTab === item.categoryName,
+                  "border-b-4 border-red": currentTab === item.categoryName,
                 },
                 "cursor-pointer text-[18px] px-[15px] py-[10px] font-bold text-primary"
               )}
-              onClick={() => setTab(item.categoryName)}
+              onClick={() => handleMenuClick(item.categoryName)}
               key={item.categoryName}
             >
               {item.value[locale]}

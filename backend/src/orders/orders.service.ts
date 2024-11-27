@@ -31,7 +31,9 @@ export class OrdersService {
       relations: {
         owner: true,
         customer: true,
-        items: true,
+        items: {
+          productType: true,
+        },
         equipmentType: true,
       },
     });

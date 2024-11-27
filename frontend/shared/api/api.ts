@@ -520,6 +520,121 @@ class API {
       throw error;
     }
   };
+  // запрос на получение справочника типа оборудования
+  getAllProductTypesRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/product-types`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get product-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение типа оборудования по id
+  getProductTypeByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/product-types/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get product-types request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание типа оборудования
+  createProductTypeRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/product-types`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create product-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление типа оборудования
+  updateProductTypeRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("Product type ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/product-types/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update product-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление типа оборудования
+  deleteProductTypeRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/product-types/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete product-types request failed:", error);
+      throw error;
+    }
+  };
 }
 
 export const api = new API("http://localhost:4000");
