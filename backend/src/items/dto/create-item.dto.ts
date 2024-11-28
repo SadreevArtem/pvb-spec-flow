@@ -14,4 +14,7 @@ export class CreateItemDto {
 
   @IsNotEmpty()
   productTypeId: number;
+
+  @IsNotEmpty()
+  constructionId: number;
 }

@@ -33,6 +33,7 @@ export class OrdersService {
         customer: true,
         items: {
           productType: true,
+          construction: true,
         },
         equipmentType: true,
       },

@@ -4,6 +4,7 @@ import { useReferenceTabsStore } from "../../../shared/stores/referenceTabs";
 import { Customers } from "../Customers/Customers";
 import { EquipmentTypeComponent } from "../EquipmentType/EquipmentType";
 import { ProductTypeComponent } from "../ProductType/ProductType";
+import { ConstructionComponent } from "../ConstructionComponent/ConstructionComponent";
 
 export const ReferenceBooks = () => {
   const currentTab = useReferenceTabsStore((state) => state.currentTab);
@@ -16,6 +17,8 @@ export const ReferenceBooks = () => {
         return <EquipmentTypeComponent />;
       case "productType":
         return <ProductTypeComponent />;
+      case "construction":
+        return <ConstructionComponent />;
       default:
         return null; // Возвращает null, если нет совпадений
     }

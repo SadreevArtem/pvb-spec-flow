@@ -14,14 +14,14 @@ import {
 import Link from "next/link";
 import { Button } from "../Button";
 import { useTranslations } from "next-intl";
-import { ProductType } from "../../../shared/types";
+import { ConstructionType } from "../../../shared/types";
 
-export const ProductTypeComponent = () => {
+export const ConstructionComponent = () => {
   const token = useAuthStore((state) => state.token);
-  const getProductTypes = () => api.getAllProductTypesRequest(token);
-  const { data: productTypes = [], isLoading } = useQuery<ProductType[]>({
-    queryKey: ["product-types"],
-    queryFn: getProductTypes,
+  const getConstructions = () => api.getAllConstructionsRequest(token);
+  const { data: constructions = [], isLoading } = useQuery<ConstructionType[]>({
+    queryKey: ["constructions"],
+    queryFn: getConstructions,
   });
   const t = useTranslations();
   return (
@@ -31,7 +31,7 @@ export const ProductTypeComponent = () => {
       ) : (
         <div>
           <div className="flex mb-2">
-            <Link className="ml-auto" href="/product-types/0">
+            <Link className="ml-auto" href="/constructions/0">
               <Button className=" w-auto px-6" title={t("Users.add")} />
             </Link>
           </div>
@@ -40,27 +40,18 @@ export const ProductTypeComponent = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t("Users.name")}</TableCell>
-                  <TableCell>{t("DirectoryDetail.Model")}</TableCell>
                   <TableCell>{t("Users.created")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {productTypes?.map((row) => (
+                {constructions?.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell>
                       <Link
-                        href={`/product-types/${row.id}`}
+                        href={`/constructions/${row.id}`}
                         className="hover:text-primary"
                       >
                         {row.name}
-                      </Link>
-                    </TableCell>
-                    <TableCell>
-                      <Link
-                        href={`/equipment-types/${row.id}`}
-                        className="hover:text-primary"
-                      >
-                        {row.model}
                       </Link>
                     </TableCell>
                     <TableCell>

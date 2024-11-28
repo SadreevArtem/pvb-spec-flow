@@ -12,6 +12,7 @@ import { UpdateItemDto } from './dto/update-item.dto';
 import { User } from 'src/users/entities/user.entity';
 import { UserRole } from 'src/types';
 import { ProductTypesService } from 'src/product-types/product-types.service';
+import { ConstructionsService } from 'src/constructions/constructions.service';
 
 @Injectable()
 export class ItemsService {
@@ -20,10 +21,12 @@ export class ItemsService {
     private readonly itemsRepository: Repository<Item>,
     private readonly ordersService: OrdersService,
     private readonly productTypeService: ProductTypesService,
+    private readonly constructionsService: ConstructionsService,
   ) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
-    const { orderId, productTypeId, ...itemData } = createItemDto;
+    const { orderId, productTypeId, constructionId, ...itemData } =
+      createItemDto;
 
     const order = await this.ordersService.findById(orderId);
     if (!order) {
@@ -33,11 +36,16 @@ export class ItemsService {
     if (!order) {
       throw new NotFoundException('Product type not found');
     }
-
+    const construction =
+      await this.constructionsService.findById(constructionId);
+    if (!construction) {
+      throw new NotFoundException('Construction not found');
+    }
     const item = this.itemsRepository.create({
       ...itemData,
       order,
       productType,
+      construction,
     });
 
     return this.itemsRepository.save(item);
@@ -58,7 +66,8 @@ export class ItemsService {
   }
 
   async update(id: number, updateItemDto: UpdateItemDto) {
-    const { orderId, productTypeId, ...itemData } = updateItemDto;
+    const { orderId, productTypeId, constructionId, ...itemData } =
+      updateItemDto;
     const order = await this.ordersService.findById(orderId);
     if (!order) {
       throw new NotFoundException('Order not found');
@@ -67,11 +76,16 @@ export class ItemsService {
     if (!order) {
       throw new NotFoundException('Product type not found');
     }
-
+    const construction =
+      await this.constructionsService.findById(constructionId);
+    if (!construction) {
+      throw new NotFoundException('Construction not found');
+    }
     return this.itemsRepository.update(id, {
       ...itemData,
       order,
       productType,
+      construction,
     });
   }
 

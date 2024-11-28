@@ -6,7 +6,12 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { EquipmentType, Item, ProductType } from "../../../../../shared/types";
+import {
+  ConstructionType,
+  EquipmentType,
+  Item,
+  ProductType,
+} from "../../../../../shared/types";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "../../../../../shared/stores/auth";
 import { api } from "../../../../../shared/api/api";
@@ -27,11 +32,17 @@ export const UpdateForm: React.FC<Props> = ({
 }) => {
   const token = useAuthStore((state) => state.token);
   const getProductTypes = () => api.getAllProductTypesRequest(token);
+  const getConstructions = () => api.getAllConstructionsRequest(token);
   const [model, setModel] = useState(item.productType.model || "");
   const { data: productTypes = [], isLoading: isLoadingProductTypes } =
     useQuery<ProductType[]>({
       queryKey: ["product-types"],
       queryFn: getProductTypes,
+    });
+  const { data: constructions = [], isLoading: isLoadingConstructions } =
+    useQuery<ConstructionType[]>({
+      queryKey: ["constructions"],
+      queryFn: getConstructions,
     });
   const handleChangeProductType = (event: SelectChangeEvent) => {
     setFormData((prev) => ({
@@ -45,6 +56,15 @@ export const UpdateForm: React.FC<Props> = ({
       (productType) => productType.id === +event.target.value
     );
     setModel(modelName?.model || "");
+  };
+  const handleChangeConstructions = (event: SelectChangeEvent) => {
+    setFormData((prev) => ({
+      ...prev,
+      [item.id]: {
+        ...prev[item.id],
+        constructionId: event.target.value,
+      },
+    }));
   };
   return (
     <>
@@ -104,10 +124,28 @@ export const UpdateForm: React.FC<Props> = ({
           label={"Модель"}
           variant="outlined"
           disabled
-          className=""
+          className="!mr-3"
           onChange={(e) => e.preventDefault()}
           value={model}
         />
+        <FormControl required className="!mr-3 w-[220px]">
+          <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            key={item?.construction?.id?.toString() || ""}
+            defaultValue={item?.construction?.id?.toString() || ""}
+            id="demo-simple-select"
+            disabled={isLoadingConstructions}
+            label="Конструкция"
+            onChange={handleChangeConstructions}
+          >
+            {constructions.map((type, i) => (
+              <MenuItem key={i} value={type.id}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     </>
   );

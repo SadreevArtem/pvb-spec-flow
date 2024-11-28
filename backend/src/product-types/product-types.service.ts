@@ -31,9 +31,9 @@ export class ProductTypesService {
         'Недостаточно прав для удаления типа продукции',
       );
     }
-    const ProductType = await this.productTypeRepository.findOne({
+    const productType = await this.productTypeRepository.findOne({
       where: { id },
     });
-    return this.productTypeRepository.remove(ProductType);
+    return this.productTypeRepository.remove(productType);
   }
 }

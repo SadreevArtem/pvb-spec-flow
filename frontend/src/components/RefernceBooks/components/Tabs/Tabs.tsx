@@ -4,11 +4,6 @@ import { reference } from "./static";
 import { useRouter } from "next/router";
 import { useReferenceTabsStore } from "../../../../../shared/stores/referenceTabs";
 
-// type Props = {
-//   currentTab: string;
-//   setTab: (tab: References) => void;
-// };
-
 export const Tabs: React.FC = () => {
   const { currentTab, setTab } = useReferenceTabsStore();
   const { locale = "ru" } = useRouter();

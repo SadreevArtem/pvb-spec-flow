@@ -20,4 +20,9 @@ export const reference: {
     categoryName: "productType",
     value: { ru: "Тип продукции", en: "Product Type" },
   },
+  {
+    id: 4,
+    categoryName: "construction",
+    value: { ru: "Конструкция", en: "Construction" },
+  },
 ];

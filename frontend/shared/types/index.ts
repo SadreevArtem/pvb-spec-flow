@@ -47,6 +47,7 @@ export type Item = {
   tagNumber: string;
   techTaskNumber: string;
   productType: ProductType;
+  construction: ConstructionType;
 };
 
 export type EquipmentType = {
@@ -63,3 +64,5 @@ export type ProductType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type ConstructionType = EquipmentType;

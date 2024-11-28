@@ -1,1 +1,5 @@
-export type References = "customers" | "equipmentType" | "productType";
+export type References =
+  | "customers"
+  | "equipmentType"
+  | "productType"
+  | "construction";

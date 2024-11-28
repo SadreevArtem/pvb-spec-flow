@@ -7,7 +7,12 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { EquipmentType, Item, ProductType } from "../../../../../shared/types";
+import {
+  ConstructionType,
+  EquipmentType,
+  Item,
+  ProductType,
+} from "../../../../../shared/types";
 import { api } from "../../../../../shared/api/api";
 import { useAuthStore } from "../../../../../shared/stores/auth";
 import { useQuery } from "@tanstack/react-query";
@@ -27,11 +32,17 @@ export const CreateForm: React.FC<Props> = ({
 }) => {
   const token = useAuthStore((state) => state.token);
   const getProductTypes = () => api.getAllProductTypesRequest(token);
+  const getConstructions = () => api.getAllConstructionsRequest(token);
   const [model, setModel] = useState("");
   const { data: productTypes = [], isLoading: isLoadingProductTypes } =
     useQuery<ProductType[]>({
       queryKey: ["product-types"],
       queryFn: getProductTypes,
+    });
+  const { data: constructions = [], isLoading: isLoadingConstructions } =
+    useQuery<ConstructionType[]>({
+      queryKey: ["constructions"],
+      queryFn: getConstructions,
     });
   const handleChangeProductType = (event: SelectChangeEvent) => {
     setFormData((prev) => ({
@@ -46,7 +57,15 @@ export const CreateForm: React.FC<Props> = ({
     );
     setModel(modelName?.model || "");
   };
-
+  const handleChangeConstructions = (event: SelectChangeEvent) => {
+    setFormData((prev) => ({
+      ...prev,
+      [index + 1]: {
+        ...prev[index + 1],
+        constructionId: event.target.value,
+      },
+    }));
+  };
   return (
     <>
       {currentTypes && (
@@ -106,10 +125,27 @@ export const CreateForm: React.FC<Props> = ({
           label={"Модель"}
           variant="outlined"
           disabled
-          className=""
+          className="!mr-3"
           onChange={(e) => e.preventDefault()}
           value={model}
         />
+        <FormControl required className="!mr-3 w-[220px]">
+          <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={formData[index + 1]?.construction?.id?.toString()}
+            disabled={isLoadingConstructions}
+            label="Конструкция"
+            onChange={handleChangeConstructions}
+          >
+            {constructions.map((type, i) => (
+              <MenuItem key={i} value={type.id}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     </>
   );

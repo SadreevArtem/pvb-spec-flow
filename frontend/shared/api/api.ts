@@ -635,6 +635,123 @@ class API {
       throw error;
     }
   };
+  ////////////////////////////
+  // запрос на получение справочника конструкции оборудования
+  ////////////////////
+  getAllConstructionsRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/constructions`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get constructions request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение конструкции оборудования по id
+  getConstructionByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/constructions/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get constructions request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание конструкции оборудования
+  createConstructionRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/constructions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create constructions request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление конструкции оборудования
+  updateConstructionRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("Constructions ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/constructions/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update constructions request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление конструкции оборудования
+  deleteConstructionRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/constructions/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete constructions request failed:", error);
+      throw error;
+    }
+  };
 }
 
 export const api = new API("http://localhost:4000");
