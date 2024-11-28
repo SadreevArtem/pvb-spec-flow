@@ -34,6 +34,7 @@ export class OrdersService {
         items: {
           productType: true,
           construction: true,
+          manufacturingStandart: true,
         },
         equipmentType: true,
       },
@@ -75,7 +76,7 @@ export class OrdersService {
   }
   async remove(id: number, user: User) {
     if (user.role !== UserRole.ADMIN) {
-      throw new BadRequestException('Недостаточно прав для удаления заказчика');
+      throw new BadRequestException('Недостаточно прав для удаления заказа');
     }
     const order = await this.orderRepository.findOne({ where: { id } });
     return this.orderRepository.remove(order);

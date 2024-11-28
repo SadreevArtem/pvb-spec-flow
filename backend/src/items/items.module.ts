@@ -6,6 +6,7 @@ import { Item } from './entities/item.entity';
 import { OrdersModule } from 'src/orders/orders.module';
 import { ProductTypesModule } from 'src/product-types/product-types.module';
 import { ConstructionsModule } from 'src/constructions/constructions.module';
+import { ManufacturingStandartsModule } from 'src/manufacturing-standarts/manufacturing-standarts.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConstructionsModule } from 'src/constructions/constructions.module';
     forwardRef(() => OrdersModule),
     ProductTypesModule,
     ConstructionsModule,
+    ManufacturingStandartsModule,
   ],
   providers: [ItemsService],
   controllers: [ItemsController],

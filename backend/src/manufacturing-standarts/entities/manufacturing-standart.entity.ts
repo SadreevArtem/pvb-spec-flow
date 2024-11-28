@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Construction {
+export class ManufacturingStandart {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,7 +18,7 @@ export class Construction {
   @Length(2, 200)
   name: string;
 
-  @OneToMany(() => Item, (item) => item.construction)
+  @OneToMany(() => Item, (item) => item.manufacturingStandart)
   items: Item[];
 
   @CreateDateColumn()

@@ -17,4 +17,7 @@ export class CreateItemDto {
 
   @IsNotEmpty()
   constructionId: number;
+
+  @IsNotEmpty()
+  manufacturingStandartId: number;
 }
