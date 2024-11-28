@@ -1,5 +1,16 @@
-import { TextField } from "@mui/material";
-import { EquipmentType, Item } from "../../../../../shared/types";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
+import { EquipmentType, Item, ProductType } from "../../../../../shared/types";
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "../../../../../shared/stores/auth";
+import { api } from "../../../../../shared/api/api";
+import { useState } from "react";
 
 type Props = {
   index: number;
@@ -14,6 +25,27 @@ export const UpdateForm: React.FC<Props> = ({
   index,
   setFormData,
 }) => {
+  const token = useAuthStore((state) => state.token);
+  const getProductTypes = () => api.getAllProductTypesRequest(token);
+  const [model, setModel] = useState(item.productType.model || "");
+  const { data: productTypes = [], isLoading: isLoadingProductTypes } =
+    useQuery<ProductType[]>({
+      queryKey: ["product-types"],
+      queryFn: getProductTypes,
+    });
+  const handleChangeProductType = (event: SelectChangeEvent) => {
+    setFormData((prev) => ({
+      ...prev,
+      [item.id]: {
+        ...prev[item.id],
+        productTypeId: event.target.value,
+      },
+    }));
+    const modelName = productTypes.find(
+      (productType) => productType.id === +event.target.value
+    );
+    setModel(modelName?.model || "");
+  };
   return (
     <>
       <span className="">{`${currentTypes?.name} ${index + 1}`}</span>
@@ -37,7 +69,7 @@ export const UpdateForm: React.FC<Props> = ({
           label="Номер по ТЗ"
           defaultValue={item.techTaskNumber}
           variant="outlined"
-          className=""
+          className="!mr-3"
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -47,6 +79,34 @@ export const UpdateForm: React.FC<Props> = ({
               },
             }))
           }
+        />
+        <FormControl required className="!mr-3 w-[220px]">
+          <InputLabel id="demo-simple-select-label">
+            {"Тип продукции"}
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            key={item?.productType?.id?.toString() || ""}
+            defaultValue={item?.productType?.id?.toString() || ""}
+            id="demo-simple-select"
+            disabled={isLoadingProductTypes}
+            label="Тип продукции"
+            onChange={handleChangeProductType}
+          >
+            {productTypes.map((type, i) => (
+              <MenuItem key={i} value={type.id}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          label={"Модель"}
+          variant="outlined"
+          disabled
+          className=""
+          onChange={(e) => e.preventDefault()}
+          value={model}
         />
       </div>
     </>

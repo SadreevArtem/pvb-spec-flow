@@ -47,8 +47,6 @@ export const CreateForm: React.FC<Props> = ({
     setModel(modelName?.model || "");
   };
 
-  console.log(model);
-
   return (
     <>
       {currentTypes && (
