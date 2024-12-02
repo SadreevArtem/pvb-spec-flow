@@ -16,6 +16,10 @@ import { ConstructionsService } from 'src/constructions/constructions.service';
 import { ManufacturingStandartsService } from 'src/manufacturing-standarts/manufacturing-standarts.service';
 import { DiametersService } from 'src/diameters/diameters.service';
 import { ClassPressureService } from 'src/class-pressure/class-pressure.service';
+import { TightnessClassesService } from 'src/tightness-classes/tightness-classes.service';
+import { TemperatureRangesService } from 'src/temperature-ranges/temperature-ranges.service';
+import { MaterialsService } from 'src/materials/materials.service';
+import { ConnectionTypesService } from 'src/connection-types/connection-types.service';
 
 @Injectable()
 export class ItemsService {
@@ -28,6 +32,10 @@ export class ItemsService {
     private readonly manufacturingStandartsService: ManufacturingStandartsService,
     private readonly diametersService: DiametersService,
     private readonly classPressureService: ClassPressureService,
+    private readonly tightnessClassesService: TightnessClassesService,
+    private readonly temperatureRangesService: TemperatureRangesService,
+    private readonly materialService: MaterialsService,
+    private readonly connectionTypesService: ConnectionTypesService,
   ) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
@@ -38,6 +46,10 @@ export class ItemsService {
       constructionId,
       classPressureId,
       diameterId,
+      tightnessClassId,
+      temperatureRangeId,
+      materialId,
+      connectionTypeId,
       ...itemData
     } = createItemDto;
 
@@ -70,6 +82,25 @@ export class ItemsService {
     if (!classPressure) {
       throw new NotFoundException('DN not found');
     }
+    const tightnessClass =
+      await this.tightnessClassesService.findById(tightnessClassId);
+    if (!tightnessClass) {
+      throw new NotFoundException('DN not found');
+    }
+    const temperatureRange =
+      await this.temperatureRangesService.findById(temperatureRangeId);
+    if (!temperatureRange) {
+      throw new NotFoundException('DN not found');
+    }
+    const material = await this.materialService.findById(materialId);
+    if (!material) {
+      throw new NotFoundException('Material not found');
+    }
+    const connectionType =
+      await this.connectionTypesService.findById(connectionTypeId);
+    if (!connectionType) {
+      throw new NotFoundException('Connection type not found');
+    }
     const item = this.itemsRepository.create({
       ...itemData,
       order,
@@ -77,7 +108,11 @@ export class ItemsService {
       construction,
       manufacturingStandart,
       diameter,
+      tightnessClass,
       classPressure,
+      temperatureRange,
+      material,
+      connectionType,
     });
 
     return this.itemsRepository.save(item);
@@ -105,6 +140,10 @@ export class ItemsService {
       diameterId,
       classPressureId,
       constructionId,
+      tightnessClassId,
+      temperatureRangeId,
+      materialId,
+      connectionTypeId,
       ...itemData
     } = updateItemDto;
     const order = await this.ordersService.findById(orderId);
@@ -136,6 +175,25 @@ export class ItemsService {
     if (!classPressure) {
       throw new NotFoundException('DN not found');
     }
+    const tightnessClass =
+      await this.tightnessClassesService.findById(tightnessClassId);
+    if (!tightnessClass) {
+      throw new NotFoundException('DN not found');
+    }
+    const temperatureRange =
+      await this.temperatureRangesService.findById(temperatureRangeId);
+    if (!temperatureRange) {
+      throw new NotFoundException('DN not found');
+    }
+    const material = await this.materialService.findById(materialId);
+    if (!material) {
+      throw new NotFoundException('Material not found');
+    }
+    const connectionType =
+      await this.connectionTypesService.findById(connectionTypeId);
+    if (!connectionType) {
+      throw new NotFoundException('Connection type not found');
+    }
     return this.itemsRepository.update(id, {
       ...itemData,
       order,
@@ -144,6 +202,10 @@ export class ItemsService {
       manufacturingStandart,
       diameter,
       classPressure,
+      tightnessClass,
+      temperatureRange,
+      material,
+      connectionType,
     });
   }
 

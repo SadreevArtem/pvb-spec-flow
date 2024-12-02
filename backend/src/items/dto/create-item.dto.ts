@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -6,7 +7,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { WorkEnvironment } from 'src/types';
+import { Drive, WorkEnvironment } from 'src/types';
 
 export class CreateItemDto {
   @IsNumber()
@@ -42,4 +43,48 @@ export class CreateItemDto {
   @IsString()
   @Length(1, 200)
   temperature: string;
+
+  @IsNotEmpty()
+  tightnessClassId: number;
+
+  @IsNotEmpty()
+  temperatureRangeId: number;
+
+  @IsNotEmpty()
+  materialId: number;
+
+  @IsNotEmpty()
+  connectionTypeId: number;
+
+  @IsString()
+  @Length(1, 200)
+  constructionLength: string;
+
+  @IsBoolean()
+  nace: boolean;
+
+  @IsBoolean()
+  counterFlanges: boolean;
+
+  @IsString()
+  @Length(1, 200)
+  hairpins: string;
+
+  @IsString()
+  @Length(1, 200)
+  nuts: string;
+
+  @IsString()
+  @Length(1, 200)
+  pipeSize: string;
+
+  @IsEnum(Drive)
+  @IsOptional()
+  drive?: Drive;
+
+  @IsString()
+  driveKit: string;
+
+  @IsString()
+  comment: string;
 }

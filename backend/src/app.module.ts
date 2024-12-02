@@ -20,6 +20,10 @@ import { ConstructionsModule } from './constructions/constructions.module';
 import { ManufacturingStandartsModule } from './manufacturing-standarts/manufacturing-standarts.module';
 import { DiametersModule } from './diameters/diameters.module';
 import { ClassPressureModule } from './class-pressure/class-pressure.module';
+import { TightnessClassesModule } from './tightness-classes/tightness-classes.module';
+import { TemperatureRangesModule } from './temperature-ranges/temperature-ranges.module';
+import { MaterialsModule } from './materials/materials.module';
+import { ConnectionTypesModule } from './connection-types/connection-types.module';
 
 @Module({
   imports: [
@@ -55,6 +59,10 @@ import { ClassPressureModule } from './class-pressure/class-pressure.module';
     ManufacturingStandartsModule,
     DiametersModule,
     ClassPressureModule,
+    TightnessClassesModule,
+    TemperatureRangesModule,
+    MaterialsModule,
+    ConnectionTypesModule,
   ],
   controllers: [AppController],
   providers: [
