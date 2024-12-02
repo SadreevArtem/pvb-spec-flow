@@ -18,6 +18,8 @@ import { EquipmentTypesModule } from './equipment-types/equipment-types.module';
 import { ProductTypesModule } from './product-types/product-types.module';
 import { ConstructionsModule } from './constructions/constructions.module';
 import { ManufacturingStandartsModule } from './manufacturing-standarts/manufacturing-standarts.module';
+import { DiametersModule } from './diameters/diameters.module';
+import { ClassPressureModule } from './class-pressure/class-pressure.module';
 
 @Module({
   imports: [
@@ -51,6 +53,8 @@ import { ManufacturingStandartsModule } from './manufacturing-standarts/manufact
     ProductTypesModule,
     ConstructionsModule,
     ManufacturingStandartsModule,
+    DiametersModule,
+    ClassPressureModule,
   ],
   controllers: [AppController],
   providers: [

@@ -68,7 +68,9 @@ export const UpdateForm: React.FC<Props> = ({
   };
   return (
     <>
-      <span className="">{`${currentTypes?.name} ${index + 1}`}</span>
+      <span className="bg-green-300 rounded-xl mb-2 inline-block px-3">{`${
+        currentTypes?.name
+      } ${index + 1}`}</span>
       <div key={index} className="flex my-3">
         <TextField
           label="TAG номер"

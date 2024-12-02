@@ -14,6 +14,8 @@ import { UserRole } from 'src/types';
 import { ProductTypesService } from 'src/product-types/product-types.service';
 import { ConstructionsService } from 'src/constructions/constructions.service';
 import { ManufacturingStandartsService } from 'src/manufacturing-standarts/manufacturing-standarts.service';
+import { DiametersService } from 'src/diameters/diameters.service';
+import { ClassPressureService } from 'src/class-pressure/class-pressure.service';
 
 @Injectable()
 export class ItemsService {
@@ -24,6 +26,8 @@ export class ItemsService {
     private readonly productTypeService: ProductTypesService,
     private readonly constructionsService: ConstructionsService,
     private readonly manufacturingStandartsService: ManufacturingStandartsService,
+    private readonly diametersService: DiametersService,
+    private readonly classPressureService: ClassPressureService,
   ) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
@@ -32,6 +36,8 @@ export class ItemsService {
       productTypeId,
       manufacturingStandartId,
       constructionId,
+      classPressureId,
+      diameterId,
       ...itemData
     } = createItemDto;
 
@@ -55,12 +61,23 @@ export class ItemsService {
     if (!manufacturingStandart) {
       throw new NotFoundException('Manufacturing Standart not found');
     }
+    const diameter = await this.diametersService.findById(diameterId);
+    if (!diameter) {
+      throw new NotFoundException('DN not found');
+    }
+    const classPressure =
+      await this.classPressureService.findById(classPressureId);
+    if (!classPressure) {
+      throw new NotFoundException('DN not found');
+    }
     const item = this.itemsRepository.create({
       ...itemData,
       order,
       productType,
       construction,
       manufacturingStandart,
+      diameter,
+      classPressure,
     });
 
     return this.itemsRepository.save(item);
@@ -85,6 +102,8 @@ export class ItemsService {
       orderId,
       productTypeId,
       manufacturingStandartId,
+      diameterId,
+      classPressureId,
       constructionId,
       ...itemData
     } = updateItemDto;
@@ -108,12 +127,23 @@ export class ItemsService {
     if (!manufacturingStandart) {
       throw new NotFoundException('Manufacturing Standart not found');
     }
+    const diameter = await this.diametersService.findById(diameterId);
+    if (!diameter) {
+      throw new NotFoundException('DN not found');
+    }
+    const classPressure =
+      await this.classPressureService.findById(classPressureId);
+    if (!classPressure) {
+      throw new NotFoundException('DN not found');
+    }
     return this.itemsRepository.update(id, {
       ...itemData,
       order,
       productType,
       construction,
       manufacturingStandart,
+      diameter,
+      classPressure,
     });
   }
 

@@ -1,8 +1,11 @@
 import { Length } from 'class-validator';
+import { ClassPressure } from 'src/class-pressure/entities/class-pressure.entity';
 import { Construction } from 'src/constructions/entities/construction.entity';
+import { Diameter } from 'src/diameters/entities/diameter.entity';
 import { ManufacturingStandart } from 'src/manufacturing-standarts/entities/manufacturing-standart.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { ProductType } from 'src/product-types/entities/product-type.entity';
+import { WorkEnvironment } from 'src/types';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -11,7 +14,7 @@ export class Item {
   id: number;
 
   @Column()
-  @Length(2, 200)
+  @Length(1, 200)
   tagNumber: string;
 
   @Column()
@@ -30,6 +33,23 @@ export class Item {
   )
   manufacturingStandart: ManufacturingStandart; //Справочник конструкции
 
+  @ManyToOne(() => Diameter, (diameter) => diameter.items)
+  diameter: Diameter; //Справочник ДУ
+
+  @ManyToOne(() => ClassPressure, (classPressure) => classPressure.items)
+  classPressure: Diameter; //Справочник Py
+
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
   order: Order; // Связь с заказом
+
+  @Column({
+    type: 'enum',
+    enum: WorkEnvironment,
+    default: WorkEnvironment.LIQUID, // рабочая среда по умолчанию
+  })
+  workEnvironment: WorkEnvironment;
+
+  @Column({ nullable: true })
+  @Length(1, 200)
+  temperature: string;
 }
