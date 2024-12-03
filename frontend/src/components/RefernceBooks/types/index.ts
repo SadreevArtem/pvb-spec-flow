@@ -6,4 +6,7 @@ export type References =
   | "manufacturingStandart"
   | "diameters"
   | "class-pressure"
-  | "tightness-classes";
+  | "tightness-classes"
+  | "temperature-ranges"
+  | "materials"
+  | "connection-types";

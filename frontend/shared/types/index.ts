@@ -74,3 +74,9 @@ export type DiameterType = EquipmentType;
 export type ClassPressureType = EquipmentType;
 
 export type TightnessClassType = EquipmentType;
+
+export type TemperatureRangeType = EquipmentType;
+
+export type MaterialType = EquipmentType;
+
+export type ConnectionType = EquipmentType;

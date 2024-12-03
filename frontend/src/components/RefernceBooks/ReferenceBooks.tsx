@@ -9,6 +9,9 @@ import { ManufacturingStandartComponent } from "../ManufacturingStandartComponen
 import { DiameterComponent } from "../DiameterComponent/DiameterComponent";
 import { ClassPressureComponent } from "../ClassPressureComponent/ClassPressureComponent";
 import { TightnessClassesComponent } from "../TightnessClassesComponent/TightnessClassesComponent";
+import { TemperatureRangeComponent } from "../TemperatureRangesComponent/TemperatureRangesComponent";
+import { MaterialComponent } from "../MaterialComponent/MaterialComponent";
+import { ConnectionTypeComponent } from "../ConnectionTypeComponent/ConnectionTypeComponent";
 
 export const ReferenceBooks = () => {
   const currentTab = useReferenceTabsStore((state) => state.currentTab);
@@ -30,6 +33,12 @@ export const ReferenceBooks = () => {
         return <ClassPressureComponent />;
       case "tightness-classes":
         return <TightnessClassesComponent />;
+      case "temperature-ranges":
+        return <TemperatureRangeComponent />;
+      case "materials":
+        return <MaterialComponent />;
+      case "connection-types":
+        return <ConnectionTypeComponent />;
 
       default:
         return null; // Возвращает null, если нет совпадений

@@ -1229,6 +1229,354 @@ class API {
       throw error;
     }
   };
+  ////////////////////////////
+  // запрос на получение справочника температурного диапазона
+  ////////////////////
+  getAllTemperatureRangeRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/temperature-ranges`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get temperature-ranges request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение температурного диапазона по id
+  getTemperatureRangeByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/temperature-ranges/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get temperature-ranges request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание температурного диапазона
+  createTemperatureRangeRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/temperature-ranges`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create temperature-ranges request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление класса герметичности
+  updateTemperatureRangeRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("TemperatureRange ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/temperature-ranges/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update temperature-ranges request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление температурного диапазона
+  deleteTemperatureRangeRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/temperature-ranges/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete temperature-ranges request failed:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////
+  // запрос на получение справочника материалов
+  ////////////////////
+  getAllMaterialsRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/materials`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get materials request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение материалов по id
+  getMaterialByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/materials/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get materials request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание материалов
+  createMaterialRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/materials`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create materials request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление материалов
+  updateMaterialRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("Material ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/materials/${input.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update materials request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление материалов
+  deleteMaterialRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/materials/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete materials request failed:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////
+  // запрос на получение справочника типов соединения
+  ////////////////////
+  getAllConnectionTypesRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/connection-types`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get connection-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение типов соединения по id
+  getConnectionTypeByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/connection-types/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get connection-types request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание типов соединения
+  createConnectionTypeRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/connection-types`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create connection-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление типов соединения
+  updateConnectionTypeRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("ConnectionType ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/connection-types/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update connection-types request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление типов соединения
+  deleteConnectionTypeRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/connection-types/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete connection-types request failed:", error);
+      throw error;
+    }
+  };
 }
 
 export const api = new API("http://localhost:4000");
