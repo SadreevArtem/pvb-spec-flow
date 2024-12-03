@@ -66,3 +66,11 @@ export type ProductType = {
 };
 
 export type ConstructionType = EquipmentType;
+
+export type ManufacturingStandartType = EquipmentType;
+
+export type DiameterType = EquipmentType;
+
+export type ClassPressureType = EquipmentType;
+
+export type TightnessClassType = EquipmentType;

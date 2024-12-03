@@ -2,4 +2,8 @@ export type References =
   | "customers"
   | "equipmentType"
   | "productType"
-  | "construction";
+  | "construction"
+  | "manufacturingStandart"
+  | "diameters"
+  | "class-pressure"
+  | "tightness-classes";

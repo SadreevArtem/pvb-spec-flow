@@ -752,6 +752,483 @@ class API {
       throw error;
     }
   };
+  ////////////////////////////
+  // запрос на получение справочника стандарта изготовления
+  ////////////////////
+  getAllManufacturingStandartsRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/manufacturing-standarts`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get manufacturing-standarts request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение стандарта изготовления по id
+  getManufacturingStandartByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/manufacturing-standarts/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get manufacturing-standarts request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание стандарта изготовления
+  createManufacturingStandartRequest = async (
+    input: Customer,
+    token: string
+  ) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/manufacturing-standarts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create manufacturing-standarts request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление стандарта изготовления
+  updateManufacturingStandartRequest = async (
+    input: Customer,
+    token: string
+  ) => {
+    if (!input.id) {
+      throw new Error("ManufacturingStandarts ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/manufacturing-standarts/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update manufacturing-standarts request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление стандарта изготовления
+  deleteManufacturingStandartRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/manufacturing-standarts/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete manufacturing-standarts request failed:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////
+  // запрос на получение справочника ДУ
+  ////////////////////
+  getAllDiametersRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/diameters`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get diameters request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение стандарта изготовления по id
+  getDiameterByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/diameters/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get diameters request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание стандарта изготовления
+  createDiameterRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/diameters`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create diameters request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление стандарта изготовления
+  updateDiameterRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("Diameters ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/diameters/${input.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update diameters request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление стандарта изготовления
+  deleteDiameterRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/diameters/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete diameters request failed:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////
+  // запрос на получение справочника РУ
+  ////////////////////
+  getAllClassPressuresRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/class-pressure`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get class-pressure request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение РУ по id
+  getClassPressureByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/class-pressure/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get class-pressure request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание РУ
+  createClassPressureRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/class-pressure`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create class-pressure request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление РУ
+  updateClassPressureRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("ClassPressures ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/class-pressure/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update class-pressure request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление РУ
+  deleteClassPressureRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/class-pressure/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete class-pressure request failed:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////
+  // запрос на получение справочника классов герметичности
+  ////////////////////
+  getAllTightnessClassRequest = async (token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/tightness-classes`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get tightness-classes request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на получение класса герметичности по id
+  getTightnessClassByIdRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/tightness-classes/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Get tightness-classes request failed:", error);
+      throw error;
+    }
+  };
+
+  //запрос на создание класса герметичности
+  createTightnessClassRequest = async (input: Customer, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/tightness-classes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Create tightness-classes request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на обновление класса герметичности
+  updateTightnessClassRequest = async (input: Customer, token: string) => {
+    if (!input.id) {
+      throw new Error("TightnessClass ID is required for updating");
+    }
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/tightness-classes/${input.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(input),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Update tightness-classes request failed:", error);
+      throw error;
+    }
+  };
+  // запрос на удаление класса герметичности
+  deleteTightnessClassRequest = async (id: number, token: string) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/tightness-classes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Delete tightness-classes request failed:", error);
+      throw error;
+    }
+  };
 }
 
 export const api = new API("http://localhost:4000");
