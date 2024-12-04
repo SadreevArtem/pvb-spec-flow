@@ -22,6 +22,20 @@ export enum UserRole {
   TENDER_MANAGER = "tender_manager",
 }
 
+export enum WorkEnvironment {
+  GAS = "gas",
+  LIQUID = "liquid",
+}
+
+export enum Drive {
+  MANUAL = "manual",
+  FLYWHEEL = "flywheel",
+  GEARBOX = "gearbox",
+  PNEUMATIC = "pneumatic",
+  ELECTRIC = "electric",
+  ELECTROHYDRAULIC = "electrohudraulic",
+}
+
 export type Customer = {
   id: number;
   name: string;
@@ -48,6 +62,29 @@ export type Item = {
   techTaskNumber: string;
   productType: ProductType;
   construction: ConstructionType;
+  manufacturingStandart: ManufacturingStandartType;
+  diameter: DiameterType;
+  classPressure: ClassPressureType;
+  temperature: string;
+  tightnessClass: TightnessClassType;
+  temperatureRange: TemperatureRangeType;
+  housingMaterial: MaterialType;
+  rodMaterial: MaterialType;
+  wedgeMaterial: MaterialType;
+  seatMaterial: MaterialType;
+  connectionType: ConnectionType;
+  constructionLength: string;
+  nace: boolean;
+  counterFlanges: boolean;
+  hairpins: string;
+  nuts: string;
+  pipeSize: string;
+  drive: Drive;
+  driveKit: string;
+  comment: string;
+  counterFlangesMaterial: MaterialType;
+  workEnvironment: WorkEnvironment;
+  pipeMaterial: MaterialType;
 };
 
 export type EquipmentType = {

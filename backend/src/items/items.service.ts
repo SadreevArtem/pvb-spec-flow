@@ -48,8 +48,13 @@ export class ItemsService {
       diameterId,
       tightnessClassId,
       temperatureRangeId,
-      materialId,
+      housingMaterialId,
       connectionTypeId,
+      rodMaterialId,
+      seatMaterialId,
+      pipeMaterialId,
+      wedgeMaterialId,
+      counterFlangesMaterialId,
       ...itemData
     } = createItemDto;
 
@@ -92,14 +97,37 @@ export class ItemsService {
     if (!temperatureRange) {
       throw new NotFoundException('DN not found');
     }
-    const material = await this.materialService.findById(materialId);
-    if (!material) {
-      throw new NotFoundException('Material not found');
+    const housingMaterial =
+      await this.materialService.findById(housingMaterialId);
+    if (!housingMaterial) {
+      throw new NotFoundException('Housing Material not found');
     }
     const connectionType =
       await this.connectionTypesService.findById(connectionTypeId);
     if (!connectionType) {
       throw new NotFoundException('Connection type not found');
+    }
+    const rodMaterial = await this.materialService.findById(rodMaterialId);
+    if (!rodMaterial) {
+      throw new NotFoundException('Rod Material not found');
+    }
+    const seatMaterial = await this.materialService.findById(seatMaterialId);
+    if (!seatMaterial) {
+      throw new NotFoundException('Seat Material not found');
+    }
+    const counterFlangesMaterial = await this.materialService.findById(
+      counterFlangesMaterialId,
+    );
+    if (!counterFlangesMaterial) {
+      throw new NotFoundException('Counterflanges Material not found');
+    }
+    const pipeMaterial = await this.materialService.findById(pipeMaterialId);
+    if (!pipeMaterial) {
+      throw new NotFoundException('Pipe - Material not found');
+    }
+    const wedgeMaterial = await this.materialService.findById(wedgeMaterialId);
+    if (!wedgeMaterial) {
+      throw new NotFoundException('Wedge - Material not found');
     }
     const item = this.itemsRepository.create({
       ...itemData,
@@ -111,8 +139,13 @@ export class ItemsService {
       tightnessClass,
       classPressure,
       temperatureRange,
-      material,
+      housingMaterial,
       connectionType,
+      rodMaterial,
+      seatMaterial,
+      wedgeMaterial,
+      pipeMaterial,
+      counterFlangesMaterial,
     });
 
     return this.itemsRepository.save(item);
@@ -142,8 +175,13 @@ export class ItemsService {
       constructionId,
       tightnessClassId,
       temperatureRangeId,
-      materialId,
+      housingMaterialId,
       connectionTypeId,
+      rodMaterialId,
+      seatMaterialId,
+      pipeMaterialId,
+      wedgeMaterialId,
+      counterFlangesMaterialId,
       ...itemData
     } = updateItemDto;
     const order = await this.ordersService.findById(orderId);
@@ -185,14 +223,37 @@ export class ItemsService {
     if (!temperatureRange) {
       throw new NotFoundException('DN not found');
     }
-    const material = await this.materialService.findById(materialId);
-    if (!material) {
-      throw new NotFoundException('Material not found');
+    const housingMaterial =
+      await this.materialService.findById(housingMaterialId);
+    if (!housingMaterial) {
+      throw new NotFoundException('Housing Material not found');
     }
     const connectionType =
       await this.connectionTypesService.findById(connectionTypeId);
     if (!connectionType) {
       throw new NotFoundException('Connection type not found');
+    }
+    const rodMaterial = await this.materialService.findById(rodMaterialId);
+    if (!rodMaterial) {
+      throw new NotFoundException('Rod Material not found');
+    }
+    const seatMaterial = await this.materialService.findById(seatMaterialId);
+    if (!seatMaterial) {
+      throw new NotFoundException('Seat Material not found');
+    }
+    const counterFlangesMaterial = await this.materialService.findById(
+      counterFlangesMaterialId,
+    );
+    if (!counterFlangesMaterial) {
+      throw new NotFoundException('Counterflanges Material not found');
+    }
+    const pipeMaterial = await this.materialService.findById(pipeMaterialId);
+    if (!pipeMaterial) {
+      throw new NotFoundException('Pipe - Material not found');
+    }
+    const wedgeMaterial = await this.materialService.findById(wedgeMaterialId);
+    if (!wedgeMaterial) {
+      throw new NotFoundException('Wedge - Material not found');
     }
     return this.itemsRepository.update(id, {
       ...itemData,
@@ -204,8 +265,13 @@ export class ItemsService {
       classPressure,
       tightnessClass,
       temperatureRange,
-      material,
+      housingMaterial,
       connectionType,
+      rodMaterial,
+      seatMaterial,
+      pipeMaterial,
+      wedgeMaterial,
+      counterFlangesMaterial,
     });
   }
 

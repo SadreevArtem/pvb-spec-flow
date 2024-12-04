@@ -18,7 +18,7 @@ export class Material {
   @Length(2, 200)
   name: string;
 
-  @OneToMany(() => Item, (item) => item.material)
+  @OneToMany(() => Item, (item) => item.housingMaterial)
   items: Item[];
 
   @CreateDateColumn()

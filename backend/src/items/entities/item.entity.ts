@@ -41,7 +41,7 @@ export class Item {
   diameter: Diameter; //Справочник ДУ
 
   @ManyToOne(() => ClassPressure, (classPressure) => classPressure.items)
-  classPressure: Diameter; //Справочник Py
+  classPressure: ClassPressure; //Справочник Py
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
   order: Order; // Связь с заказом
@@ -63,7 +63,19 @@ export class Item {
   temperatureRange: TemperatureRange; //Справочник температурного диапазона
 
   @ManyToOne(() => Material, (material) => material.items)
-  material: Material; //Справочник материалов
+  housingMaterial: Material; //Материал корпуса
+
+  @ManyToOne(() => Material, (material) => material.items)
+  rodMaterial: Material; //Материал штока
+
+  @ManyToOne(() => Material, (material) => material.items)
+  wedgeMaterial: Material; //Материал клина
+
+  @ManyToOne(() => Material, (material) => material.items)
+  seatMaterial: Material; //Материал седла
+
+  @ManyToOne(() => Material, (material) => material.items)
+  pipeMaterial: Material; //Материал трубы
 
   @ManyToOne(() => ConnectionType, (connectionType) => connectionType.items)
   connectionType: ConnectionType; //Справочник типа присоедениния
@@ -81,6 +93,9 @@ export class Item {
 
   @Column({ default: false })
   counterFlanges: boolean;
+
+  @ManyToOne(() => Material, (material) => material.items)
+  counterFlangesMaterial: Material; //Материал ответных фланцев
 
   @Column({ nullable: true })
   @Length(1, 200)

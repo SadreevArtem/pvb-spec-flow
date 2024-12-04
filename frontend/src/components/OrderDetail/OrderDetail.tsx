@@ -312,26 +312,29 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </div>
             </form>
           }
-          {!isEdit &&
-            Array.from({ length: watch("count") }, (_, index) => (
-              <CreateForm
-                key={index}
-                index={index}
-                currentTypes={currentTypes}
-                setFormData={setFormData}
-                formData={formData}
-              />
-            ))}
-          {isEdit &&
-            Object.values(formData).map((item, index) => (
-              <UpdateForm
-                key={index}
-                item={item}
-                index={index}
-                setFormData={setFormData}
-                currentTypes={currentTypes}
-              />
-            ))}
+          <div className="overflow-x-scroll">
+            {!isEdit &&
+              Array.from({ length: watch("count") }, (_, index) => (
+                <CreateForm
+                  key={index}
+                  index={index}
+                  currentTypes={currentTypes}
+                  setFormData={setFormData}
+                  formData={formData}
+                />
+              ))}
+            {isEdit &&
+              Object.values(formData).map((item, index) => (
+                <UpdateForm
+                  key={index}
+                  item={item}
+                  index={index}
+                  setFormData={setFormData}
+                  currentTypes={currentTypes}
+                />
+              ))}
+          </div>
+          <div className="h-[32px]"></div>
         </section>
       )}
     </>
