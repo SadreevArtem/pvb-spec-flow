@@ -27,6 +27,8 @@ import {
 import { api } from "../../../../../shared/api/api";
 import { useAuthStore } from "../../../../../shared/stores/auth";
 import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/Button";
+import clsx from "clsx";
 
 type Props = {
   index: number;
@@ -174,8 +176,9 @@ export const CreateForm: React.FC<Props> = ({
       <div key={index} className="flex my-3">
         <TextField
           label={"TAG номер"}
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           variant="outlined"
+          required
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -187,29 +190,54 @@ export const CreateForm: React.FC<Props> = ({
           }
           value={formData[index + 1]?.tagNumber || ""}
         />
-        <TextField
-          label={"Номер по ТЗ"}
-          variant="outlined"
-          className="!mr-3 !min-w-[220px]"
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              [index + 1]: {
-                ...prev[index + 1],
-                techTaskNumber: e.target.value,
-              },
-            }))
-          }
-          value={formData[index + 1]?.techTaskNumber || ""}
-        />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <div>
+          <Button
+            title="fill add"
+            className={clsx("mb-3", { hidden: index !== 0 })}
+            onButtonClick={() => {
+              const fillValue = formData[index + 1]?.techTaskNumber || ""; // Берем значение из текущего поля
+              setFormData((prev) => {
+                const updatedFormData: typeof formData = {};
+                Object.keys(prev).forEach((key) => {
+                  updatedFormData[+key] = {
+                    ...prev[+key],
+                    techTaskNumber: fillValue, // Присваиваем значение всем объектам
+                  };
+                });
+                return updatedFormData;
+              });
+            }}
+          />
+          <TextField
+            label={"Номер по ТЗ"}
+            variant="outlined"
+            defaultValue={formData[index + 1]?.techTaskNumber || ""}
+            className={clsx("!mr-3 !min-w-[220px]")}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  techTaskNumber: e.target.value,
+                },
+              }))
+            }
+            value={formData[index + 1]?.techTaskNumber || ""}
+          />
+        </div>
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", {
+            "!mt-[52px]": index == 0,
+          })}
+        >
           <InputLabel id="demo-simple-select-label">
             {"Тип продукции"}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.productType?.id?.toString()}
+            value={formData[index + 1]?.productType?.id?.toString() || "1"}
             disabled={isLoadingProductTypes}
             label="Тип продукции"
             onChange={handleChangeProductType}
@@ -225,16 +253,19 @@ export const CreateForm: React.FC<Props> = ({
           label={"Модель"}
           variant="outlined"
           disabled
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) => e.preventDefault()}
           value={model}
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.construction?.id?.toString()}
+            value={formData[index + 1]?.construction?.id?.toString() || "1"}
             disabled={isLoadingConstructions}
             label="Конструкция"
             onChange={handleChangeConstructions}
@@ -246,14 +277,19 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">
             {"Стандарт изготовления"}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.manufacturingStandart?.id?.toString()}
+            value={
+              formData[index + 1]?.manufacturingStandart?.id?.toString() || "1"
+            }
             disabled={isLoadingManufacturingStandart}
             label="Стандарт изготовления"
             onChange={handleChangeManufacturingStandart}
@@ -265,12 +301,15 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.diameter?.id?.toString()}
+            value={formData[index + 1]?.diameter?.id?.toString() || "1"}
             disabled={isLoadingDiameter}
             label="Ду"
             onChange={handleChangeDiameter}
@@ -282,12 +321,15 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">{"Pу"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.classPressure?.id?.toString()}
+            value={formData[index + 1]?.classPressure?.id?.toString() || "1"}
             disabled={isLoadingClassPressures}
             label="Pу"
             onChange={handleChangeClassPressure}
@@ -299,7 +341,9 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl className="!mr-3 !min-w-[220px]">
+        <FormControl
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">
             {"Рабочая среда"}
           </InputLabel>
@@ -320,7 +364,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Температура рабочей среды"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -332,14 +376,16 @@ export const CreateForm: React.FC<Props> = ({
           }
           value={formData[index + 1]?.temperature || ""}
         />
-        <FormControl className="!mr-3 !min-w-[220px]">
+        <FormControl
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">
             {"Класс герметичности"}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={formData[index + 1]?.tightnessClass?.id?.toString()}
+            value={formData[index + 1]?.tightnessClass?.id?.toString() || "1"}
             disabled={isLoadingTightnessClass}
             label="Класс герметичности"
             onChange={handleChangeTightnessClass}
@@ -351,14 +397,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="temperature-range-select-label">
             {"Температурный диапазон"}
           </InputLabel>
           <Select
             labelId="temperature-range-select-label"
             id="temperature-range-select"
-            value={formData[index + 1]?.temperatureRange?.id?.toString()}
+            value={formData[index + 1]?.temperatureRange?.id?.toString() || "1"}
             disabled={isLoadingTemperatureRange}
             label="Температурный диапазон"
             onChange={handleChangeTemperatureRange}
@@ -370,14 +419,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="housing-material-select-label">
             {"Материал корпуса"}
           </InputLabel>
           <Select
             labelId="housing-material-select-label"
             id="housing-material-select"
-            value={formData[index + 1]?.housingMaterial?.id?.toString()}
+            value={formData[index + 1]?.housingMaterial?.id?.toString() || "1"}
             disabled={isLoadingMaterials}
             label="Материал корпуса"
             onChange={handleChangeHousingMaterial}
@@ -389,14 +441,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="housing-material-select-label">
             {"Материал штока"}
           </InputLabel>
           <Select
             labelId="housing-material-select-label"
             id="housing-material-select"
-            value={formData[index + 1]?.rodMaterial?.id?.toString()}
+            value={formData[index + 1]?.rodMaterial?.id?.toString() || "1"}
             disabled={isLoadingMaterials}
             label="Материал штока"
             onChange={handleChangeRodMaterial}
@@ -408,14 +463,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="wedge-material-select-label">
             {"Материал клина"}
           </InputLabel>
           <Select
             labelId="wedge-material-select-label"
             id="wedge-material-select"
-            value={formData[index + 1]?.wedgeMaterial?.id?.toString()}
+            value={formData[index + 1]?.wedgeMaterial?.id?.toString() || "1"}
             disabled={isLoadingMaterials}
             label="Материал клина"
             onChange={handleChangeWedgeMaterial}
@@ -427,14 +485,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="seat-material-select-label">
             {"Материал седла"}
           </InputLabel>
           <Select
             labelId="seat-material-select-label"
             id="seat-material-select"
-            value={formData[index + 1]?.seatMaterial?.id?.toString()}
+            value={formData[index + 1]?.seatMaterial?.id?.toString() || "1"}
             disabled={isLoadingMaterials}
             label="Материал седла"
             onChange={handleChangeSeatMaterial}
@@ -446,14 +507,17 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="connection-type-select-label">
             {"Тип соединения"}
           </InputLabel>
           <Select
             labelId="connection-type-select-label"
             id="connection-type-select"
-            value={formData[index + 1]?.connectionType?.id?.toString()}
+            value={formData[index + 1]?.connectionType?.id?.toString() || "1"}
             disabled={isLoadingConnectionType}
             label="Тип соединения"
             onChange={handleChangeConnectionType}
@@ -468,7 +532,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Строительная длина"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -514,14 +578,19 @@ export const CreateForm: React.FC<Props> = ({
           }
           label="Ответные фланцы"
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="seat-material-select-label">
             {"Материал ответных фланцев"}
           </InputLabel>
           <Select
             labelId="seat-material-select-label"
             id="seat-material-select"
-            value={formData[index + 1]?.counterFlangesMaterial?.id?.toString()}
+            value={
+              formData[index + 1]?.counterFlangesMaterial?.id?.toString() || "1"
+            }
             disabled={isLoadingMaterials}
             label="Материал ответных фланцев"
             onChange={handleChangeCounterFlangesMaterial}
@@ -536,7 +605,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Шпильки"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -551,7 +620,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Гайки"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -566,7 +635,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Размер трубы"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -578,14 +647,17 @@ export const CreateForm: React.FC<Props> = ({
           }
           value={formData[index + 1]?.pipeSize || ""}
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl
+          required
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="pipe-material-select-label">
             {"Материал трубы"}
           </InputLabel>
           <Select
             labelId="pipe-material-select-label"
             id="pipe-material-select"
-            value={formData[index + 1]?.pipeMaterial?.id?.toString()}
+            value={formData[index + 1]?.pipeMaterial?.id?.toString() || "1"}
             disabled={isLoadingMaterials}
             label="Материал трубы"
             onChange={handleChangePipeMaterial}
@@ -597,7 +669,9 @@ export const CreateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl className="!mr-3 !min-w-[220px]">
+        <FormControl
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
+        >
           <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -616,7 +690,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Комплект привода"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -631,7 +705,7 @@ export const CreateForm: React.FC<Props> = ({
         <TextField
           label="Примечание"
           variant="outlined"
-          className="!mr-3 !min-w-[220px]"
+          className={clsx("!mr-3 !min-w-[220px]", { "!mt-[52px]": index == 0 })}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,

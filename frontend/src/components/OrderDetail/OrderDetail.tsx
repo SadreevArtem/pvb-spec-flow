@@ -248,7 +248,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={customer.toString()}
+                  value={customer.toString() || "1"}
                   disabled={isLoadingCustomers}
                   label={t("customerName")}
                   onChange={handleChangeCustomer}
@@ -267,7 +267,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={equipmentType.toString()}
+                  value={equipmentType.toString() || "1"}
                   disabled={isLoadingEquipmentType}
                   label={t("equipmentType")}
                   onChange={handleChangeEquipmentType}
@@ -286,7 +286,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={owner.toString()}
+                  value={owner.toString() || "1"}
                   disabled={isLoadingOwners}
                   label={t("owner")}
                   onChange={handleChangeOwner}
