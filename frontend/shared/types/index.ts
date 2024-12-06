@@ -117,3 +117,15 @@ export type TemperatureRangeType = EquipmentType;
 export type MaterialType = EquipmentType;
 
 export type ConnectionType = EquipmentType;
+
+export type OptionsType = {
+  productTypes: ProductType[];
+  constructions: ConstructionType[];
+  manufacturingStandart: ManufacturingStandartType[];
+  diameters: DiameterType[];
+  classPressures: ClassPressureType[];
+  tightnessClasses: TightnessClassType[];
+  temperatureRanges: TemperatureRangeType[];
+  materials: MaterialType[];
+  connectionTypes: ConnectionType[];
+};

@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import {
@@ -16,6 +16,15 @@ import {
   Item,
   Order,
   User,
+  ClassPressureType,
+  ConnectionType,
+  ConstructionType,
+  DiameterType,
+  ManufacturingStandartType,
+  MaterialType,
+  ProductType,
+  TemperatureRangeType,
+  TightnessClassType,
 } from "../../../shared/types";
 import { useAuthStore } from "../../../shared/stores/auth";
 import { Button } from "../Button";
@@ -24,7 +33,7 @@ import { api } from "../../../shared/api/api";
 import { useTranslations } from "next-intl";
 import { useJwtToken } from "../../../shared/hooks/useJwtToken";
 import { UpdateForm } from "./components/UpdateForm/UpdateForm";
-import { CreateForm } from "./components/CreateForm/CreateForm";
+import CreateForm from "./components/CreateForm/CreateForm";
 
 type Props = {
   id: number;
@@ -49,6 +58,17 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const { sub } = useJwtToken();
   const isAdmin = Number(sub) === 1;
 
+  const getProductTypes = () => api.getAllProductTypesRequest(token);
+  const getConstructions = () => api.getAllConstructionsRequest(token);
+  const getManufacturingStandart = () =>
+    api.getAllManufacturingStandartsRequest(token);
+  const getDiameters = () => api.getAllDiametersRequest(token);
+  const getClassPressures = () => api.getAllClassPressuresRequest(token);
+  const getTightnessClass = () => api.getAllTightnessClassRequest(token);
+  const getTemperatureRanges = () => api.getAllTemperatureRangeRequest(token);
+  const getMaterials = () => api.getAllMaterialsRequest(token);
+  const getConnectionTypes = () => api.getAllConnectionTypesRequest(token);
+
   const getCustomers = () => api.getAllCustomersRequest(token);
   const { data: customers = [], isLoading: isLoadingCustomers } = useQuery<
     Customer[]
@@ -66,6 +86,44 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       queryKey: ["equipment-type"],
       queryFn: getEquipmentType,
     });
+  const { data: productTypes = [] } = useQuery<ProductType[]>({
+    queryKey: ["product-types"],
+    queryFn: getProductTypes,
+  });
+  const { data: constructions = [] } = useQuery<ConstructionType[]>({
+    queryKey: ["constructions"],
+    queryFn: getConstructions,
+  });
+  const { data: manufacturingStandart = [] } = useQuery<
+    ManufacturingStandartType[]
+  >({
+    queryKey: ["manufacturingStandart"],
+    queryFn: getManufacturingStandart,
+  });
+  const { data: diameters = [] } = useQuery<DiameterType[]>({
+    queryKey: ["diameters"],
+    queryFn: getDiameters,
+  });
+  const { data: classPressures = [] } = useQuery<ClassPressureType[]>({
+    queryKey: ["classPressures"],
+    queryFn: getClassPressures,
+  });
+  const { data: tightnessClasses = [] } = useQuery<TightnessClassType[]>({
+    queryKey: ["tightnessClass"],
+    queryFn: getTightnessClass,
+  });
+  const { data: temperatureRanges = [] } = useQuery<TemperatureRangeType[]>({
+    queryKey: ["temperatureRanges"],
+    queryFn: getTemperatureRanges,
+  });
+  const { data: materials = [] } = useQuery<MaterialType[]>({
+    queryKey: ["materials"],
+    queryFn: getMaterials,
+  });
+  const { data: connectionTypes = [] } = useQuery<ConnectionType[]>({
+    queryKey: ["connectionTypes"],
+    queryFn: getConnectionTypes,
+  });
 
   const getOrderById = () => api.getOrderByIdRequest(id, token);
   const getQueryKey = (id: number) => ["order"].concat(id.toString());
@@ -193,6 +251,31 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     }
   }, [order, setValue]);
 
+  const options = useMemo(() => {
+    return {
+      productTypes,
+      constructions,
+      manufacturingStandart,
+      diameters,
+      classPressures,
+      tightnessClasses,
+      temperatureRanges,
+      materials,
+      connectionTypes,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    productTypes,
+    constructions,
+    manufacturingStandart,
+    diameters,
+    classPressures,
+    tightnessClasses,
+    temperatureRanges,
+    materials,
+    connectionTypes,
+  ]);
+
   return (
     <>
       {!isLoading && (
@@ -207,6 +290,8 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
 
           {
             <form
+              id="createItemForm"
+              name="createItemForm"
               onSubmit={handleSubmit(onSubmit)}
               className="md:w-[50%] py-4 flex flex-col md:gap-6 gap-4"
             >
@@ -248,11 +333,12 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={customer.toString() || "1"}
+                  value={(customer ?? 0).toString()}
                   disabled={isLoadingCustomers}
                   label={t("customerName")}
                   onChange={handleChangeCustomer}
                 >
+                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
                   {customers.map((customer, i) => (
                     <MenuItem key={i} value={customer.id}>
                       {customer.name}
@@ -267,11 +353,12 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={equipmentType.toString() || "1"}
+                  value={(equipmentType ?? 0).toString()}
                   disabled={isLoadingEquipmentType}
                   label={t("equipmentType")}
                   onChange={handleChangeEquipmentType}
                 >
+                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
                   {equipmentTypes.map((type, i) => (
                     <MenuItem key={i} value={type.id}>
                       {type.name}
@@ -286,11 +373,12 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={owner.toString() || "1"}
+                  value={(owner ?? 0).toString()}
                   disabled={isLoadingOwners}
                   label={t("owner")}
                   onChange={handleChangeOwner}
                 >
+                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
                   {owners.map((owner, i) => (
                     <MenuItem key={i} value={owner.id}>
                       {owner.about}
@@ -312,7 +400,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </div>
             </form>
           }
-          <div className="overflow-x-scroll">
+          <div className="overflow-x-scroll relative">
             {!isEdit &&
               Array.from({ length: watch("count") }, (_, index) => (
                 <CreateForm
@@ -321,6 +409,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   currentTypes={currentTypes}
                   setFormData={setFormData}
                   formData={formData}
+                  options={options}
                 />
               ))}
             {isEdit &&
@@ -331,6 +420,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   index={index}
                   setFormData={setFormData}
                   currentTypes={currentTypes}
+                  options={options}
                 />
               ))}
           </div>
