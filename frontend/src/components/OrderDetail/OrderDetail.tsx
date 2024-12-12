@@ -33,7 +33,8 @@ import { api } from "../../../shared/api/api";
 import { useTranslations } from "next-intl";
 import { useJwtToken } from "../../../shared/hooks/useJwtToken";
 import { UpdateForm } from "./components/UpdateForm/UpdateForm";
-import CreateForm from "./components/CreateForm/CreateForm";
+import VirtualizedCreateItems from "./components/VirtualizedCreateItems/VirtualizedCreateItems";
+import clsx from "clsx";
 
 type Props = {
   id: number;
@@ -176,7 +177,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const deleteMutation = useMutation({
     mutationFn: deleteFunc,
     onSuccess: () => {
-      appToast.success(t("deleted"));
+      appToast.success("deleted");
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       router.back();
     },
@@ -206,6 +207,10 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const currentTypes = equipmentTypes.find((item) => item.id === equipmentType);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (Object.keys(formData).length < 1) {
+      appToast.error("Заполните поля продукции");
+      return;
+    }
     mutation({
       ...data,
     }).then(async (data) => {
@@ -275,6 +280,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     materials,
     connectionTypes,
   ]);
+  console.log(formData);
 
   return (
     <>
@@ -314,6 +320,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               )}
               <TextField
                 variant="outlined"
+                required
                 defaultValue={order?.count}
                 disabled={isEdit}
                 label={t("count")}
@@ -366,7 +373,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth>
+              <FormControl fullWidth className={clsx({ "!hidden": !isAdmin })}>
                 <InputLabel id="demo-simple-select-label">
                   {t("owner")}
                 </InputLabel>
@@ -400,18 +407,33 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </div>
             </form>
           }
-          <div className="overflow-x-scroll relative">
-            {!isEdit &&
-              Array.from({ length: watch("count") }, (_, index) => (
-                <CreateForm
-                  key={index}
-                  index={index}
-                  currentTypes={currentTypes}
-                  setFormData={setFormData}
-                  formData={formData}
-                  options={options}
-                />
-              ))}
+          <div style={{ width: "fit", height: "600px" }} className="">
+            <VirtualizedCreateItems
+              count={watch("count")}
+              currentTypes={currentTypes}
+              setFormData={setFormData}
+              isEdit={isEdit}
+              formData={formData}
+              options={options}
+            />
+            {/* {!isEdit && (
+              <Autosizer>
+                {({ width, height }) => (
+                  <List
+                    height={height}
+                    width={width}
+                    itemCount={createItems.length}
+                    itemSize={120}
+                  >
+                    {({ index, style }) => (
+                      <div key={index} style={style}>
+                        {createItems[index]}
+                      </div>
+                    )}
+                  </List>
+                )}
+              </Autosizer>
+            )} */}
             {isEdit &&
               Object.values(formData).map((item, index) => (
                 <UpdateForm

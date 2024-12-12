@@ -17,12 +17,11 @@ export class Item {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: 'GVT' })
   @Length(1, 200)
   tagNumber: string;
 
-  @Column()
-  @Length(2, 200)
+  @Column({ nullable: true })
   techTaskNumber: string;
 
   @ManyToOne(() => ProductType, (productType) => productType.items)

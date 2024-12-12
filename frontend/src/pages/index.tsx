@@ -5,6 +5,7 @@ import { useJwtToken } from "../../shared/hooks/useJwtToken";
 import { Login } from "@/components/Login/Login";
 import { AdminPanel } from "@/components/AdminPanel/AdminPanel";
 import { GetStaticPropsContext } from "next";
+import { UserPanel } from "@/components/UserPanel/UserPanel";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -52,7 +53,7 @@ export default function Home() {
         ) : isAdmin ? (
           <AdminPanel title="PVB-SpecFlow" />
         ) : (
-          <>User panel</>
+          <UserPanel title="PVB-SpecFlow" />
         )}
       </main>
       <footer className=""></footer>

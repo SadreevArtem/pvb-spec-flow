@@ -1,7 +1,6 @@
 import {
   IsBoolean,
   IsEnum,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -17,80 +16,81 @@ export class CreateItemDto {
   @Length(1, 200)
   tagNumber: string;
 
+  @IsOptional()
   @IsString()
-  @Length(2, 200)
   techTaskNumber: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   productTypeId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   constructionId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   manufacturingStandartId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   diameterId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   classPressureId: number;
 
   @IsEnum(WorkEnvironment)
   @IsOptional()
   workEnvironment?: WorkEnvironment;
 
+  @IsOptional()
   @IsString()
-  @Length(1, 200)
   temperature: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   tightnessClassId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   temperatureRangeId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   housingMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   rodMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   seatMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   wedgeMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   counterFlangesMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   pipeMaterialId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   connectionTypeId: number;
 
-  @IsString()
-  @Length(1, 200)
+  @IsOptional()
   constructionLength: string;
 
+  @IsOptional()
   @IsBoolean()
   nace: boolean;
 
+  @IsOptional()
   @IsBoolean()
   counterFlanges: boolean;
 
+  @IsOptional()
   @IsString()
-  @Length(1, 200)
   hairpins: string;
 
+  @IsOptional()
   @IsString()
-  @Length(1, 200)
   nuts: string;
 
+  @IsOptional()
   @IsString()
-  @Length(1, 200)
   pipeSize: string;
 
   @IsEnum(Drive)
@@ -98,8 +98,10 @@ export class CreateItemDto {
   drive?: Drive;
 
   @IsString()
+  @IsOptional()
   driveKit: string;
 
   @IsString()
+  @IsOptional()
   comment: string;
 }

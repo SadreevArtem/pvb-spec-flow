@@ -10,6 +10,7 @@ import { useUnAuth } from "../../shared/hooks/useUnAuth";
 import { useBroadCastAuth } from "../../shared/stores/auth";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { BaseLayout } from "@/layouts/BaseLayout/BaseLayout";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -41,7 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            <BaseLayout>
+              <Component {...pageProps} />
+            </BaseLayout>
           </QueryClientProvider>
         </LocalizationProvider>
       </NextIntlClientProvider>
