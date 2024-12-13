@@ -7,6 +7,7 @@ import { UsersModule } from 'src/users/users.module';
 import { CustomersModule } from 'src/customers/customers.module';
 import { ItemsModule } from 'src/items/items.module';
 import { EquipmentTypesModule } from 'src/equipment-types/equipment-types.module';
+import { ExcelServiceModule } from 'src/excel-service/excel-service.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { EquipmentTypesModule } from 'src/equipment-types/equipment-types.module
     UsersModule,
     CustomersModule,
     EquipmentTypesModule,
+    ExcelServiceModule,
     forwardRef(() => ItemsModule),
   ],
   exports: [OrdersService],

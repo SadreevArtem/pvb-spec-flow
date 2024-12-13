@@ -24,6 +24,8 @@ import { TightnessClassesModule } from './tightness-classes/tightness-classes.mo
 import { TemperatureRangesModule } from './temperature-ranges/temperature-ranges.module';
 import { MaterialsModule } from './materials/materials.module';
 import { ConnectionTypesModule } from './connection-types/connection-types.module';
+import { ExcelServiceService } from './excel-service/excel-service.service';
+import { ExcelServiceModule } from './excel-service/excel-service.module';
 
 @Module({
   imports: [
@@ -63,6 +65,7 @@ import { ConnectionTypesModule } from './connection-types/connection-types.modul
     TemperatureRangesModule,
     MaterialsModule,
     ConnectionTypesModule,
+    ExcelServiceModule,
   ],
   controllers: [AppController],
   providers: [
@@ -71,6 +74,7 @@ import { ConnectionTypesModule } from './connection-types/connection-types.modul
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    ExcelServiceService,
   ],
 })
 export class AppModule {}

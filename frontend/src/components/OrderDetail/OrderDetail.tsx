@@ -214,14 +214,21 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     mutation({
       ...data,
     }).then(async (data) => {
-      await Promise.all(
-        Array.from(Object.values(formData), (item) =>
-          mutationItem({
-            ...item,
-            ...(isEdit ? { orderId: id } : { orderId: data.id }),
-          })
-        )
-      );
+      // await Promise.all(
+      //   Array.from(Object.values(formData), (item) =>
+      //     mutationItem({
+      //       ...item,
+      //       ...(isEdit ? { orderId: id } : { orderId: data.id }),
+      //     })
+      //   )
+      // );
+      await Object.values(formData).reduce(async (prevPromise, item) => {
+        await prevPromise; // Дожидаемся завершения предыдущего
+        return mutationItem({
+          ...item,
+          ...(isEdit ? { orderId: id } : { orderId: data.id }),
+        });
+      }, Promise.resolve());
       router.back();
     });
   };
@@ -404,6 +411,13 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                     type="button"
                   />
                 )}
+                <Button
+                  title="excel"
+                  onButtonClick={(event) => {
+                    event.preventDefault();
+                    api.generateExcelFile(id, token);
+                  }}
+                />
               </div>
             </form>
           }
@@ -435,16 +449,18 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </Autosizer>
             )} */}
             {isEdit &&
-              Object.values(formData).map((item, index) => (
-                <UpdateForm
-                  key={index}
-                  item={item}
-                  index={index}
-                  setFormData={setFormData}
-                  currentTypes={currentTypes}
-                  options={options}
-                />
-              ))}
+              Object.values(formData)
+                .sort((a, b) => a.id - b.id)
+                .map((item, index) => (
+                  <UpdateForm
+                    key={index}
+                    item={item}
+                    index={index}
+                    setFormData={setFormData}
+                    currentTypes={currentTypes}
+                    options={options}
+                  />
+                ))}
           </div>
           <div className="h-[32px]"></div>
         </section>

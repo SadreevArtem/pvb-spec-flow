@@ -120,4 +120,8 @@ export class Item {
 
   @Column({ nullable: true })
   comment: string;
+
+  @Column({ nullable: true })
+  @Length(1, 200)
+  count: number;
 }

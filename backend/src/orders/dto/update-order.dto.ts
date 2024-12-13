@@ -4,5 +4,5 @@ import { IsOptional } from 'class-validator';
 
 export class UpdateOrderDto extends PartialType(CreateOrderDto) {
   @IsOptional()
-  ownerId: number;
+  filePath: string;
 }

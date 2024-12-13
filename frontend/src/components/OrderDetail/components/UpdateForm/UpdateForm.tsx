@@ -564,6 +564,22 @@ export const UpdateForm: React.FC<Props> = ({
           }
           value={item?.comment || ""}
         />
+        <TextField
+          variant="outlined"
+          label={"количество"}
+          className="!mr-3 !min-w-[220px]"
+          type="number"
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              [item.id]: {
+                ...prev[item.id],
+                count: +e.target.value,
+              },
+            }))
+          }
+          value={item?.count || ""}
+        />
       </div>
     </div>
   );

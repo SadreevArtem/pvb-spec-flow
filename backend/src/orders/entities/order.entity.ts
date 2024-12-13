@@ -46,4 +46,8 @@ export class Order {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({ nullable: true })
+  @Length(1, 200)
+  filePath: string;
 }

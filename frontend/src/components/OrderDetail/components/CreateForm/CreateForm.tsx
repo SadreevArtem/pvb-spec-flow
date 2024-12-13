@@ -24,15 +24,17 @@ type Props = {
   currentTypes: EquipmentType | undefined;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
+  formData: Item;
 };
 const CreateForm: React.FC<Props> = React.memo(
-  ({ index, currentTypes, setFormData, options }) => {
+  ({ index, currentTypes, setFormData, formData, options }) => {
     const [workEnvironment, setWorkEnvironment] = React.useState<
       WorkEnvironment | ""
     >("");
     const [drive, setDrive] = React.useState<Drive | "manual">("manual");
 
     const [model, setModel] = useState("");
+    const [selectedMaterial, setSelectedMaterial] = useState("0");
     const handleChangeField =
       (fieldName: string) => (event: SelectChangeEvent) => {
         setFormData((prev) => ({
@@ -116,7 +118,7 @@ const CreateForm: React.FC<Props> = React.memo(
                 },
               }))
             }
-            // value={formData?.tagNumber || ""}
+            defaultValue={formData?.tagNumber || ""}
           />
 
           {/* <Button
@@ -332,7 +334,10 @@ const CreateForm: React.FC<Props> = React.memo(
               id="housing-material-select"
               defaultValue={"0"}
               label="Материал корпуса"
-              onChange={handleChangeHousingMaterial}
+              onChange={(e) => {
+                handleChangeHousingMaterial(e);
+                setSelectedMaterial(e.target.value);
+              }}
             >
               <MenuItem value="0">Не выбрано</MenuItem>
               {options.materials.map((material, i) => (
@@ -388,6 +393,8 @@ const CreateForm: React.FC<Props> = React.memo(
               labelId="seat-material-select-label"
               id="seat-material-select"
               defaultValue={"0"}
+              value={selectedMaterial}
+              disabled
               label="Материал седла"
               onChange={handleChangeSeatMaterial}
             >
@@ -595,6 +602,21 @@ const CreateForm: React.FC<Props> = React.memo(
               }))
             }
             // value={formData?.comment || ""}
+          />
+          <TextField
+            variant="outlined"
+            label={"количество"}
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            type="number"
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  count: +e.target.value,
+                },
+              }))
+            }
           />
         </div>
       </div>

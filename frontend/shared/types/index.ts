@@ -85,6 +85,7 @@ export type Item = {
   counterFlangesMaterial: MaterialType;
   workEnvironment: WorkEnvironment;
   pipeMaterial: MaterialType;
+  count: number;
 };
 
 export type EquipmentType = {

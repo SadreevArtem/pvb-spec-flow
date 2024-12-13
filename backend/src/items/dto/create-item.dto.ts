@@ -104,4 +104,8 @@ export class CreateItemDto {
   @IsString()
   @IsOptional()
   comment: string;
+
+  @IsNumber()
+  @IsOptional()
+  count: number;
 }

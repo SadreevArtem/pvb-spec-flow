@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, Length } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, Length } from 'class-validator';
 
 export class CreateOrderDto {
   @IsNotEmpty()
@@ -17,4 +17,6 @@ export class CreateOrderDto {
   customerId: number;
   @IsNotEmpty()
   equipmentTypeId: number;
+  @IsOptional()
+  ownerId: number; // связь с пользователем, который является владельцем заказа
 }

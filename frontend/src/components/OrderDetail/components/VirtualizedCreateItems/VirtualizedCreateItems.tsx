@@ -16,6 +16,7 @@ const VirtualizedCreateItems: FC<Props> = ({
   count,
   currentTypes,
   setFormData,
+  formData,
   options,
   isEdit,
 }) => {
@@ -42,6 +43,7 @@ const VirtualizedCreateItems: FC<Props> = ({
                     <CreateForm
                       index={item.index}
                       currentTypes={currentTypes}
+                      formData={formData[index + 1]}
                       setFormData={setFormData}
                       options={options || {}}
                     />
