@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsOptional, Length } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  Length,
+} from 'class-validator';
 
 export class CreateOrderDto {
   @IsNotEmpty()
@@ -13,10 +19,56 @@ export class CreateOrderDto {
   @IsNumber()
   count: number;
 
+  @IsOptional()
+  @IsBoolean()
+  documentationSheet: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  agreementProtocol: boolean;
+
   @IsNotEmpty()
   customerId: number;
+
   @IsNotEmpty()
   equipmentTypeId: number;
+
   @IsOptional()
   ownerId: number; // связь с пользователем, который является владельцем заказа
+
+  @IsOptional()
+  @IsBoolean()
+  installationDrawings: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  assemblyDrawing: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  installationInstructions: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  qualityPlan: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  materialsCertificate: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  declarationOfTRTC: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  presenceOfCustomerDuringTesting: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  gasInspectionHighPressure: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  thirdSideInspection: boolean;
 }

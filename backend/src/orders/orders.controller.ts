@@ -70,16 +70,20 @@ export class OrdersController {
     const outputDir = path.join(__dirname, '../output-files');
 
     // Генерация нового файла Excel
-    const filePath = await this.excelService.generateExcelFromTemplate(
-      templatePath,
-      outputDir,
-      order,
-    );
+    const { excelPath, pdfPath } =
+      await this.excelService.generateExcelFromTemplate(
+        templatePath,
+        outputDir,
+        order,
+      );
 
     // Сохранение пути к файлу в сущность
-    order.filePath = filePath;
-    await this.ordersService.update(+id, { filePath });
+    order.filePath = excelPath;
+    await this.ordersService.update(+id, {
+      filePath: excelPath,
+      filePathPdf: pdfPath,
+    });
 
-    return { filePath };
+    return { filePath: excelPath };
   }
 }

@@ -54,6 +54,19 @@ export type Order = {
   items?: Item[];
   createdAt: Date;
   updatedAt: Date;
+  documentationSheet: boolean;
+  installationDrawings: boolean;
+  assemblyDrawing: boolean;
+  agreementProtocol: boolean;
+  installationInstructions: boolean;
+  qualityPlan: boolean;
+  materialsCertificate: boolean;
+  declarationOfTRTC: boolean;
+  presenceOfCustomerDuringTesting: boolean;
+  gasInspectionHighPressure: boolean;
+  thirdSideInspection: boolean;
+  filePath: string;
+  filePathPdf: string;
 };
 
 export type Item = {

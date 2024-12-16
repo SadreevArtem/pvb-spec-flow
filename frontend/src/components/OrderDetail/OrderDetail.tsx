@@ -1,5 +1,7 @@
 import {
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -35,6 +37,8 @@ import { useJwtToken } from "../../../shared/hooks/useJwtToken";
 import { UpdateForm } from "./components/UpdateForm/UpdateForm";
 import VirtualizedCreateItems from "./components/VirtualizedCreateItems/VirtualizedCreateItems";
 import clsx from "clsx";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   id: number;
@@ -141,7 +145,11 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     setValue,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: {
+      documentationSheet: order?.documentationSheet,
+    },
+  });
 
   const updateOrderFunc = (input: Order) =>
     api.updateOrderRequest(input, token);
@@ -186,6 +194,17 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     },
   });
 
+  const generateMutation = useMutation({
+    mutationFn: () => api.generateExcelFile(id, token),
+    onSuccess: () => {
+      appToast.success("generate");
+      queryClient.invalidateQueries({ queryKey: getQueryKey(id) });
+    },
+    onError: () => {
+      appToast.error(t("error"));
+    },
+  });
+
   const handleChangeCustomer = (event: SelectChangeEvent) => {
     setCustomer(+event.target.value as number);
     setValue("customerId", +event.target.value as number);
@@ -199,6 +218,11 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const onDeleteClick = (event: React.MouseEvent) => {
     event.preventDefault();
     deleteMutation.mutate();
+  };
+
+  const onGenerateClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    generateMutation.mutate();
   };
   const handleChangeEquipmentType = (event: SelectChangeEvent) => {
     setEquipmentType(+event.target.value as number);
@@ -287,7 +311,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     materials,
     connectionTypes,
   ]);
-  console.log(formData);
 
   return (
     <>
@@ -302,124 +325,294 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
           </div>
 
           {
-            <form
-              id="createItemForm"
-              name="createItemForm"
-              onSubmit={handleSubmit(onSubmit)}
-              className="md:w-[50%] py-4 flex flex-col md:gap-6 gap-4"
-            >
-              <TextField
-                variant="outlined"
-                label={t("contractNumber")}
-                {...register("contractNumber", { required: true })}
-              />
-              {errors.contractNumber && (
-                <span className="text-red">{t("required")}</span>
-              )}
-
-              <TextField
-                variant="outlined"
-                label={t("complectName")}
-                {...register("complectName", { required: true })}
-              />
-              {errors.complectName && (
-                <span className="text-red">{t("required")}</span>
-              )}
-              <TextField
-                variant="outlined"
-                required
-                defaultValue={order?.count}
-                disabled={isEdit}
-                label={t("count")}
-                type="number"
-                onChange={(event) => {
-                  setValue("count", +event.target.value);
-                }}
-                // {...register("count", { required: true })}
-              />
-              {errors.count && (
-                <span className="text-red">{t("required")}</span>
-              )}
-              <FormControl fullWidth required>
-                <InputLabel id="demo-simple-select-label">
-                  {t("customerName")}
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={(customer ?? 0).toString()}
-                  disabled={isLoadingCustomers}
-                  label={t("customerName")}
-                  onChange={handleChangeCustomer}
-                >
-                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
-                  {customers.map((customer, i) => (
-                    <MenuItem key={i} value={customer.id}>
-                      {customer.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth required>
-                <InputLabel id="demo-simple-select-label">
-                  {t("equipmentType")}
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={(equipmentType ?? 0).toString()}
-                  disabled={isLoadingEquipmentType}
-                  label={t("equipmentType")}
-                  onChange={handleChangeEquipmentType}
-                >
-                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
-                  {equipmentTypes.map((type, i) => (
-                    <MenuItem key={i} value={type.id}>
-                      {type.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth className={clsx({ "!hidden": !isAdmin })}>
-                <InputLabel id="demo-simple-select-label">
-                  {t("owner")}
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={(owner ?? 0).toString()}
-                  disabled={isLoadingOwners}
-                  label={t("owner")}
-                  onChange={handleChangeOwner}
-                >
-                  <MenuItem value="0">{"Не выбрано"}</MenuItem>
-                  {owners.map((owner, i) => (
-                    <MenuItem key={i} value={owner.id}>
-                      {owner.about}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <div className="flex gap-4">
-                <Button disabled={isPending} title={t("save")} type="submit" />
-
-                {isAdmin && (
-                  <Button
-                    title={t("delete")}
-                    onButtonClick={onDeleteClick}
-                    type="button"
-                  />
-                )}
-                <Button
-                  title="excel"
-                  onButtonClick={(event) => {
-                    event.preventDefault();
-                    api.generateExcelFile(id, token);
-                  }}
+            <div className="flex justify-between">
+              <form
+                id="createItemForm"
+                name="createItemForm"
+                onSubmit={handleSubmit(onSubmit)}
+                className="md:w-[50%] py-4 flex flex-col md:gap-6 gap-4"
+              >
+                <TextField
+                  variant="outlined"
+                  label={t("contractNumber")}
+                  {...register("contractNumber", { required: true })}
                 />
+                {errors.contractNumber && (
+                  <span className="text-red">{t("required")}</span>
+                )}
+
+                <TextField
+                  variant="outlined"
+                  label={t("complectName")}
+                  {...register("complectName", { required: true })}
+                />
+                {errors.complectName && (
+                  <span className="text-red">{t("required")}</span>
+                )}
+                <TextField
+                  variant="outlined"
+                  required
+                  defaultValue={order?.count}
+                  disabled={isEdit}
+                  label={t("count")}
+                  type="number"
+                  onChange={(event) => {
+                    setValue("count", +event.target.value);
+                  }}
+                  // {...register("count", { required: true })}
+                />
+                {errors.count && (
+                  <span className="text-red">{t("required")}</span>
+                )}
+                <FormControl fullWidth required>
+                  <InputLabel id="demo-simple-select-label">
+                    {t("customerName")}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={(customer ?? 0).toString()}
+                    disabled={isLoadingCustomers}
+                    label={t("customerName")}
+                    onChange={handleChangeCustomer}
+                  >
+                    <MenuItem value="0">{"Не выбрано"}</MenuItem>
+                    {customers.map((customer, i) => (
+                      <MenuItem key={i} value={customer.id}>
+                        {customer.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth required>
+                  <InputLabel id="demo-simple-select-label">
+                    {t("equipmentType")}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={(equipmentType ?? 0).toString()}
+                    disabled={isLoadingEquipmentType}
+                    label={t("equipmentType")}
+                    onChange={handleChangeEquipmentType}
+                  >
+                    <MenuItem value="0">{"Не выбрано"}</MenuItem>
+                    {equipmentTypes.map((type, i) => (
+                      <MenuItem key={i} value={type.id}>
+                        {type.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl
+                  fullWidth
+                  className={clsx({ "!hidden": !isAdmin })}
+                >
+                  <InputLabel id="demo-simple-select-label">
+                    {t("owner")}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={(owner ?? 0).toString()}
+                    disabled={isLoadingOwners}
+                    label={t("owner")}
+                    onChange={handleChangeOwner}
+                  >
+                    <MenuItem value="0">{"Не выбрано"}</MenuItem>
+                    {owners.map((owner, i) => (
+                      <MenuItem key={i} value={owner.id}>
+                        {owner.about}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <div className="flex gap-4">
+                  <Button
+                    disabled={isPending}
+                    title={t("save")}
+                    type="submit"
+                  />
+
+                  {isAdmin && (
+                    <Button
+                      title={t("delete")}
+                      onButtonClick={onDeleteClick}
+                      type="button"
+                    />
+                  )}
+                  <Button title="excel" onButtonClick={onGenerateClick} />
+                </div>
+                <div className="flex flex-col">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.documentationSheet || false}
+                        onChange={(e) =>
+                          setValue("documentationSheet", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Лист документации"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.installationDrawings || false}
+                        onChange={(e) =>
+                          setValue("installationDrawings", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Монтажные чертежи"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.assemblyDrawing || false}
+                        onChange={(e) =>
+                          setValue("assemblyDrawing", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Сборочный чертеж"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.agreementProtocol || false}
+                        onChange={(e) =>
+                          setValue("agreementProtocol", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Протокол согласования"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={
+                          order?.installationInstructions || false
+                        }
+                        onChange={(e) =>
+                          setValue("installationInstructions", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Инструкции по монтажу"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.qualityPlan || false}
+                        onChange={(e) =>
+                          setValue("qualityPlan", e.target.checked)
+                        }
+                      />
+                    }
+                    label="План качества"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.materialsCertificate || false}
+                        onChange={(e) =>
+                          setValue("materialsCertificate", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Сертификат на материалы"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.declarationOfTRTC || false}
+                        onChange={(e) =>
+                          setValue("declarationOfTRTC", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Декларация ТР ТС"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={
+                          order?.presenceOfCustomerDuringTesting || false
+                        }
+                        onChange={(e) =>
+                          setValue(
+                            "presenceOfCustomerDuringTesting",
+                            e.target.checked
+                          )
+                        }
+                      />
+                    }
+                    label="Плата за присутствие заказчика во время испытаний"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={
+                          order?.gasInspectionHighPressure || false
+                        }
+                        onChange={(e) =>
+                          setValue(
+                            "gasInspectionHighPressure",
+                            e.target.checked
+                          )
+                        }
+                      />
+                    }
+                    label="Испытание газом высокого давления"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        defaultChecked={order?.thirdSideInspection || false}
+                        onChange={(e) =>
+                          setValue("thirdSideInspection", e.target.checked)
+                        }
+                      />
+                    }
+                    label="Инспекция третьей стороны"
+                  />
+                </div>
+              </form>
+              <div className="flex w-full mt-8">
+                {order?.filePath && (
+                  <div className="flex w-full justify-center">
+                    <div className="relative lg:h-[64px] h-[88px] lg:max-w-[64px] bg-gray-purple z-0 rounded-4 max-md:mx-auto w-full">
+                      <Link target="blanc" href={order?.filePath || ""}>
+                        <Image
+                          src={`/files-images/${"xls"}.svg`}
+                          width={100}
+                          height={100}
+                          alt="изображение"
+                          className="absolute left-0 right-0 top-0 bottom-0 m-auto max-md:w-[56px]"
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                {order?.filePathPdf && (
+                  <div className="flex w-full justify-center">
+                    <div className="relative lg:h-[64px] h-[88px] lg:max-w-[64px] bg-gray-purple z-0 rounded-4 max-md:mx-auto w-full">
+                      <Link target="blanc" href={order?.filePathPdf || ""}>
+                        <Image
+                          src={`/files-images/${"pdf"}.svg`}
+                          width={100}
+                          height={100}
+                          alt="изображение"
+                          className="absolute left-0 right-0 top-0 bottom-0 m-auto max-md:w-[56px]"
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-            </form>
+            </div>
           }
           <div style={{ width: "fit", height: "600px" }} className="">
             <VirtualizedCreateItems
@@ -462,6 +655,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   />
                 ))}
           </div>
+
           <div className="h-[32px]"></div>
         </section>
       )}
