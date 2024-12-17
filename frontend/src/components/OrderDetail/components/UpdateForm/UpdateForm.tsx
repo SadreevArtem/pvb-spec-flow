@@ -37,7 +37,9 @@ export const UpdateForm: React.FC<Props> = ({
   );
   const [drive, setDrive] = React.useState<Drive>(item.drive);
   const [model, setModel] = useState(item.productType.model || "");
-
+  const [selectedMaterial, setSelectedMaterial] = useState(
+    item.housingMaterial.id.toString() || "0"
+  );
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
       setFormData((prev) => ({
@@ -307,7 +309,10 @@ export const UpdateForm: React.FC<Props> = ({
             id="housing-material-select"
             defaultValue={item?.housingMaterial?.id?.toString()}
             label="Материал корпуса"
-            onChange={handleChangeHousingMaterial}
+            onChange={(e) => {
+              handleChangeHousingMaterial(e);
+              setSelectedMaterial(e.target.value);
+            }}
           >
             {options.materials.map((material, i) => (
               <MenuItem key={i} value={material.id}>
@@ -359,6 +364,27 @@ export const UpdateForm: React.FC<Props> = ({
           <Select
             labelId="seat-material-select-label"
             id="seat-material-select"
+            defaultValue={"0"}
+            value={selectedMaterial}
+            disabled
+            label="Материал седла"
+            onChange={handleChangeSeatMaterial}
+          >
+            <MenuItem value="0">Не выбрано</MenuItem>
+            {options.materials.map((material, i) => (
+              <MenuItem key={i} value={material.id}>
+                {material.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
+          <InputLabel id="seat-material-select-label">
+            {"Материал седла"}
+          </InputLabel>
+          <Select
+            labelId="seat-material-select-label"
+            id="seat-material-select"
             defaultValue={item?.seatMaterial?.id?.toString()}
             label="Материал седла"
             onChange={handleChangeSeatMaterial}
@@ -369,7 +395,7 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="connection-type-select-label">
             {"Тип соединения"}

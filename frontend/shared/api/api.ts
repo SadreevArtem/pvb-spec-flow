@@ -1602,6 +1602,6 @@ class API {
   };
 }
 
-export const api = new API("http://localhost:4000");
+// export const api = new API("http://localhost:4000");
 
-// export const api = new API("https://api.pvb-university.com");
+export const api = new API("https://api.pvb-university.com");

@@ -67,7 +67,7 @@ export class OrdersController {
 
     // Путь к шаблону и выходной папке
     const templatePath = path.join(__dirname, '../templates/Order.xlsx');
-    const outputDir = path.join(__dirname, '../output-files');
+    const outputDir = path.join(__dirname, '../uploads');
 
     // Генерация нового файла Excel
     const { excelPath, pdfPath } =

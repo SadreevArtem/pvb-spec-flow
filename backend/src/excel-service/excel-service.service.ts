@@ -197,6 +197,26 @@ export class ExcelServiceService {
         { text: 'Стандарт изготовления' },
         { text: 'ДУ' },
         { text: 'Ру' },
+        { text: 'Рабочая среда' },
+        { text: 'Температура рабочей среды' },
+        { text: 'Класс герметичности' },
+        { text: 'Темепратурный диапазон' },
+        { text: 'Материал корпуса' },
+        { text: 'Материал штока' },
+        { text: 'Материал клина' },
+        { text: 'Материал седла' },
+        { text: 'Тип соединения' },
+        { text: 'Строительная длина' },
+        { text: 'NACE' },
+        { text: 'Ответные фланцы' },
+        { text: 'Материал ответных фланцев' },
+        { text: 'Шпильки' },
+        { text: 'Гайки' },
+        { text: 'Размер трубы' },
+        { text: 'Материал трубы' },
+        { text: 'Привод' },
+        { text: 'Комплект привода' },
+        { text: 'Примечание' },
         { text: 'Количество' },
       ],
     ];
@@ -213,6 +233,26 @@ export class ExcelServiceService {
         item.manufacturingStandart.name || '',
         item.diameter.name || '',
         item.classPressure.name || '',
+        item.workEnvironment || '',
+        item.temperature || '',
+        item.tightnessClass.name || '',
+        item.temperatureRange.name || '',
+        item.housingMaterial.name || '',
+        item.rodMaterial.name || '',
+        item.wedgeMaterial.name || '',
+        item.housingMaterial.name || '',
+        item.connectionType.name || '',
+        item.constructionLength || '',
+        item.nace ? 'да' : 'нет',
+        item.counterFlanges ? 'да' : 'нет',
+        item.counterFlangesMaterial.name || '',
+        item.hairpins || '',
+        item.nuts || '',
+        item.pipeSize || '',
+        item.pipeMaterial.name || '',
+        item.drive || '',
+        item.driveKit || '',
+        item.comment || '',
         item.count || '',
       ]);
     });
@@ -251,6 +291,26 @@ export class ExcelServiceService {
               'auto',
               'auto',
               'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
             ],
             body: tableBody,
           },
@@ -261,13 +321,64 @@ export class ExcelServiceService {
         header: {
           fontSize: 12,
           alignment: 'center',
-          margin: [0, 0, 0, 10],
+          margin: [0, 0, 0, 0],
         },
         table: {
-          fontSize: 8,
+          fontSize: 3,
         },
       },
     };
+    const additionalContent = [];
+
+    // Перечень поставляемой документации
+    additionalContent.push({
+      text: 'Перечень поставляемой документации',
+      style: 'subheader',
+      margin: [0, 20, 0, 5],
+    });
+
+    additionalData1.forEach((data) => {
+      if (data.condition) {
+        additionalContent.push({ text: `- ${data.value}`, fontSize: 8 });
+      }
+    });
+
+    // Дополнительная документация и тесты
+    if (
+      order.presenceOfCustomerDuringTesting ||
+      order.gasInspectionHighPressure ||
+      order.thirdSideInspection
+    ) {
+      additionalContent.push({
+        text: 'Дополнительная документация и тесты',
+        style: 'subheader',
+        margin: [0, 20, 0, 5],
+      });
+
+      const additionalData = [
+        {
+          value: 'Присутствие заказчика при испытаниях',
+          condition: order.presenceOfCustomerDuringTesting,
+        },
+        {
+          value: 'Газовый осмотр высокого давления',
+          condition: order.gasInspectionHighPressure,
+        },
+        {
+          value: 'Инспекция третьей стороны',
+          condition: order.thirdSideInspection,
+        },
+      ];
+
+      additionalData.forEach((data) => {
+        if (data.condition) {
+          additionalContent.push({ text: `- ${data.value}`, fontSize: 8 });
+        }
+      });
+    }
+
+    // Добавляем этот контент в основной docDefinition
+    docDefinition.content.push(...additionalContent);
 
     const pdfDoc = printer.createPdfKitDocument(docDefinition);
     const chunks: any[] = [];

@@ -26,12 +26,21 @@ import { MaterialsModule } from './materials/materials.module';
 import { ConnectionTypesModule } from './connection-types/connection-types.module';
 import { ExcelServiceService } from './excel-service/excel-service.service';
 import { ExcelServiceModule } from './excel-service/excel-service.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // Путь к папке с файлами
+      serveRoot: '/uploads', // Путь в URL
+      serveStaticOptions: {
+        index: false, // Отключает автоматический поиск index.html
+      },
     }),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConfigFactory,
