@@ -36,7 +36,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       load: [configuration],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'), // Путь к папке с файлами
+      rootPath: join(__dirname, 'uploads'), // Путь к папке с файлами
       serveRoot: '/uploads', // Путь в URL
       serveStaticOptions: {
         index: false, // Отключает автоматический поиск index.html
