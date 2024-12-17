@@ -13,6 +13,6 @@ COPY --from=builder /app/dist ./dist
 COPY ./ecosystem.config.js ./
 COPY ./src/templates ./dist/templates
 COPY ./src/excel-service/fonts ./dist/excel-service/fonts
-RUN mkdir /dist/uploads
+RUN mkdir dist/uploads
 
 ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js" ]
