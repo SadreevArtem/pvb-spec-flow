@@ -10,7 +10,7 @@ export class ExcelServiceService {
     templatePath: string,
     outputDir: string,
     order: any,
-  ): Promise<{ excelPath: string; pdfPath: string }> {
+  ): Promise<{ excelName: string; pdfName: string }> {
     const workbook = new Workbook();
 
     // Загружаем шаблон
@@ -145,8 +145,8 @@ export class ExcelServiceService {
       }
     });
     // Формируем имя нового файла
-    const outputFileName = `order_${order.id}.xlsx`;
-    const outputPath = path.join(outputDir, outputFileName);
+    const outputFileNameXLS = `order_${order.id}.xlsx`;
+    const outputPath = path.join(outputDir, outputFileNameXLS);
 
     // Сохраняем заполненный файл
     await workbook.xlsx.writeFile(outputPath);
@@ -400,6 +400,6 @@ export class ExcelServiceService {
       pdfDoc.end();
     });
 
-    return { excelPath: outputPath, pdfPath };
+    return { excelName: outputFileNameXLS, pdfName: pdfFileName };
   }
 }

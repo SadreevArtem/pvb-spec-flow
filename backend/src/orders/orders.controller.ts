@@ -70,7 +70,7 @@ export class OrdersController {
     const outputDir = path.join(__dirname, '../../uploads');
 
     // Генерация нового файла Excel
-    const { excelPath, pdfPath } =
+    const { excelName, pdfName } =
       await this.excelService.generateExcelFromTemplate(
         templatePath,
         outputDir,
@@ -78,12 +78,12 @@ export class OrdersController {
       );
 
     // Сохранение пути к файлу в сущность
-    order.filePath = excelPath;
+    // order.filePath = excelPath;
     await this.ordersService.update(+id, {
-      filePath: excelPath,
-      filePathPdf: pdfPath,
+      filePath: `https://api.pvb-university.com/uploads/${excelName}`,
+      filePathPdf: `https://api.pvb-university.com/uploads/${pdfName}`,
     });
 
-    return { filePath: excelPath };
+    return { filePath: excelName };
   }
 }
