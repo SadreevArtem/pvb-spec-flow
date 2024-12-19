@@ -28,6 +28,27 @@ class API {
       throw error;
     }
   };
+  // Асинхронный метод для авторизации
+  signUpRequest = async (input: { username: string; password: string }) => {
+    try {
+      const response = await fetch(`${this.baseUrl}/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Sign-in request failed:", error);
+      throw error;
+    }
+  };
   // Асинхронный метод для получения всех пользователей
   getAllUsersRequest = async (token: string) => {
     try {
@@ -1602,6 +1623,6 @@ class API {
   };
 }
 
-// export const api = new API("http://localhost:4000");
+export const api = new API("http://localhost:4000");
 
-export const api = new API("https://api.pvb-university.com");
+// export const api = new API("https://api.pvb-university.com");

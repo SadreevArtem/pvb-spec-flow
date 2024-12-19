@@ -3,6 +3,8 @@
     "name": "Имя",
     "password": "Пароль",
     "signIn": "Войти",
+    "email": "Эл. почта",
+    "signUp": "Зарегистрироваться",
     "requiredName": "Введите имя пользователя",
     "requiredPassword": "Введите пароль"
   },
@@ -35,7 +37,8 @@
     "tender_manager": "Специалист по закупкам",
     "planner_manager": "Планнер",
     "production_manager": "Ответсвенный за производство",
-    "control_manager": "Отвественный за контроль"
+    "control_manager": "Отвественный за контроль",
+    "endContract": "Окончание доступа"
   },
   "DirectoryDetail": {
     "edit": "Редактирование справочника",

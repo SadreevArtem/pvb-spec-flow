@@ -3,6 +3,8 @@
     "name": "Name",
     "password": "Password",
     "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
     "requiredName": "Enter your username",
     "requiredPassword": "Enter your password"
   },

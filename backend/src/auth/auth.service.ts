@@ -17,6 +17,7 @@ export class AuthService {
         username: true,
         password: true,
         id: true,
+        endContract: true,
       },
       where: { username },
     });
@@ -28,9 +29,15 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const { username, id: sub } = user;
+    const { username, id: sub, endContract } = user;
+
     return {
-      access_token: await this.jwtService.signAsync({ username, sub }),
+      access_token: await this.jwtService.signAsync({
+        username,
+        sub,
+        endContract:
+          endContract instanceof Date ? endContract.toISOString() : endContract,
+      }),
     };
   }
 }

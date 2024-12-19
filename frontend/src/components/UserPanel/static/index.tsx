@@ -13,4 +13,21 @@ export const menuUser: {
     name: "reference",
     value: { ru: "Справочники", en: "Reference books" },
   },
+  {
+    id: 4,
+    name: "account",
+    value: { ru: "Личный кабинет", en: "Account" },
+  },
+];
+
+export const menuUserNotAccess: {
+  id: number;
+  name: string;
+  value: { [key: string]: string };
+}[] = [
+  {
+    id: 4,
+    name: "account",
+    value: { ru: "Личный кабинет", en: "Account" },
+  },
 ];

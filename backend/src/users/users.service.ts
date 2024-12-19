@@ -22,12 +22,12 @@ export class UsersService {
     }));
   }
 
-  async create(createUserDto: CreateUserDto, user: User) {
-    if (user.role !== UserRole.ADMIN) {
-      throw new BadRequestException(
-        'Недостаточно прав для создания пользователя',
-      );
-    }
+  async create(createUserDto: CreateUserDto) {
+    // if (user.role !== UserRole.ADMIN) {
+    //   throw new BadRequestException(
+    //     'Недостаточно прав для создания пользователя',
+    //   );
+    // }
     if (await this.userExists(createUserDto)) {
       throw new BadRequestException(
         'Пользователь с указанными данными уже существует',

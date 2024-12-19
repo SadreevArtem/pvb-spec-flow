@@ -51,6 +51,9 @@ export class User {
   @OneToMany(() => Order, (order) => order.owner)
   orders: Order[];
 
+  @Column({ nullable: true })
+  endContract: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 

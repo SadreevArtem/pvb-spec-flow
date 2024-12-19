@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { PasswordTextField } from "../PasswordTextField/PasswordTextField";
@@ -9,13 +9,16 @@ import Image from "next/image";
 import { getErrorMessage } from "../../../shared/lib/getError";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher/LocaleSwitcher";
+import Link from "next/link";
 
 type Inputs = {
   username: string;
   password: string;
+  email?: string;
 };
 
 export const Login: React.FC = () => {
+  const [isSignUp, setIsSignUp] = useState(false);
   const {
     handleSubmit,
     control,
@@ -23,8 +26,10 @@ export const Login: React.FC = () => {
   } = useForm<Inputs>();
   const auth = useAuthStore((state) => state.auth);
   const t = useTranslations("Login");
+  const signInFunction = (data: Inputs) => api.signInRequest(data);
+  const signUpFunction = (data: Inputs) => api.signUpRequest(data);
   const { mutate: mutation, isPending } = useMutation({
-    mutationFn: api.signInRequest,
+    mutationFn: isSignUp ? signUpFunction : signInFunction,
     onSuccess: async (data) => {
       const token = data.access_token;
 
@@ -56,6 +61,27 @@ export const Login: React.FC = () => {
             />
             <h2 className="text-2xl font-bold text-primary">SPEC FLOW</h2>
           </div>
+          {isSignUp ? (
+            <div className="flex gap-4 text-primary">
+              <p className="inline-block">Уже есть аккаунт?</p>
+              <p
+                onClick={() => setIsSignUp((prev) => !prev)}
+                className="inline-block underline hover:text-blue-800 hover:cursor-pointer"
+              >
+                Войдите
+              </p>
+            </div>
+          ) : (
+            <div className="flex gap-4 text-primary">
+              <p className="inline-block">Нет аккаунта?</p>
+              <p
+                onClick={() => setIsSignUp((prev) => !prev)}
+                className="inline-block underline hover:text-blue-800 hover:cursor-pointer"
+              >
+                Зарегистрируйтесь
+              </p>
+            </div>
+          )}
           <Controller
             name="username"
             rules={{ required: true }}
@@ -66,6 +92,21 @@ export const Login: React.FC = () => {
           />
           {errors.username && (
             <span className="text-red-500">{t("requiredName")}</span>
+          )}
+          {isSignUp && (
+            <>
+              <Controller
+                name="email"
+                rules={{ required: true }}
+                control={control}
+                render={({ field }) => (
+                  <AppTextField tag="input" label={t("email")} {...field} />
+                )}
+              />
+              {errors.username && (
+                <span className="text-red-500">{t("requiredName")}</span>
+              )}
+            </>
           )}
 
           <Controller
@@ -86,8 +127,16 @@ export const Login: React.FC = () => {
             <span className="text-red-500">{t("requiredPassword")}</span>
           )}
           <button className="button" type="submit">
-            {t("signIn")}
+            {t(isSignUp ? "signUp" : "signIn")}
           </button>
+          <div>
+            <p className="inline-block text-primary mr-5">
+              Есть вопросы? свяжитесь с нами
+            </p>
+            <Link className="text-link" href={"mailto:info@ppvb.pro"}>
+              info@ppvb.pro
+            </Link>
+          </div>
         </form>
       </div>
     </>

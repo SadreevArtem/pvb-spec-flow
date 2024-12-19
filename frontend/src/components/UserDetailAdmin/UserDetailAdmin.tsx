@@ -1,8 +1,14 @@
-
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { User, UserRole } from "../../../shared/types";
 import { useAuthStore } from "../../../shared/stores/auth";
@@ -10,79 +16,79 @@ import { Button } from "../Button";
 import { appToast } from "../AppToast/components/lib/appToast";
 import { api } from "../../../shared/api/api";
 import { useTranslations } from "next-intl";
-
+import dayjs from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers";
 
 type Props = {
   id: number;
-}
+};
 
 type Inputs = User;
 
-
-export const UserDetailAdmin: React.FC<Props> = ({id}) => {
+export const UserDetailAdmin: React.FC<Props> = ({ id }) => {
   const isEdit = id !== 0;
   const token = useAuthStore((state) => state.token);
-  const t = useTranslations('UserDetail')
+  const t = useTranslations("UserDetail");
   const queryClient = useQueryClient();
-    const getUserById = () => api.getUserByIdAdminRequest(id, token);
-    const getQueryKey = (id: number) => ['user'].concat(id.toString());
-    const [role, setRole] = React.useState<UserRole | "">("");
-    const router = useRouter();
-    
-   const { data: user, isLoading } = useQuery<User>({
-     queryKey: getQueryKey(id),
-     queryFn: getUserById,
-     enabled: !!id,
-   });
-   const {
+  const getUserById = () => api.getUserByIdAdminRequest(id, token);
+  const getQueryKey = (id: number) => ["user"].concat(id.toString());
+  const [role, setRole] = React.useState<UserRole | "">("");
+  const router = useRouter();
+
+  const { data: user, isLoading } = useQuery<User>({
+    queryKey: getQueryKey(id),
+    queryFn: getUserById,
+    enabled: !!id,
+  });
+  const {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const updateUserFunc = (input: User)=> api.updateUserRequest(input, token);
-  const createUserFunc = (input: User)=> api.createUserRequest(input, token);
-  
-  const mutation = useMutation( {
-    mutationFn: isEdit? updateUserFunc : createUserFunc,
+  const updateUserFunc = (input: User) => api.updateUserRequest(input, token);
+  const createUserFunc = (input: User) => api.createUserRequest(input, token);
+
+  const mutation = useMutation({
+    mutationFn: isEdit ? updateUserFunc : createUserFunc,
     onSuccess: () => {
       appToast.success(isEdit ? "Успешно изменено" : "Успешно добавлено");
       queryClient.invalidateQueries();
-      router.back()
+      router.back();
     },
     onError: () => {
       appToast.error("Произошла ошибка");
     },
-  })
- 
-  
-  const deleteMutation  = useMutation( {
-    mutationFn: ()=> api.deleteUserRequest(id, token),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: () => api.deleteUserRequest(id, token),
     onSuccess: () => {
       appToast.success("Успешно удалено");
       queryClient.invalidateQueries();
-      router.back()
+      router.back();
     },
     onError: () => {
       appToast.error("Произошла ошибка");
     },
-  })
+  });
   const onDeleteClick = () => deleteMutation.mutate();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const prepareData = {
-        ...data,
+      ...data,
     };
-    if (data.password === "") delete prepareData.password;   
+    if (data.password === "") delete prepareData.password;
     mutation.mutate({
       ...prepareData,
     });
-  }
+  };
   const handleChange = (event: SelectChangeEvent) => {
     setRole(event.target.value as UserRole);
     setValue("role", event.target.value as UserRole);
   };
-    
+
   useEffect(() => {
     if (!user) return;
     Object.keys(user).forEach((key) => {
@@ -132,7 +138,9 @@ export const UserDetailAdmin: React.FC<Props> = ({id}) => {
                 {...register("password")}
               />
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">{t("role")}</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  {t("role")}
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -150,6 +158,26 @@ export const UserDetailAdmin: React.FC<Props> = ({id}) => {
                     ))}
                 </Select>
               </FormControl>
+              <Controller
+                name="endContract"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    label={t("endContract")}
+                    value={dayjs(field.value)}
+                    format="DD.MM.YYYY"
+                    onChange={(date) => field.onChange(date)}
+                    slotProps={{
+                      textField: {
+                        fullWidth: true,
+                        variant: "outlined",
+                        error: !!errors.endContract,
+                        helperText: errors.endContract ? t("required") : "",
+                      },
+                    }}
+                  />
+                )}
+              />
 
               {/* <Controller
                 name="published"

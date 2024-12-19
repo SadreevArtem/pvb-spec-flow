@@ -1,6 +1,7 @@
 export type TJwtPayload = {
   sub: number;
   username: string;
+  endContract?: Date | null;
   iat: number;
   exp: number;
 };
@@ -13,6 +14,7 @@ export type User = {
   email: string;
   password?: string;
   role: UserRole;
+  endContract?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 };
