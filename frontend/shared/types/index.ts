@@ -145,3 +145,9 @@ export type OptionsType = {
   materials: MaterialType[];
   connectionTypes: ConnectionType[];
 };
+
+export type FilesModel = {
+  originalname: string;
+  filename: string;
+  path: string;
+};

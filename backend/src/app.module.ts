@@ -28,6 +28,7 @@ import { ExcelServiceService } from './excel-service/excel-service.service';
 import { ExcelServiceModule } from './excel-service/excel-service.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -75,6 +76,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     MaterialsModule,
     ConnectionTypesModule,
     ExcelServiceModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [

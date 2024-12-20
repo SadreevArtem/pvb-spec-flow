@@ -11,6 +11,7 @@ import LocaleSwitcher from "../Login/LocaleSwitcher/LocaleSwitcher";
 import { Orders } from "../Orders/Orders";
 import { useJwtToken } from "../../../shared/hooks/useJwtToken";
 import dayjs from "dayjs";
+import { Account } from "../Account/Account";
 
 type Props = {
   title: string;
@@ -19,9 +20,7 @@ type Props = {
 
 export const UserPanel: React.FC<Props> = ({ title, className = "" }) => {
   const { currentMenu, setCurrentMenu } = useMenuStore();
-  const { endContract } = useJwtToken();
-  console.log(endContract);
-
+  const { sub: id, endContract } = useJwtToken();
   const isAccess = Boolean(endContract) && dayjs().isBefore(endContract);
   const unAuth = useAuthStore((state) => state.unAuth);
   const { locale = "ru" } = useRouter();
@@ -33,7 +32,7 @@ export const UserPanel: React.FC<Props> = ({ title, className = "" }) => {
       case "orders":
         return <Orders />;
       case "account":
-        return <>Account</>;
+        return id ? <Account id={id} /> : null;
       default:
         return null; // Возвращает null, если нет совпадений
     }

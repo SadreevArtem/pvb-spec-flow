@@ -53,11 +53,18 @@ export class UsersService {
   findOwn(query: FindOneOptions<User>) {
     return this.userRepository.findOneOrFail(query);
   }
+
   async update(id: number, role, updateUserDto: UpdateUserDto) {
-    if (role !== UserRole.ADMIN) {
-      throw new BadRequestException('Недостаточно прав');
+    if (role === UserRole.ADMIN) {
+      return this.userRepository.update({ id }, updateUserDto);
     }
-    return this.userRepository.update({ id }, updateUserDto);
+    const allowedFields = ['username', 'email', 'password', 'avatar']; // Поля, разрешённые для обновления
+    const filteredDto = this.filterDto(updateUserDto, allowedFields);
+
+    if (Object.keys(filteredDto).length === 0) {
+      throw new BadRequestException('Нет разрешённых полей для обновления');
+    }
+    return this.userRepository.update({ id }, filteredDto);
   }
   findById(id: number) {
     return this.userRepository.findOneBy({ id }); // for validation
@@ -74,19 +81,35 @@ export class UsersService {
     }
     return this.userRepository.remove(userToDelete);
   }
+  private filterDto(dto: UpdateUserDto, allowedFields: string[]) {
+    return Object.keys(dto)
+      .filter((key) => allowedFields.includes(key))
+      .reduce((filtered, key) => {
+        filtered[key] = dto[key];
+        return filtered;
+      }, {});
+  }
   // Метод для получения данных пользователя по ID для администратора
   async findByIdForAdmin(id: number, user: User) {
-    if (user.role !== UserRole.ADMIN) {
-      throw new BadRequestException(
-        'Недостаточно прав для просмотра данных пользователя',
-      );
-    }
-
+    // Проверяем наличие пользователя
     const userById = await this.userRepository.findOneBy({ id });
-    if (!user) {
+    if (!userById) {
       throw new BadRequestException('Пользователь не найден');
     }
 
-    return userById;
+    // Если запрос сделан администратором, возвращаем все данные
+    if (user.role === UserRole.ADMIN) {
+      return userById;
+    }
+
+    // Если запрос сделан обычным пользователем, возвращаем только выборочные данные
+    return {
+      id: userById.id,
+      username: userById.username,
+      about: userById.about,
+      avatar: userById.avatar,
+      email: userById.email,
+      endContract: userById.endContract,
+    };
   }
 }
