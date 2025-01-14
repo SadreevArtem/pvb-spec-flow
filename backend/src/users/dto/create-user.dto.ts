@@ -18,6 +18,15 @@ export class CreateUserDto {
   @Length(2, 200)
   about: string;
   @IsOptional()
+  @Length(2, 200)
+  adressOneLine: string;
+  @IsOptional()
+  @Length(2, 200)
+  adressTwoLine: string;
+  @IsOptional()
+  @Length(2, 200)
+  phone: string;
+  @IsOptional()
   @IsUrl()
   avatar: string;
   @IsEmail()

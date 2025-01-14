@@ -10,6 +10,9 @@ export type User = {
   id: number;
   username: string;
   about: string;
+  adressOneLine: string;
+  adressTwoLine: string;
+  phone: string;
   avatar: string;
   email: string;
   password?: string;

@@ -155,7 +155,7 @@ const CreateForm: React.FC<Props> = React.memo(
             // value={formData?.techTaskNumber || ""}
           />
 
-          <FormControl required className="!mr-3 !min-w-[220px]">
+          <FormControl required className="!mr-3 !w-[240px]">
             <InputLabel id="demo-simple-select-label">
               {"Тип продукции"}
             </InputLabel>
@@ -306,7 +306,7 @@ const CreateForm: React.FC<Props> = React.memo(
               ))}
             </Select>
           </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="temperature-range-select-label">
               {"Температурный диапазон"}
             </InputLabel>

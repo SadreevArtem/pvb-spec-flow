@@ -117,6 +117,21 @@ export const Account: React.FC<Props> = ({ id }) => {
               />
               <TextField
                 variant="outlined"
+                label={t("adressOne")}
+                {...register("adressOneLine")}
+              />
+              <TextField
+                variant="outlined"
+                label={t("adressTwo")}
+                {...register("adressTwoLine")}
+              />
+              <TextField
+                variant="outlined"
+                label={t("phone")}
+                {...register("phone")}
+              />
+              <TextField
+                variant="outlined"
                 label={t("email")}
                 {...register("email")}
               />

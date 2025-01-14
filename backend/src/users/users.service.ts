@@ -58,7 +58,16 @@ export class UsersService {
     if (role === UserRole.ADMIN) {
       return this.userRepository.update({ id }, updateUserDto);
     }
-    const allowedFields = ['username', 'email', 'password', 'avatar']; // Поля, разрешённые для обновления
+    const allowedFields = [
+      'username',
+      'email',
+      'password',
+      'avatar',
+      'about',
+      'adressOneLine',
+      'adressTwoLine',
+      'phone',
+    ]; // Поля, разрешённые для обновления
     const filteredDto = this.filterDto(updateUserDto, allowedFields);
 
     if (Object.keys(filteredDto).length === 0) {
@@ -107,6 +116,9 @@ export class UsersService {
       id: userById.id,
       username: userById.username,
       about: userById.about,
+      adressOneLine: userById.adressOneLine,
+      adressTwoLine: userById.adressTwoLine,
+      phone: userById.phone,
       avatar: userById.avatar,
       email: userById.email,
       endContract: userById.endContract,

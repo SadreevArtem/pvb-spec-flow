@@ -151,9 +151,9 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     },
   });
 
-  const updateOrderFunc = (input: Order) =>
+  const updateOrderFunc = (input: Inputs) =>
     api.updateOrderRequest(input, token);
-  const createOrderFunc = (input: Order) =>
+  const createOrderFunc = (input: Inputs) =>
     api.createOrderRequest(input, token);
   const deleteFunc = () => api.deleteOrderRequest(id, token);
 
@@ -237,6 +237,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     }
     mutation({
       ...data,
+      ...(Boolean(order?.owner.id) && { ownerId: order?.owner.id }),
     }).then(async (data) => {
       // await Promise.all(
       //   Array.from(Object.values(formData), (item) =>
@@ -442,7 +443,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                       type="button"
                     />
                   )}
-                  <Button title="excel" onButtonClick={onGenerateClick} />
+                  <Button title="export" onButtonClick={onGenerateClick} />
                 </div>
                 <div className="flex flex-col">
                   <FormControlLabel

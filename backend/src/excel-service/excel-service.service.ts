@@ -4,6 +4,9 @@ import * as path from 'path';
 import * as PdfPrinter from 'pdfmake';
 import * as fs from 'fs';
 
+import * as https from 'https';
+import * as http from 'http';
+
 @Injectable()
 export class ExcelServiceService {
   async generateExcelFromTemplate(
@@ -272,10 +275,60 @@ export class ExcelServiceService {
     //   });
     // }
 
+    const imageUrlToBase64 = async (url) => {
+      return new Promise((resolve, reject) => {
+        const client = url.startsWith('https') ? https : http;
+
+        client
+          .get(url, (response) => {
+            if (response.statusCode !== 200) {
+              reject(
+                new Error(
+                  `Failed to fetch image. Status code: ${response.statusCode}`,
+                ),
+              );
+              return;
+            }
+
+            const contentType = response.headers['content-type'];
+            const chunks = [];
+
+            response.on('data', (chunk) => chunks.push(chunk));
+            response.on('end', () => {
+              const buffer = Buffer.concat(chunks);
+              const base64 = buffer.toString('base64');
+              resolve(`data:${contentType};base64,${base64}`);
+            });
+          })
+          .on('error', (err) => reject(err));
+      });
+    };
+
+    const logoImg = await imageUrlToBase64(order.owner.avatar);
+
     const docDefinition = {
       pageOrientation: 'landscape',
       content: [
         { text: 'Заказ', style: 'header' },
+        {
+          columns: [
+            {
+              image: logoImg, // Укажите путь к логотипу
+              width: 100, // Ширина логотипа
+            },
+            {
+              text: `${order.owner.about}
+              ${order.owner.adressOneLine}
+              ${order.owner.adressTwoLine}
+    Тел: ${order.owner.phone}
+    Email: ${order.owner.email}`,
+              style: 'organizationInfo',
+              alignment: 'right',
+            },
+          ],
+          columnGap: 10, // Отступ между колонками
+          margin: [0, 0, 0, 10], // Отступ от других элементов
+        },
         {
           table: {
             headerRows: 1,
@@ -325,6 +378,10 @@ export class ExcelServiceService {
         },
         table: {
           fontSize: 3,
+        },
+        organizationInfo: {
+          fontSize: 10,
+          alignment: 'left',
         },
       },
     };

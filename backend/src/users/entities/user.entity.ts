@@ -28,6 +28,22 @@ export class User {
   about: string;
 
   @Column({
+    default: 'adress: index, city',
+  })
+  @Length(2, 200)
+  adressOneLine: string;
+  @Column({
+    default: 'adress: street, building',
+  })
+  @Length(2, 200)
+  adressTwoLine: string;
+  @Column({
+    default: '+7(777)99-00-00',
+  })
+  @Length(2, 200)
+  phone: string;
+
+  @Column({
     default: 'https://i.pravatar.cc/300',
   })
   avatar: string;

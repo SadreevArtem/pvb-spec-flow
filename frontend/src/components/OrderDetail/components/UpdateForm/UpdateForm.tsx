@@ -137,7 +137,7 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl required className="!mr-3 !w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Тип продукции"}
           </InputLabel>
@@ -282,7 +282,7 @@ export const UpdateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        <FormControl required className="!mr-3 !w-[220px]">
           <InputLabel id="temperature-range-select-label">
             {"Температурный диапазон"}
           </InputLabel>
