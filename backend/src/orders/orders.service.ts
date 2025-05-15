@@ -8,7 +8,6 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { User } from 'src/users/entities/user.entity';
 import { UserRole } from 'src/types';
 import { CustomersService } from 'src/customers/customers.service';
-import { EquipmentTypesService } from 'src/equipment-types/equipment-types.service';
 
 @Injectable()
 export class OrdersService {
@@ -17,7 +16,6 @@ export class OrdersService {
     private readonly orderRepository: Repository<Order>,
     private readonly usersService: UsersService,
     private readonly customersService: CustomersService,
-    private readonly equipmentTypeService: EquipmentTypesService,
   ) {}
   findAll(): Promise<Order[]> {
     return this.orderRepository.find({

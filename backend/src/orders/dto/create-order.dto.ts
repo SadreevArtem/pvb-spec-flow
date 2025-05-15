@@ -30,9 +30,6 @@ export class CreateOrderDto {
   @IsNotEmpty()
   customerId: number;
 
-  @IsNotEmpty()
-  equipmentTypeId: number;
-
   @IsOptional()
   ownerId: number; // связь с пользователем, который является владельцем заказа
 

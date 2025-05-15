@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
 import { ItemsModule } from './items/items.module';
-import { EquipmentTypesModule } from './equipment-types/equipment-types.module';
+// import { EquipmentTypesModule } from './equipment-types/equipment-types.module';
 import { ProductTypesModule } from './product-types/product-types.module';
 import { ConstructionsModule } from './constructions/constructions.module';
 import { ManufacturingStandartsModule } from './manufacturing-standarts/manufacturing-standarts.module';
@@ -65,7 +65,7 @@ import { UploadModule } from './upload/upload.module';
     OrdersModule,
     AuthModule,
     ItemsModule,
-    EquipmentTypesModule,
+    // EquipmentTypesModule,
     ProductTypesModule,
     ConstructionsModule,
     ManufacturingStandartsModule,
