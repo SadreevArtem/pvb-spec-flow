@@ -11,30 +11,38 @@ import {
 import React, { useState } from "react";
 import {
   Drive,
-  EquipmentType,
   Item,
   OptionsType,
+  TypeZra,
   WorkEnvironment,
 } from "../../../../../shared/types";
-// import { Button } from "@/components/Button";
 import clsx from "clsx";
+import { ZraDict } from "../../helpers";
+import { useTranslations } from "next-intl";
+import { BoltOnLid } from "../BoltOnLid";
 
 type Props = {
   index: number;
-  currentTypes: EquipmentType | undefined;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
-  formData: Item;
+  formData: Item & { productTypeId?: number };
 };
 const CreateForm: React.FC<Props> = React.memo(
-  ({ index, currentTypes, setFormData, formData, options }) => {
+  ({ index, setFormData, formData, options }) => {
     const [workEnvironment, setWorkEnvironment] = React.useState<
       WorkEnvironment | ""
     >("");
+    const t = useTranslations("OrderDetail");
     const [drive, setDrive] = React.useState<Drive | "manual">("manual");
-
-    const [model, setModel] = useState("");
+    const [typeZra, setTypeZra] = React.useState<TypeZra | "">("");
     const [selectedMaterial, setSelectedMaterial] = useState("0");
+    const selectedZra = options.productTypes.find(
+      (item) => item.id === formData?.productTypeId
+    )?.name;
+
+    const typeZraOptions = selectedZra ? ZraDict[selectedZra] : [];
+    console.log(typeZraOptions);
+
     const handleChangeField =
       (fieldName: string) => (event: SelectChangeEvent) => {
         setFormData((prev) => ({
@@ -54,15 +62,13 @@ const CreateForm: React.FC<Props> = React.memo(
           productTypeId: event.target.value,
         },
       }));
-      const modelName = options.productTypes.find(
-        (productType) => productType.id === +event.target.value
-      );
-      setModel(modelName?.model || "");
+      // const modelName = options.productTypes.find(
+      //   (productType) => productType.id === +event.target.value
+      // );
+      // setModel(modelName?.model || "");
     };
     const handleChangeConstructions = handleChangeField("constructionId");
-    const handleChangeManufacturingStandart = handleChangeField(
-      "manufacturingStandartId"
-    );
+
     const handleChangeDiameter = handleChangeField("diameterId");
     const handleChangeClassPressure = handleChangeField("classPressureId");
     const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
@@ -85,6 +91,18 @@ const CreateForm: React.FC<Props> = React.memo(
         },
       }));
     };
+    const handleChangeTypeZra = (event: SelectChangeEvent) => {
+      setTypeZra(event.target.value as TypeZra);
+      setFormData((prev) => ({
+        ...prev,
+        [index + 1]: {
+          ...prev[index + 1],
+          typeZra: event.target.value as TypeZra,
+        },
+      }));
+    };
+    console.log(options.productTypes);
+
     const handleChangeTightnessClass = handleChangeField("tightnessClassId");
     const handleChangeTemperatureRange =
       handleChangeField("temperatureRangeId");
@@ -96,13 +114,26 @@ const CreateForm: React.FC<Props> = React.memo(
     );
     const handleChangeConnectionType = handleChangeField("connectionTypeId");
     const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
+    const renderContent = () => {
+      switch (typeZra) {
+        case "BOLT_ON_LID":
+          return (
+            <BoltOnLid
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+      }
+    };
     return (
       <div key={index} className="w-fit">
-        {currentTypes && (
+        {/* {currentTypes && (
           <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
             currentTypes?.name
           } ${index + 1}`}</span>
-        )}
+        )} */}
         <div className="flex my-3 gap-4">
           <TextField
             label={"TAG номер"}
@@ -154,34 +185,6 @@ const CreateForm: React.FC<Props> = React.memo(
             }
             // value={formData?.techTaskNumber || ""}
           />
-
-          <FormControl required className="!mr-3 !w-[240px]">
-            <InputLabel id="demo-simple-select-label">
-              {"Тип продукции"}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={"0"}
-              label="Тип продукции"
-              onChange={handleChangeProductType}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.productTypes.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
-                  {type.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            label={"Модель"}
-            variant="outlined"
-            disabled
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) => e.preventDefault()}
-            value={model}
-          />
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="demo-simple-select-label">
               {"Конструкция"}
@@ -201,25 +204,53 @@ const CreateForm: React.FC<Props> = React.memo(
               ))}
             </Select>
           </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="dss-simple-select-label">
-              {"Стандарт изготовления"}
+          <FormControl required className="!mr-3 !w-[240px]">
+            <InputLabel id="demo-simple-select-label">
+              {"Тип продукции"}
             </InputLabel>
             <Select
-              labelId="dss-simple-select-label"
-              id="dss-simple-select"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               defaultValue={"0"}
-              label="Стандарт изготовления"
-              onChange={handleChangeManufacturingStandart}
+              label="Тип продукции"
+              onChange={handleChangeProductType}
             >
               <MenuItem value="0">Не выбрано</MenuItem>
-              {options.manufacturingStandart.map((type, i) => (
+              {options.productTypes.map((type, i) => (
                 <MenuItem key={i} value={type.id}>
                   {type.name}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
+          <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
+            <InputLabel id="demo-simple-select-label">{"Тип ЗРА"}</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={typeZra}
+              label="Тип ЗРА"
+              onChange={handleChangeTypeZra}
+            >
+              {typeZraOptions.map((item, i) => (
+                <MenuItem key={i} value={item}>
+                  {t(item)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* 
+          <TextField
+            label={"Модель"}
+            variant="outlined"
+            disabled
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) => e.preventDefault()}
+            value={model}
+          /> */}
+          {renderContent()}
+
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
             <Select

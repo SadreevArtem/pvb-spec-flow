@@ -5,7 +5,7 @@ import { Customers } from "../Customers/Customers";
 import { EquipmentTypeComponent } from "../EquipmentType/EquipmentType";
 import { ProductTypeComponent } from "../ProductType/ProductType";
 import { ConstructionComponent } from "../ConstructionComponent/ConstructionComponent";
-import { ManufacturingStandartComponent } from "../ManufacturingStandartComponent/ManufacturingStandartComponent";
+// import { ManufacturingStandartComponent } from "../ManufacturingStandartComponent/ManufacturingStandartComponent";
 import { DiameterComponent } from "../DiameterComponent/DiameterComponent";
 import { ClassPressureComponent } from "../ClassPressureComponent/ClassPressureComponent";
 import { TightnessClassesComponent } from "../TightnessClassesComponent/TightnessClassesComponent";
@@ -25,8 +25,8 @@ export const ReferenceBooks = () => {
         return <ProductTypeComponent />;
       case "construction":
         return <ConstructionComponent />;
-      case "manufacturingStandart":
-        return <ManufacturingStandartComponent />;
+      // case "manufacturingStandart":
+      //   return <ManufacturingStandartComponent />;
       case "diameters":
         return <DiameterComponent />;
       case "class-pressure":

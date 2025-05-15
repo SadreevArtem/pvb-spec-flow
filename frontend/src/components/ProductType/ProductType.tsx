@@ -57,7 +57,7 @@ export const ProductTypeComponent = () => {
                     </TableCell>
                     <TableCell>
                       <Link
-                        href={`/equipment-types/${row.id}`}
+                        href={`/product-types/${row.id}`}
                         className="hover:text-primary"
                       >
                         {row.model}

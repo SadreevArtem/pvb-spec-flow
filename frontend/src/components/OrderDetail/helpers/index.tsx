@@ -1,0 +1,37 @@
+export const ZraDict: Record<string, string[]> = {
+  "Задвижка клиновая": [
+    "BOLT_ON_LID",
+    "WEDGE_GATE_PARALLEL_SLIDING",
+    "BELLOWS",
+    "PRESSURE_SEAL_GATE",
+    "HIGH_PRESSURE_PARALLEL_SLIDING",
+  ],
+  "Задвижка шиберная": ["SPHERICAL_PIPELINE_GATE"],
+  "Клапан запорный": ["BOLTED_COVER", "TYPE_Y"],
+  Клапан: [
+    "TYPE_Y",
+    "BELLOWS_VALVE",
+    "BELLOWS_TYPE_Y",
+    "PRESSURE_SEAL_GLOBE",
+    "PRESSURE_SEAL_GLOBE_TYPE_Y",
+  ],
+  "Шаровый клапан": ["ANGULAR"],
+  "Обратный клапан": [
+    "TURNING",
+    "PISTON",
+    "PISTON_TYPE_Y",
+    "SWING_CHECK_PRESSURE_SEAL",
+    "LIFT_CHECK_PRESSURE_SEAL_STRAIGHT",
+    "LIFT_CHECK_PRESSURE_SEAL_Y_PATTERN",
+    "INCLINED_DISK",
+  ],
+  "Кран шаровой": [
+    "FLOATING_PLUG_SIDE_ENTRY",
+    "TRUNNION_BALL_SIDE_ENTRY",
+    "TRUNNION_BALL_TOP_ENTRY",
+    "MONOBLOCK",
+    "FLOATING_TWIN",
+    "THREE_WAY",
+  ],
+  "Поворотный затвор": ["TWO_CENTERED", "THREE_CENTERED"],
+};

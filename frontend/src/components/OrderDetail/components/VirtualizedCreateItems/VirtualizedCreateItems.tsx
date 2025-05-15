@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import { AutoSizer, List } from "react-virtualized";
 import CreateForm from "../CreateForm/CreateForm";
-import { EquipmentType, Item, OptionsType } from "../../../../../shared/types";
+import { Item, OptionsType } from "../../../../../shared/types";
 
 type Props = {
   count: number;
-  currentTypes: EquipmentType | undefined;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
   isEdit: boolean;
@@ -14,7 +13,6 @@ type Props = {
 
 const VirtualizedCreateItems: FC<Props> = ({
   count,
-  currentTypes,
   setFormData,
   formData,
   options,
@@ -42,7 +40,6 @@ const VirtualizedCreateItems: FC<Props> = ({
                   <div key={item.index.toString()} style={style}>
                     <CreateForm
                       index={item.index}
-                      currentTypes={currentTypes}
                       formData={formData[index + 1]}
                       setFormData={setFormData}
                       options={options || {}}

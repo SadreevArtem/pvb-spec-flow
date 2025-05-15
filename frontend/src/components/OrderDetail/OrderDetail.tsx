@@ -14,7 +14,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import {
   Customer,
-  EquipmentType,
   Item,
   Order,
   User,
@@ -58,7 +57,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const queryClient = useQueryClient();
   const [customer, setCustomer] = React.useState<number>(0);
   const [owner, setOwner] = React.useState<number>(0);
-  const [equipmentType, setEquipmentType] = React.useState<number>(0);
   const router = useRouter();
   const { sub } = useJwtToken();
   const isAdmin = Number(sub) === 1;
@@ -85,12 +83,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     queryFn: getUsers,
     enabled: isAdmin,
   });
-  const getEquipmentType = () => api.getAllEquipmentTypesRequest(token);
-  const { data: equipmentTypes = [], isLoading: isLoadingEquipmentType } =
-    useQuery<EquipmentType[]>({
-      queryKey: ["equipment-type"],
-      queryFn: getEquipmentType,
-    });
+
   const { data: productTypes = [] } = useQuery<ProductType[]>({
     queryKey: ["product-types"],
     queryFn: getProductTypes,
@@ -224,11 +217,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     event.preventDefault();
     generateMutation.mutate();
   };
-  const handleChangeEquipmentType = (event: SelectChangeEvent) => {
-    setEquipmentType(+event.target.value as number);
-    setValue("equipmentTypeId", +event.target.value as number);
-  };
-  const currentTypes = equipmentTypes.find((item) => item.id === equipmentType);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (Object.keys(formData).length < 1) {
@@ -281,10 +269,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
           return acc;
         }, {} as Record<number, (typeof order.items)[number]>)
       );
-    }
-    if (order.equipmentType) {
-      setEquipmentType(order.equipmentType.id);
-      setValue("equipmentTypeId", order.equipmentType.id);
     }
   }, [order, setValue]);
 
@@ -385,7 +369,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                     ))}
                   </Select>
                 </FormControl>
-                <FormControl fullWidth required>
+                {/* <FormControl fullWidth required>
                   <InputLabel id="demo-simple-select-label">
                     {t("equipmentType")}
                   </InputLabel>
@@ -404,7 +388,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                       </MenuItem>
                     ))}
                   </Select>
-                </FormControl>
+                </FormControl> */}
                 <FormControl
                   fullWidth
                   className={clsx({ "!hidden": !isAdmin })}
@@ -618,7 +602,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
           <div style={{ width: "fit", height: "600px" }} className="">
             <VirtualizedCreateItems
               count={watch("count")}
-              currentTypes={currentTypes}
               setFormData={setFormData}
               isEdit={isEdit}
               formData={formData}
@@ -651,7 +634,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                     item={item}
                     index={index}
                     setFormData={setFormData}
-                    currentTypes={currentTypes}
                     options={options}
                   />
                 ))}

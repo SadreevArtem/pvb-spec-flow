@@ -25,11 +25,11 @@ export const reference: {
     categoryName: "construction",
     value: { ru: "Конструкция", en: "Construction" },
   },
-  {
-    id: 5,
-    categoryName: "manufacturingStandart",
-    value: { ru: "Стандарт изготовления", en: "Manufacturing Standart" },
-  },
+  // {
+  //   id: 5,
+  //   categoryName: "manufacturingStandart",
+  //   value: { ru: "Стандарт изготовления", en: "Manufacturing Standart" },
+  // },
   {
     id: 6,
     categoryName: "diameters",

@@ -31,7 +31,6 @@ export class UploadController {
     const filePath = `uploads/${file.filename}`; // Путь относительно корня сервера
     const fileUrl = `${process.env.HOST}/${filePath}`; // Полный URL
 
-    console.log(file);
     return {
       originalname: file.originalname,
       filename: file.filename,

@@ -9,7 +9,7 @@ import { Order } from 'src/orders/entities/order.entity';
 import { ProductType } from 'src/product-types/entities/product-type.entity';
 import { TemperatureRange } from 'src/temperature-ranges/entities/temperature-range.entity';
 import { TightnessClass } from 'src/tightness-classes/entities/tightness-class.entity';
-import { Drive, WorkEnvironment } from 'src/types';
+import { Drive, TypeZra, WorkEnvironment } from 'src/types';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -26,6 +26,15 @@ export class Item {
 
   @ManyToOne(() => ProductType, (productType) => productType.items)
   productType: ProductType; // Справочник типа оборудования
+
+  @Column({
+    type: 'enum',
+    enum: TypeZra,
+  })
+  typeZra: TypeZra;
+
+  @Column({ nullable: true })
+  typeOfOrgan: string; //Тип запорного органа
 
   @ManyToOne(() => Construction, (construction) => construction.items)
   construction: Construction; //Справочник конструкции

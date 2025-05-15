@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import {
   Drive,
-  EquipmentType,
   Item,
   OptionsType,
   WorkEnvironment,
@@ -19,19 +18,12 @@ import React, { useState } from "react";
 
 type Props = {
   index: number;
-  currentTypes: EquipmentType | undefined;
   item: Item;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
 };
 
-export const UpdateForm: React.FC<Props> = ({
-  currentTypes,
-  item,
-  index,
-  setFormData,
-  options,
-}) => {
+export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
   const [workEnvironment, setWorkEnvironment] = React.useState<WorkEnvironment>(
     item.workEnvironment
   );
@@ -103,9 +95,9 @@ export const UpdateForm: React.FC<Props> = ({
   const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
   return (
     <div key={item.id} className="w-fit">
-      <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
+      {/* <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
         currentTypes?.name
-      } ${index + 1}`}</span>
+      } ${index + 1}`}</span> */}
       <div className="flex my-3">
         <TextField
           label="TAG номер"
