@@ -47,41 +47,29 @@ export class OrdersService {
           counterFlangesMaterial: true,
           pipeMaterial: true,
         },
-        equipmentType: true,
       },
     });
   }
   async update(id: number, updateOrderDto: UpdateOrderDto) {
-    const {
-      customerId,
-      ownerId: userId,
-      equipmentTypeId,
-      ...rest
-    } = updateOrderDto;
+    const { customerId, ownerId: userId, ...rest } = updateOrderDto;
     // Получаем сущности для связи
     const owner = await this.usersService.findById(userId);
     const customer = await this.customersService.findById(customerId);
-    const equipmentType =
-      await this.equipmentTypeService.findById(equipmentTypeId);
     // Обновляем заказ, передавая только нужные поля из rest
     return this.orderRepository.update(id, {
       ...rest,
       owner,
       customer,
-      equipmentType,
     });
   }
   async create(createOrderDto: CreateOrderDto, userId: number) {
-    const { customerId, equipmentTypeId } = createOrderDto;
-    const equipmentType =
-      await this.equipmentTypeService.findById(equipmentTypeId);
+    const { customerId } = createOrderDto;
     const owner = await this.usersService.findById(userId);
     const customer = await this.customersService.findById(customerId);
     const order = await this.orderRepository.create({
       ...createOrderDto,
       owner,
       customer,
-      equipmentType,
     });
     return this.orderRepository.save(order);
   }

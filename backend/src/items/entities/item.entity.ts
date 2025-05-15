@@ -30,6 +30,7 @@ export class Item {
   @Column({
     type: 'enum',
     enum: TypeZra,
+    nullable: true,
   })
   typeZra: TypeZra;
 
