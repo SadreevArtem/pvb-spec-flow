@@ -30,16 +30,16 @@ export const reference: {
   //   categoryName: "manufacturingStandart",
   //   value: { ru: "Стандарт изготовления", en: "Manufacturing Standart" },
   // },
-  {
-    id: 6,
-    categoryName: "diameters",
-    value: { ru: "ДУ", en: "DN" },
-  },
-  {
-    id: 7,
-    categoryName: "class-pressure",
-    value: { ru: "Ру", en: "CLASS" },
-  },
+  // {
+  //   id: 6,
+  //   categoryName: "diameters",
+  //   value: { ru: "ДУ", en: "DN" },
+  // },
+  // {
+  //   id: 7,
+  //   categoryName: "class-pressure",
+  //   value: { ru: "Ру", en: "CLASS" },
+  // },
   {
     id: 8,
     categoryName: "tightness-classes",

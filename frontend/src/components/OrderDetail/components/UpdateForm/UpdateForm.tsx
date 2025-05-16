@@ -60,8 +60,8 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
   const handleChangeManufacturingStandart = handleChangeField(
     "manufacturingStandartId"
   );
-  const handleChangeDiameter = handleChangeField("diameterId");
-  const handleChangeClassPressure = handleChangeField("classPressureId");
+  // const handleChangeDiameter = handleChangeField("diameterId");
+  // const handleChangeClassPressure = handleChangeField("classPressureId");
   const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
     setWorkEnvironment(event.target.value as WorkEnvironment);
     setFormData((prev) => ({
@@ -191,7 +191,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -206,8 +206,8 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        </FormControl> */}
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">{"Pу"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -222,7 +222,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Рабочая среда"}

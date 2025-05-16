@@ -9,13 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import {
-  Drive,
-  Item,
-  OptionsType,
-  TypeZra,
-  WorkEnvironment,
-} from "../../../../../shared/types";
+import { Drive, Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
@@ -29,9 +23,6 @@ type Props = {
 };
 const CreateForm: React.FC<Props> = React.memo(
   ({ index, setFormData, formData, options }) => {
-    const [workEnvironment, setWorkEnvironment] = React.useState<
-      WorkEnvironment | ""
-    >("");
     const t = useTranslations("OrderDetail");
     const [drive, setDrive] = React.useState<Drive | "manual">("manual");
     const [typeZra, setTypeZra] = React.useState<TypeZra | "">("");
@@ -69,18 +60,6 @@ const CreateForm: React.FC<Props> = React.memo(
     };
     const handleChangeConstructions = handleChangeField("constructionId");
 
-    const handleChangeDiameter = handleChangeField("diameterId");
-    const handleChangeClassPressure = handleChangeField("classPressureId");
-    const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
-      setWorkEnvironment(event.target.value as WorkEnvironment);
-      setFormData((prev) => ({
-        ...prev,
-        [index + 1]: {
-          ...prev[index + 1],
-          workEnvironment: event.target.value as WorkEnvironment,
-        },
-      }));
-    };
     const handleChangeDrive = (event: SelectChangeEvent) => {
       setDrive(event.target.value as Drive);
       setFormData((prev) => ({
@@ -251,59 +230,7 @@ const CreateForm: React.FC<Props> = React.memo(
           /> */}
           {renderContent()}
 
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={"0"}
-              label="Ду"
-              onChange={handleChangeDiameter}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.diameters.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
-                  {type.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="demo-simple-select-label">{"Pу"}</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={"0"}
-              label="Pу"
-              onChange={handleChangeClassPressure}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.classPressures.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
-                  {type.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="demo-simple-select-label">
-              {"Рабочая среда"}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={workEnvironment}
-              label="Рабочая среда"
-              onChange={handleChangeWorkEnvironment}
-            >
-              {Object.values(WorkEnvironment).map((item, i) => (
-                <MenuItem key={i} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
+          {/* <TextField
             label="Температура рабочей среды"
             variant="outlined"
             className={clsx("!mr-3 !min-w-[220px]", {})}
@@ -317,7 +244,7 @@ const CreateForm: React.FC<Props> = React.memo(
               }))
             }
             // value={formData?.temperature || ""}
-          />
+          /> */}
           <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="demo-simple-select-label">
               {"Класс герметичности"}

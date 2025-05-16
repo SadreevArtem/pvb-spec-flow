@@ -6,8 +6,6 @@ import { EquipmentTypeComponent } from "../EquipmentType/EquipmentType";
 import { ProductTypeComponent } from "../ProductType/ProductType";
 import { ConstructionComponent } from "../ConstructionComponent/ConstructionComponent";
 // import { ManufacturingStandartComponent } from "../ManufacturingStandartComponent/ManufacturingStandartComponent";
-import { DiameterComponent } from "../DiameterComponent/DiameterComponent";
-import { ClassPressureComponent } from "../ClassPressureComponent/ClassPressureComponent";
 import { TightnessClassesComponent } from "../TightnessClassesComponent/TightnessClassesComponent";
 import { TemperatureRangeComponent } from "../TemperatureRangesComponent/TemperatureRangesComponent";
 import { MaterialComponent } from "../MaterialComponent/MaterialComponent";
@@ -27,10 +25,6 @@ export const ReferenceBooks = () => {
         return <ConstructionComponent />;
       // case "manufacturingStandart":
       //   return <ManufacturingStandartComponent />;
-      case "diameters":
-        return <DiameterComponent />;
-      case "class-pressure":
-        return <ClassPressureComponent />;
       case "tightness-classes":
         return <TightnessClassesComponent />;
       case "temperature-ranges":

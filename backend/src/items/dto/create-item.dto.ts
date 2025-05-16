@@ -30,10 +30,13 @@ export class CreateItemDto {
   manufacturingStandartId: number;
 
   @IsOptional()
-  diameterId: number;
+  typeOfOrgan: string;
 
   @IsOptional()
-  classPressureId: number;
+  diameter: string;
+
+  @IsOptional()
+  classPressure: string;
 
   @IsEnum(WorkEnvironment)
   @IsOptional()

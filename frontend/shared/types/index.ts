@@ -30,6 +30,7 @@ export enum UserRole {
 export enum WorkEnvironment {
   GAS = "gas",
   LIQUID = "liquid",
+  MIXTURE = "mixture",
 }
 
 export enum Drive {
@@ -114,8 +115,8 @@ export type Item = {
   typeOfOrgan: string;
   construction: ConstructionType;
   manufacturingStandart: ManufacturingStandartType;
-  diameter: DiameterType;
-  classPressure: ClassPressureType;
+  diameter: string;
+  classPressure: string;
   temperature: string;
   tightnessClass: TightnessClassType;
   temperatureRange: TemperatureRangeType;
@@ -158,10 +159,6 @@ export type ConstructionType = EquipmentType;
 
 export type ManufacturingStandartType = EquipmentType;
 
-export type DiameterType = EquipmentType;
-
-export type ClassPressureType = EquipmentType;
-
 export type TightnessClassType = EquipmentType;
 
 export type TemperatureRangeType = EquipmentType;
@@ -174,8 +171,6 @@ export type OptionsType = {
   productTypes: ProductType[];
   constructions: ConstructionType[];
   manufacturingStandart: ManufacturingStandartType[];
-  diameters: DiameterType[];
-  classPressures: ClassPressureType[];
   tightnessClasses: TightnessClassType[];
   temperatureRanges: TemperatureRangeType[];
   materials: MaterialType[];

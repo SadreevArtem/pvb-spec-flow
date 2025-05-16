@@ -38,8 +38,7 @@ export class ExcelServiceService {
       row.getCell(10).value = item.manufacturingStandart.name; //Стандарт изготовления
       row.getCell(11).value = item.diameter.name; // ДУ
       row.getCell(12).value = item.classPressure.name; // Класс давления
-      row.getCell(13).value =
-        item.workEnvironment === 'liquid' ? 'жидкость' : 'газ'; // Рабочая среда
+      row.getCell(13).value = item.workEnvironment; // Рабочая среда
       row.getCell(14).value = item.temperature; // Температура рабочей среды
       row.getCell(15).value = item.tightnessClass.name; // Класс герметичности
       row.getCell(16).value = item.temperatureRange.name; // Температурный диапазон

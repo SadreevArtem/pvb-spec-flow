@@ -33,8 +33,6 @@ export class OrdersService {
           productType: true,
           construction: true,
           manufacturingStandart: true,
-          diameter: true,
-          classPressure: true,
           tightnessClass: true,
           temperatureRange: true,
           housingMaterial: true,

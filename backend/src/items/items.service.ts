@@ -14,8 +14,6 @@ import { UserRole } from 'src/types';
 import { ProductTypesService } from 'src/product-types/product-types.service';
 import { ConstructionsService } from 'src/constructions/constructions.service';
 import { ManufacturingStandartsService } from 'src/manufacturing-standarts/manufacturing-standarts.service';
-import { DiametersService } from 'src/diameters/diameters.service';
-import { ClassPressureService } from 'src/class-pressure/class-pressure.service';
 import { TightnessClassesService } from 'src/tightness-classes/tightness-classes.service';
 import { TemperatureRangesService } from 'src/temperature-ranges/temperature-ranges.service';
 import { MaterialsService } from 'src/materials/materials.service';
@@ -30,8 +28,6 @@ export class ItemsService {
     private readonly productTypeService: ProductTypesService,
     private readonly constructionsService: ConstructionsService,
     private readonly manufacturingStandartsService: ManufacturingStandartsService,
-    private readonly diametersService: DiametersService,
-    private readonly classPressureService: ClassPressureService,
     private readonly tightnessClassesService: TightnessClassesService,
     private readonly temperatureRangesService: TemperatureRangesService,
     private readonly materialService: MaterialsService,
@@ -44,8 +40,7 @@ export class ItemsService {
       productTypeId,
       manufacturingStandartId,
       constructionId,
-      classPressureId,
-      diameterId,
+      classPressure,
       tightnessClassId,
       temperatureRangeId,
       housingMaterialId,
@@ -54,6 +49,7 @@ export class ItemsService {
       seatMaterialId,
       pipeMaterialId,
       wedgeMaterialId,
+      diameter,
       counterFlangesMaterialId,
       ...itemData
     } = createItemDto;
@@ -77,15 +73,6 @@ export class ItemsService {
       );
     if (!manufacturingStandart) {
       throw new NotFoundException('Manufacturing Standart not found');
-    }
-    const diameter = await this.diametersService.findById(diameterId);
-    if (!diameter) {
-      throw new NotFoundException('DN not found');
-    }
-    const classPressure =
-      await this.classPressureService.findById(classPressureId);
-    if (!classPressure) {
-      throw new NotFoundException('DN not found');
     }
     const tightnessClass =
       await this.tightnessClassesService.findById(tightnessClassId);
@@ -170,8 +157,8 @@ export class ItemsService {
       orderId,
       productTypeId,
       manufacturingStandartId,
-      diameterId,
-      classPressureId,
+      diameter,
+      classPressure,
       constructionId,
       tightnessClassId,
       temperatureRangeId,
@@ -203,15 +190,6 @@ export class ItemsService {
       );
     if (!manufacturingStandart) {
       throw new NotFoundException('Manufacturing Standart not found');
-    }
-    const diameter = await this.diametersService.findById(diameterId);
-    if (!diameter) {
-      throw new NotFoundException('DN not found');
-    }
-    const classPressure =
-      await this.classPressureService.findById(classPressureId);
-    if (!classPressure) {
-      throw new NotFoundException('DN not found');
     }
     const tightnessClass =
       await this.tightnessClassesService.findById(tightnessClassId);

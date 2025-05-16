@@ -6,6 +6,7 @@ export enum UserRole {
 export enum WorkEnvironment {
   GAS = 'gas',
   LIQUID = 'liquid',
+  MIXTURE = 'mixture',
 }
 
 export enum Drive {

@@ -1,8 +1,6 @@
 import { Length } from 'class-validator';
-import { ClassPressure } from 'src/class-pressure/entities/class-pressure.entity';
 import { ConnectionType } from 'src/connection-types/entities/connection-type.entity';
 import { Construction } from 'src/constructions/entities/construction.entity';
-import { Diameter } from 'src/diameters/entities/diameter.entity';
 import { ManufacturingStandart } from 'src/manufacturing-standarts/entities/manufacturing-standart.entity';
 import { Material } from 'src/materials/entities/material.entity';
 import { Order } from 'src/orders/entities/order.entity';
@@ -46,11 +44,11 @@ export class Item {
   )
   manufacturingStandart: ManufacturingStandart; //Справочник конструкции
 
-  @ManyToOne(() => Diameter, (diameter) => diameter.items)
-  diameter: Diameter; //Справочник ДУ
+  @Column({ nullable: true })
+  diameter: string; //Справочник ДУ
 
-  @ManyToOne(() => ClassPressure, (classPressure) => classPressure.items)
-  classPressure: ClassPressure; //Справочник Py
+  @Column({ nullable: true })
+  classPressure: string; //Справочник Py
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
   order: Order; // Связь с заказом
