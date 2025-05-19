@@ -1,3 +1,5 @@
+import { MaterialEntry } from "../../../../../../shared/types";
+
 export const staticOptions = {
   manufacturingStandart: [
     { id: 1, name: "API 600" },
@@ -69,4 +71,37 @@ export const staticOptions = {
     { id: 6, name: "Высокотемпературная (T > +400°C)" },
     { id: 7, name: "Криогенная (-196°C <= T <= 50°C)" },
   ],
+  materials: [
+    { id: 1, name: "WCB" },
+    { id: 2, name: "LCB" },
+    { id: 3, name: "WC6" },
+    { id: 4, name: "C5" },
+    { id: 5, name: "C12" },
+    { id: 6, name: "CF8" },
+    { id: 7, name: "CF8C" },
+    { id: 8, name: "CF8M" },
+    { id: 9, name: "CF3M" },
+    { id: 10, name: "09Г2С" },
+    { id: 11, name: "13ХФА" },
+    { id: 12, name: "20" },
+    { id: 13, name: "20Л" },
+    { id: 14, name: "20ГЛ" },
+  ],
+};
+
+export const materialMap: Record<string, MaterialEntry> = {
+  WCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  LCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  WC6: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  C5: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  C12: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  CF8: { rod: "F304", wedge: "F304", seat: "F304" },
+  CF8C: { rod: "F321", wedge: "F321", seat: "F321" },
+  CF8M: { rod: "F316", wedge: "F316", seat: "F316" },
+  CF3M: { rod: "F316L", wedge: "F316L", seat: "F316L" },
+  "09Г2С": { rod: "09Г2С", wedge: "09Г2С", seat: "09Г2С" },
+  "13ХФА": { rod: "13ХФА", wedge: "13ХФА", seat: "13ХФА" },
+  "20": { rod: "20", wedge: "20", seat: "20" },
+  "20Л": { rod: "20Л", wedge: "20Л", seat: "20Л" },
+  "20ГЛ": { rod: "20ГЛ", wedge: "20ГЛ", seat: "20ГЛ" },
 };

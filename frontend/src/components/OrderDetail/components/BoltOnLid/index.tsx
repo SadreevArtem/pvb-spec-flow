@@ -10,10 +10,11 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  TextField,
 } from "@mui/material";
-import { staticOptions } from "./static";
+import { materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {
   index: number;
@@ -31,6 +32,7 @@ export const BoltOnLid: React.FC<Props> = ({
   const [workEnvironment, setWorkEnvironment] = React.useState<
     WorkEnvironment | ""
   >("");
+  const [selectedMaterial, setSelectedMaterial] = useState("0");
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
@@ -59,7 +61,12 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangeDiameter = handleChangeField("diameter");
   const handleChangeClassPressure = handleChangeField("classPressure");
   const handleChangeTemperature = handleChangeField("temperature");
-  console.log(formData, options);
+  const handleChangeHousingMaterial = handleChangeField("housingMateria");
+  const handleChangeTightnessClass = handleChangeField("tightnessClassId");
+  const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
+
+  const selectedMaterials = materialMap[selectedMaterial];
+  console.log(formData, options, selectedMaterial);
 
   return (
     <>
@@ -170,6 +177,103 @@ export const BoltOnLid: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
+      <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
+        <InputLabel id="demo-simple-select-label">
+          {"Класс герметичности"}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          defaultValue={"0"}
+          label="Класс герметичности"
+          onChange={handleChangeTightnessClass}
+        >
+          <MenuItem value="0">Не выбрано</MenuItem>
+          {options.tightnessClasses.map((type, i) => (
+            <MenuItem key={i} value={type.id}>
+              {type.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
+        <InputLabel id="temperature-range-select-label">
+          {"Температурный диапазон"}
+        </InputLabel>
+        <Select
+          labelId="temperature-range-select-label"
+          id="temperature-range-select"
+          defaultValue={"0"}
+          label="Температурный диапазон"
+          onChange={handleChangeTemperatureRange}
+        >
+          <MenuItem value="0">Не выбрано</MenuItem>
+          {options.temperatureRanges.map((range, i) => (
+            <MenuItem key={i} value={range.id}>
+              {range.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+        <InputLabel id="housing-material-select-label">
+          {"Материал корпуса"}
+        </InputLabel>
+        <Select
+          labelId="housing-material-select-label"
+          id="housing-material-select"
+          defaultValue={"0"}
+          label="Материал корпуса"
+          onChange={(e) => {
+            handleChangeHousingMaterial(e);
+            setSelectedMaterial(e.target.value);
+          }}
+        >
+          <MenuItem value="0">Не выбрано</MenuItem>
+          {staticOptions.materials.map((material, i) => (
+            <MenuItem key={i} value={material.name}>
+              {material.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      {selectedMaterial && (
+        <>
+          <TextField
+            label="Материал штока"
+            required
+            variant="outlined"
+            disabled
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) => e.preventDefault()}
+            value={selectedMaterials?.rod}
+          />
+
+          <TextField
+            label="Материал клина"
+            variant="outlined"
+            required
+            disabled
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) => e.preventDefault()}
+            value={selectedMaterials?.wedge}
+          />
+          <TextField
+            label="Материал седла"
+            variant="outlined"
+            slotProps={{
+              input: {
+                readOnly: true,
+              },
+            }}
+            required
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) => e.preventDefault()}
+            value={selectedMaterials?.seat}
+          />
+        </>
+      )}
     </>
   );
 };

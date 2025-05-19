@@ -17,10 +17,8 @@ import {
   Item,
   Order,
   User,
-  ClassPressureType,
   ConnectionType,
   ConstructionType,
-  DiameterType,
   ManufacturingStandartType,
   MaterialType,
   ProductType,
@@ -65,8 +63,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const getConstructions = () => api.getAllConstructionsRequest(token);
   const getManufacturingStandart = () =>
     api.getAllManufacturingStandartsRequest(token);
-  const getDiameters = () => api.getAllDiametersRequest(token);
-  const getClassPressures = () => api.getAllClassPressuresRequest(token);
   const getTightnessClass = () => api.getAllTightnessClassRequest(token);
   const getTemperatureRanges = () => api.getAllTemperatureRangeRequest(token);
   const getMaterials = () => api.getAllMaterialsRequest(token);
@@ -97,14 +93,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   >({
     queryKey: ["manufacturingStandart"],
     queryFn: getManufacturingStandart,
-  });
-  const { data: diameters = [] } = useQuery<DiameterType[]>({
-    queryKey: ["diameters"],
-    queryFn: getDiameters,
-  });
-  const { data: classPressures = [] } = useQuery<ClassPressureType[]>({
-    queryKey: ["classPressures"],
-    queryFn: getClassPressures,
   });
   const { data: tightnessClasses = [] } = useQuery<TightnessClassType[]>({
     queryKey: ["tightnessClass"],
@@ -277,8 +265,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       productTypes,
       constructions,
       manufacturingStandart,
-      diameters,
-      classPressures,
       tightnessClasses,
       temperatureRanges,
       materials,
@@ -289,8 +275,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     productTypes,
     constructions,
     manufacturingStandart,
-    diameters,
-    classPressures,
     tightnessClasses,
     temperatureRanges,
     materials,

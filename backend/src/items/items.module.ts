@@ -9,7 +9,6 @@ import { ConstructionsModule } from 'src/constructions/constructions.module';
 import { ManufacturingStandartsModule } from 'src/manufacturing-standarts/manufacturing-standarts.module';
 import { TightnessClassesModule } from 'src/tightness-classes/tightness-classes.module';
 import { TemperatureRangesModule } from 'src/temperature-ranges/temperature-ranges.module';
-import { MaterialsModule } from 'src/materials/materials.module';
 import { ConnectionTypesModule } from 'src/connection-types/connection-types.module';
 
 @Module({
@@ -21,7 +20,6 @@ import { ConnectionTypesModule } from 'src/connection-types/connection-types.mod
     ManufacturingStandartsModule,
     TightnessClassesModule,
     TemperatureRangesModule,
-    MaterialsModule,
     ConstructionsModule,
     ConnectionTypesModule,
   ],

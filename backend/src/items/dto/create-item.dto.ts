@@ -53,22 +53,22 @@ export class CreateItemDto {
   temperatureRangeId: number;
 
   @IsOptional()
-  housingMaterialId: number;
+  housingMaterial: string;
 
   @IsOptional()
-  rodMaterialId: number;
+  rodMaterial: string;
 
   @IsOptional()
-  seatMaterialId: number;
+  seatMaterial: string;
 
   @IsOptional()
-  wedgeMaterialId: number;
+  wedgeMaterial: string;
 
   @IsOptional()
-  counterFlangesMaterialId: number;
+  counterFlangesMaterial: string;
 
   @IsOptional()
-  pipeMaterialId: number;
+  pipeMaterial: string;
 
   @IsOptional()
   connectionTypeId: number;

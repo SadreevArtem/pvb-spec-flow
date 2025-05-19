@@ -35,13 +35,7 @@ export class OrdersService {
           manufacturingStandart: true,
           tightnessClass: true,
           temperatureRange: true,
-          housingMaterial: true,
-          rodMaterial: true,
-          wedgeMaterial: true,
-          seatMaterial: true,
           connectionType: true,
-          counterFlangesMaterial: true,
-          pipeMaterial: true,
         },
       },
     });

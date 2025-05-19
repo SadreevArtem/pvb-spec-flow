@@ -50,14 +50,14 @@ export const reference: {
     categoryName: "temperature-ranges",
     value: { ru: "Температурный диапазон", en: "Temperature range" },
   },
-  {
-    id: 10,
-    categoryName: "materials",
-    value: { ru: "Материалы", en: "Materials" },
-  },
-  {
-    id: 11,
-    categoryName: "connection-types",
-    value: { ru: "Тип присоединения", en: "Connection type" },
-  },
+  // {
+  //   id: 10,
+  //   categoryName: "materials",
+  //   value: { ru: "Материалы", en: "Materials" },
+  // },
+  // {
+  //   id: 11,
+  //   categoryName: "connection-types",
+  //   value: { ru: "Тип присоединения", en: "Connection type" },
+  // },
 ];

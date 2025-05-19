@@ -2,7 +2,6 @@ import { Length } from 'class-validator';
 import { ConnectionType } from 'src/connection-types/entities/connection-type.entity';
 import { Construction } from 'src/constructions/entities/construction.entity';
 import { ManufacturingStandart } from 'src/manufacturing-standarts/entities/manufacturing-standart.entity';
-import { Material } from 'src/materials/entities/material.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { ProductType } from 'src/product-types/entities/product-type.entity';
 import { TemperatureRange } from 'src/temperature-ranges/entities/temperature-range.entity';
@@ -45,10 +44,10 @@ export class Item {
   manufacturingStandart: ManufacturingStandart; //Справочник конструкции
 
   @Column({ nullable: true })
-  diameter: string; //Справочник ДУ
+  diameter: string; // ДУ
 
   @Column({ nullable: true })
-  classPressure: string; //Справочник Py
+  classPressure: string; //Py
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
   order: Order; // Связь с заказом
@@ -69,20 +68,20 @@ export class Item {
   )
   temperatureRange: TemperatureRange; //Справочник температурного диапазона
 
-  @ManyToOne(() => Material, (material) => material.items)
-  housingMaterial: Material; //Материал корпуса
+  @Column({ nullable: true })
+  housingMaterial: string; //Материал корпуса
 
-  @ManyToOne(() => Material, (material) => material.items)
-  rodMaterial: Material; //Материал штока
+  @Column({ nullable: true })
+  rodMaterial: string; //Материал штока
 
-  @ManyToOne(() => Material, (material) => material.items)
-  wedgeMaterial: Material; //Материал клина
+  @Column({ nullable: true })
+  wedgeMaterial: string; //Материал клина
 
-  @ManyToOne(() => Material, (material) => material.items)
-  seatMaterial: Material; //Материал седла
+  @Column({ nullable: true })
+  seatMaterial: string; //Материал седла
 
-  @ManyToOne(() => Material, (material) => material.items)
-  pipeMaterial: Material; //Материал трубы
+  @Column({ nullable: true })
+  pipeMaterial: string; //Материал трубы
 
   @ManyToOne(() => ConnectionType, (connectionType) => connectionType.items)
   connectionType: ConnectionType; //Справочник типа присоедениния
@@ -101,8 +100,8 @@ export class Item {
   @Column({ default: false })
   counterFlanges: boolean;
 
-  @ManyToOne(() => Material, (material) => material.items)
-  counterFlangesMaterial: Material; //Материал ответных фланцев
+  @Column({ nullable: true })
+  counterFlangesMaterial: string; //Материал ответных фланцев
 
   @Column({ nullable: true })
   @Length(1, 200)

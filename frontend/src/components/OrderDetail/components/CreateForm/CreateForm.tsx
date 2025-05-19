@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Drive, Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
@@ -26,7 +26,6 @@ const CreateForm: React.FC<Props> = React.memo(
     const t = useTranslations("OrderDetail");
     const [drive, setDrive] = React.useState<Drive | "manual">("manual");
     const [typeZra, setTypeZra] = React.useState<TypeZra | "">("");
-    const [selectedMaterial, setSelectedMaterial] = useState("0");
     const selectedZra = options.productTypes.find(
       (item) => item.id === formData?.productTypeId
     )?.name;
@@ -82,12 +81,6 @@ const CreateForm: React.FC<Props> = React.memo(
     };
     console.log(options.productTypes);
 
-    const handleChangeTightnessClass = handleChangeField("tightnessClassId");
-    const handleChangeTemperatureRange =
-      handleChangeField("temperatureRangeId");
-    const handleChangeHousingMaterial = handleChangeField("housingMaterialId");
-    const handleChangeWedgeMaterial = handleChangeField("wedgeMaterialId");
-    const handleChangeSeatMaterial = handleChangeField("seatMaterialId");
     const handleChangeCounterFlangesMaterial = handleChangeField(
       "counterFlangesMaterialId"
     );
@@ -245,86 +238,8 @@ const CreateForm: React.FC<Props> = React.memo(
             }
             // value={formData?.temperature || ""}
           /> */}
-          <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="demo-simple-select-label">
-              {"Класс герметичности"}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={"0"}
-              label="Класс герметичности"
-              onChange={handleChangeTightnessClass}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.tightnessClasses.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
-                  {type.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
-            <InputLabel id="temperature-range-select-label">
-              {"Температурный диапазон"}
-            </InputLabel>
-            <Select
-              labelId="temperature-range-select-label"
-              id="temperature-range-select"
-              defaultValue={"0"}
-              label="Температурный диапазон"
-              onChange={handleChangeTemperatureRange}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.temperatureRanges.map((range, i) => (
-                <MenuItem key={i} value={range.id}>
-                  {range.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="housing-material-select-label">
-              {"Материал корпуса"}
-            </InputLabel>
-            <Select
-              labelId="housing-material-select-label"
-              id="housing-material-select"
-              defaultValue={"0"}
-              label="Материал корпуса"
-              onChange={(e) => {
-                handleChangeHousingMaterial(e);
-                setSelectedMaterial(e.target.value);
-              }}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="housing-material-select-label">
-              {"Материал штока"}
-            </InputLabel>
-            <Select
-              labelId="housing-material-select-label"
-              id="housing-material-select"
-              defaultValue={"0"}
-              label="Материал штока"
-              onChange={handleChangeField("rodMaterialId")}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+
+          {/* <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="wedge-material-select-label">
               {"Материал клина"}
             </InputLabel>
@@ -342,8 +257,8 @@ const CreateForm: React.FC<Props> = React.memo(
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          </FormControl> */}
+          {/* <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="seat-material-select-label">
               {"Материал седла"}
             </InputLabel>
@@ -363,7 +278,7 @@ const CreateForm: React.FC<Props> = React.memo(
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="connection-type-select-label">
               {"Тип соединения"}

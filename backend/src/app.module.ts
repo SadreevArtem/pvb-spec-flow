@@ -20,7 +20,6 @@ import { ConstructionsModule } from './constructions/constructions.module';
 import { ManufacturingStandartsModule } from './manufacturing-standarts/manufacturing-standarts.module';
 import { TightnessClassesModule } from './tightness-classes/tightness-classes.module';
 import { TemperatureRangesModule } from './temperature-ranges/temperature-ranges.module';
-import { MaterialsModule } from './materials/materials.module';
 import { ConnectionTypesModule } from './connection-types/connection-types.module';
 import { ExcelServiceService } from './excel-service/excel-service.service';
 import { ExcelServiceModule } from './excel-service/excel-service.module';
@@ -69,7 +68,6 @@ import { UploadModule } from './upload/upload.module';
     ManufacturingStandartsModule,
     TightnessClassesModule,
     TemperatureRangesModule,
-    MaterialsModule,
     ConnectionTypesModule,
     ExcelServiceModule,
     UploadModule,

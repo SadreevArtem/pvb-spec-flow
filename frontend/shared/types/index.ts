@@ -120,10 +120,10 @@ export type Item = {
   temperature: string;
   tightnessClass: TightnessClassType;
   temperatureRange: TemperatureRangeType;
-  housingMaterial: MaterialType;
-  rodMaterial: MaterialType;
-  wedgeMaterial: MaterialType;
-  seatMaterial: MaterialType;
+  housingMaterial: string;
+  rodMaterial: string;
+  wedgeMaterial: string;
+  seatMaterial: string;
   connectionType: ConnectionType;
   constructionLength: string;
   nace: boolean;
@@ -134,9 +134,9 @@ export type Item = {
   drive: Drive;
   driveKit: string;
   comment: string;
-  counterFlangesMaterial: MaterialType;
+  counterFlangesMaterial: string;
   workEnvironment: WorkEnvironment;
-  pipeMaterial: MaterialType;
+  pipeMaterial: string;
   count: number;
 };
 
@@ -181,4 +181,10 @@ export type FilesModel = {
   originalname: string;
   filename: string;
   path: string;
+};
+
+export type MaterialEntry = {
+  rod: string; // шток
+  wedge: string; // клин
+  seat: string; // седло
 };
