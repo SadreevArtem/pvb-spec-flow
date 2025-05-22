@@ -16,7 +16,6 @@ import { ConstructionsService } from 'src/constructions/constructions.service';
 import { ManufacturingStandartsService } from 'src/manufacturing-standarts/manufacturing-standarts.service';
 import { TightnessClassesService } from 'src/tightness-classes/tightness-classes.service';
 import { TemperatureRangesService } from 'src/temperature-ranges/temperature-ranges.service';
-import { ConnectionTypesService } from 'src/connection-types/connection-types.service';
 
 @Injectable()
 export class ItemsService {
@@ -29,7 +28,6 @@ export class ItemsService {
     private readonly manufacturingStandartsService: ManufacturingStandartsService,
     private readonly tightnessClassesService: TightnessClassesService,
     private readonly temperatureRangesService: TemperatureRangesService,
-    private readonly connectionTypesService: ConnectionTypesService,
   ) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
@@ -42,7 +40,7 @@ export class ItemsService {
       tightnessClassId,
       temperatureRangeId,
       housingMaterial,
-      connectionTypeId,
+      connectionType,
       rodMaterial,
       seatMaterial,
       pipeMaterial,
@@ -81,11 +79,6 @@ export class ItemsService {
       await this.temperatureRangesService.findById(temperatureRangeId);
     if (!temperatureRange) {
       throw new NotFoundException('DN not found');
-    }
-    const connectionType =
-      await this.connectionTypesService.findById(connectionTypeId);
-    if (!connectionType) {
-      throw new NotFoundException('Connection type not found');
     }
     const item = this.itemsRepository.create({
       ...itemData,
@@ -134,7 +127,7 @@ export class ItemsService {
       tightnessClassId,
       temperatureRangeId,
       housingMaterial,
-      connectionTypeId,
+      connectionType,
       rodMaterial,
       seatMaterial,
       pipeMaterial,
@@ -171,11 +164,6 @@ export class ItemsService {
       await this.temperatureRangesService.findById(temperatureRangeId);
     if (!temperatureRange) {
       throw new NotFoundException('DN not found');
-    }
-    const connectionType =
-      await this.connectionTypesService.findById(connectionTypeId);
-    if (!connectionType) {
-      throw new NotFoundException('Connection type not found');
     }
     return this.itemsRepository.update(id, {
       ...itemData,

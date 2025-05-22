@@ -12,7 +12,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { materialMap, staticOptions } from "./static";
+import { flangesMap, materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 
@@ -33,6 +33,7 @@ export const BoltOnLid: React.FC<Props> = ({
     WorkEnvironment | ""
   >("");
   const [selectedMaterial, setSelectedMaterial] = useState("0");
+  const [selectedFlanges, setSelectedFlanges] = useState("0");
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
@@ -64,9 +65,13 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangeHousingMaterial = handleChangeField("housingMateria");
   const handleChangeTightnessClass = handleChangeField("tightnessClassId");
   const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
-
+  const handleChangeConnectionType = handleChangeField("connectionType");
+  const handleChangeCounterFlangesMaterial = handleChangeField(
+    "counterFlangesMaterial"
+  );
   const selectedMaterials = materialMap[selectedMaterial];
-  console.log(formData, options, selectedMaterial);
+  const selectedMaterialFlanges = flangesMap[selectedFlanges];
+  console.log(formData, options, selectedMaterialFlanges);
 
   return (
     <>
@@ -243,34 +248,122 @@ export const BoltOnLid: React.FC<Props> = ({
           <TextField
             label="Материал штока"
             required
-            variant="outlined"
-            disabled
             className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) => e.preventDefault()}
             value={selectedMaterials?.rod}
+            id="outlined-multiline-static"
+            slotProps={{
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
+              },
+            }}
           />
 
           <TextField
             label="Материал клина"
-            variant="outlined"
-            required
-            disabled
             className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) => e.preventDefault()}
             value={selectedMaterials?.wedge}
+            id="outlined-multiline-static-wedge"
+            slotProps={{
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
+              },
+            }}
           />
           <TextField
             label="Материал седла"
             variant="outlined"
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            value={selectedMaterials?.seat}
+            id="outlined-multiline-static-seat"
             slotProps={{
-              input: {
-                readOnly: true,
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
               },
             }}
-            required
+          />
+          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+            <InputLabel id="connection-type-select-label">
+              {"Тип соединения"}
+            </InputLabel>
+            <Select
+              labelId="connection-type-select-label"
+              id="connection-type-select"
+              defaultValue={"0"}
+              label="Тип соединения"
+              onChange={handleChangeConnectionType}
+            >
+              <MenuItem value="0">Не выбрано</MenuItem>
+              {staticOptions.connectionTypes.map((type, i) => (
+                <MenuItem key={i} value={type.id}>
+                  {type.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+            <InputLabel id="seat-material-select-label">
+              {"Материал ответных фланцев"}
+            </InputLabel>
+            <Select
+              labelId="flanges-material-select-label"
+              id="seat-material-select"
+              defaultValue={"0"}
+              label="Материал ответных фланцев"
+              onChange={(e) => {
+                handleChangeCounterFlangesMaterial(e);
+                setSelectedFlanges(e.target.value);
+              }}
+            >
+              <MenuItem value="0">Не выбрано</MenuItem>
+              {staticOptions.materialsFlanges.map((material, i) => (
+                <MenuItem key={i} value={material.name}>
+                  {material.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            label="Шпильки"
             className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) => e.preventDefault()}
-            value={selectedMaterials?.seat}
+            value={selectedMaterialFlanges?.studs}
+            id="outlined-multiline-static-wedge"
+            slotProps={{
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+          />
+          <TextField
+            label="Гайки"
+            variant="outlined"
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            value={selectedMaterialFlanges?.nuts}
+            id="outlined-multiline-static-seat"
+            slotProps={{
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+          />
+          <TextField
+            label="Строительная длина"
+            variant="outlined"
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  constructionLength: e.target.value,
+                },
+              }))
+            }
+            // value={formData?.constructionLength || ""}
           />
         </>
       )}

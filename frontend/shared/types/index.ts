@@ -124,7 +124,7 @@ export type Item = {
   rodMaterial: string;
   wedgeMaterial: string;
   seatMaterial: string;
-  connectionType: ConnectionType;
+  connectionType: string;
   constructionLength: string;
   nace: boolean;
   counterFlanges: boolean;
@@ -187,4 +187,9 @@ export type MaterialEntry = {
   rod: string; // шток
   wedge: string; // клин
   seat: string; // седло
+};
+
+export type FlangeMaterialEntry = {
+  studs: string; // Шпильки
+  nuts: string; // Гайки
 };

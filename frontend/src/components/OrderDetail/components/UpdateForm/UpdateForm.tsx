@@ -29,9 +29,9 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
   );
   const [drive, setDrive] = React.useState<Drive>(item.drive);
   const [model, setModel] = useState(item.productType.model || "");
-  const [selectedMaterial, setSelectedMaterial] = useState(
-    item.housingMaterial.id.toString() || "0"
-  );
+  // const [selectedMaterial, setSelectedMaterial] = useState(
+  //   item.housingMaterial.id.toString() || "0"
+  // );
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
       setFormData((prev) => ({
@@ -84,15 +84,15 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
   };
   const handleChangeTightnessClass = handleChangeField("tightnessClassId");
   const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
-  const handleChangeHousingMaterial = handleChangeField("housingMaterialId");
-  const handleChangeRodMaterial = handleChangeField("rodMaterialId");
-  const handleChangeWedgeMaterial = handleChangeField("wedgeMaterialId");
-  const handleChangeSeatMaterial = handleChangeField("seatMaterialId");
-  const handleChangeCounterFlangesMaterial = handleChangeField(
-    "counterFlangesMaterialId"
-  );
-  const handleChangeConnectionType = handleChangeField("connectionTypeId");
-  const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
+  // const handleChangeHousingMaterial = handleChangeField("housingMaterialId");
+  // const handleChangeRodMaterial = handleChangeField("rodMaterialId");
+  // const handleChangeWedgeMaterial = handleChangeField("wedgeMaterialId");
+  // const handleChangeSeatMaterial = handleChangeField("seatMaterialId");
+  // const handleChangeCounterFlangesMaterial = handleChangeField(
+  //   "counterFlangesMaterialId"
+  // );
+  // const handleChangeConnectionType = handleChangeField("connectionTypeId");
+  // const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
   return (
     <div key={item.id} className="w-fit">
       {/* <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
@@ -292,11 +292,11 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
             ))}
           </Select>
         </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="housing-material-select-label">
             {"Материал корпуса"}
-          </InputLabel>
-          <Select
+          </InputLabel> */}
+        {/* <Select
             labelId="housing-material-select-label"
             id="housing-material-select"
             defaultValue={item?.housingMaterial?.id?.toString()}
@@ -312,8 +312,8 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        </FormControl> */}
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="housing-material-select-label">
             {"Материал штока"}
           </InputLabel>
@@ -330,8 +330,8 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        </FormControl> */}
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="wedge-material-select-label">
             {"Материал клина"}
           </InputLabel>
@@ -348,8 +348,8 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        </FormControl> */}
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="seat-material-select-label">
             {"Материал седла"}
           </InputLabel>
@@ -369,7 +369,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="seat-material-select-label">
             {"Материал седла"}
@@ -388,7 +388,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
             ))}
           </Select>
         </FormControl> */}
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="connection-type-select-label">
             {"Тип соединения"}
           </InputLabel>
@@ -405,7 +405,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <TextField
           label="Строительная длина"
           variant="outlined"
@@ -455,7 +455,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
           }
           label="Ответные фланцы"
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="seat-material-select-label">
             {"Материал ответных фланцев"}
           </InputLabel>
@@ -472,7 +472,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <TextField
           label="Шпильки"
           variant="outlined"
@@ -518,7 +518,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
           }
           value={item?.pipeSize || ""}
         />
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="pipe-material-select-label">
             {"Материал трубы"}
           </InputLabel>
@@ -535,7 +535,7 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
           <Select

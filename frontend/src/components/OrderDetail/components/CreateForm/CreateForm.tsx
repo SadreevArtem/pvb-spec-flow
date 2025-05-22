@@ -1,7 +1,5 @@
 import {
-  Checkbox,
   FormControl,
-  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -79,12 +77,7 @@ const CreateForm: React.FC<Props> = React.memo(
         },
       }));
     };
-    console.log(options.productTypes);
 
-    const handleChangeCounterFlangesMaterial = handleChangeField(
-      "counterFlangesMaterialId"
-    );
-    const handleChangeConnectionType = handleChangeField("connectionTypeId");
     const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
     const renderContent = () => {
       switch (typeZra) {
@@ -279,41 +272,8 @@ const CreateForm: React.FC<Props> = React.memo(
               ))}
             </Select>
           </FormControl> */}
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="connection-type-select-label">
-              {"Тип соединения"}
-            </InputLabel>
-            <Select
-              labelId="connection-type-select-label"
-              id="connection-type-select"
-              defaultValue={"0"}
-              label="Тип соединения"
-              onChange={handleChangeConnectionType}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.connectionTypes.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
-                  {type.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            label="Строительная длина"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  constructionLength: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.constructionLength || ""}
-          />
-          <FormControlLabel
+
+          {/* <FormControlLabel
             control={
               <Checkbox
                 // checked={false}
@@ -329,8 +289,8 @@ const CreateForm: React.FC<Props> = React.memo(
               />
             }
             label="NACE"
-          />
-          <FormControlLabel
+          /> */}
+          {/* <FormControlLabel
             control={
               <Checkbox
                 // checked={false}
@@ -346,26 +306,8 @@ const CreateForm: React.FC<Props> = React.memo(
               />
             }
             label="Ответные фланцы"
-          />
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="seat-material-select-label">
-              {"Материал ответных фланцев"}
-            </InputLabel>
-            <Select
-              labelId="seat-material-select-label"
-              id="seat-material-select"
-              defaultValue={"0"}
-              label="Материал ответных фланцев"
-              onChange={handleChangeCounterFlangesMaterial}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          /> */}
+          {/* 
           <TextField
             label="Шпильки"
             variant="outlined"
@@ -380,8 +322,8 @@ const CreateForm: React.FC<Props> = React.memo(
               }))
             }
             // value={formData?.hairpins || ""}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             label="Гайки"
             variant="outlined"
             className={clsx("!mr-3 !min-w-[220px]", {})}
@@ -395,7 +337,7 @@ const CreateForm: React.FC<Props> = React.memo(
               }))
             }
             // value={formData?.nuts || ""}
-          />
+          /> */}
           <TextField
             label="Размер трубы"
             variant="outlined"

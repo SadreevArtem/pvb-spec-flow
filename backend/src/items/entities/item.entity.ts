@@ -1,5 +1,4 @@
 import { Length } from 'class-validator';
-import { ConnectionType } from 'src/connection-types/entities/connection-type.entity';
 import { Construction } from 'src/constructions/entities/construction.entity';
 import { ManufacturingStandart } from 'src/manufacturing-standarts/entities/manufacturing-standart.entity';
 import { Order } from 'src/orders/entities/order.entity';
@@ -83,8 +82,8 @@ export class Item {
   @Column({ nullable: true })
   pipeMaterial: string; //Материал трубы
 
-  @ManyToOne(() => ConnectionType, (connectionType) => connectionType.items)
-  connectionType: ConnectionType; //Справочник типа присоедениния
+  @Column({ nullable: true })
+  connectionType: string; //Справочник типа присоедениния
 
   @Column({ nullable: true })
   @Length(1, 200)
@@ -93,12 +92,6 @@ export class Item {
   @Column({ nullable: true })
   @Length(1, 200)
   constructionLength: string;
-
-  @Column({ default: false })
-  nace: boolean;
-
-  @Column({ default: false })
-  counterFlanges: boolean;
 
   @Column({ nullable: true })
   counterFlangesMaterial: string; //Материал ответных фланцев

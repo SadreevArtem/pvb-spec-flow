@@ -1,4 +1,7 @@
-import { MaterialEntry } from "../../../../../../shared/types";
+import {
+  FlangeMaterialEntry,
+  MaterialEntry,
+} from "../../../../../../shared/types";
 
 export const staticOptions = {
   manufacturingStandart: [
@@ -87,6 +90,33 @@ export const staticOptions = {
     { id: 13, name: "20Л" },
     { id: 14, name: "20ГЛ" },
   ],
+  connectionTypes: [
+    { id: 1, name: "ASME B16.5 RF" },
+    { id: 2, name: "ASME B16.5 RTJ" },
+    { id: 3, name: "ASME B16.47 RF" },
+    { id: 4, name: "ASME B16.47 RTJ" },
+    { id: 5, name: "BW TO ASME B16.25" },
+    { id: 6, name: "ГОСТ 33259-2015 Тип В" },
+    { id: 7, name: "ГОСТ 33259-2015 Тип J" },
+    { id: 8, name: "ГОСТ 33259-2015 Тип F" },
+    { id: 9, name: "ГОСТ 33259-2015 Тип D" },
+  ],
+  materialsFlanges: [
+    { id: 1, name: "-" },
+    { id: 2, name: "A 105 N" },
+    { id: 3, name: "A 216 Gr. WCB" },
+    { id: 4, name: "A 350 Gr. LF2" },
+    { id: 5, name: "A 350 Gr. LF3" },
+    { id: 6, name: "A 182 Gr. F304" },
+    { id: 7, name: "A 182 Gr. F316" },
+    { id: 8, name: "A 182 Gr. F316L" },
+    { id: 9, name: "A 182 Gr. F321" },
+    { id: 10, name: "09Г2С" },
+    { id: 11, name: "13ХФА" },
+    { id: 12, name: "20" },
+    { id: 13, name: "20Л" },
+    { id: 14, name: "20ГЛ" },
+  ],
 };
 
 export const materialMap: Record<string, MaterialEntry> = {
@@ -104,4 +134,21 @@ export const materialMap: Record<string, MaterialEntry> = {
   "20": { rod: "20", wedge: "20", seat: "20" },
   "20Л": { rod: "20Л", wedge: "20Л", seat: "20Л" },
   "20ГЛ": { rod: "20ГЛ", wedge: "20ГЛ", seat: "20ГЛ" },
+};
+
+export const flangesMap: Record<string, FlangeMaterialEntry> = {
+  "A 105 N": { studs: "B7", nuts: "2H" },
+  "A 216 Gr. WCB": { studs: "B7", nuts: "2H" },
+  "A 350 Gr. LF2": { studs: "B7", nuts: "2H" },
+  "A 350 Gr. LF3": { studs: "B7", nuts: "2H" },
+  "A 182 Gr. F304": { studs: "B8", nuts: "G8" },
+  "A 182 Gr. F316": { studs: "B8", nuts: "G8" },
+  "A 182 Gr. F316L": { studs: "B8", nuts: "G8" },
+  "A 182 Gr. F321": { studs: "B8", nuts: "G8" },
+  "09Г2С": { studs: "09Г2С", nuts: "09Г2С" },
+  "13ХФА": { studs: "13ХФА", nuts: "13ХФА" },
+  "20": { studs: "20", nuts: "20" },
+  "20Л": { studs: "20Л", nuts: "20Л" },
+  "20ГЛ": { studs: "20ГЛ", nuts: "20ГЛ" },
+  "-": { studs: "-", nuts: "-" },
 };

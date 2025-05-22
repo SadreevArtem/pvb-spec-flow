@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -71,18 +70,10 @@ export class CreateItemDto {
   pipeMaterial: string;
 
   @IsOptional()
-  connectionTypeId: number;
+  connectionType: string;
 
   @IsOptional()
   constructionLength: string;
-
-  @IsOptional()
-  @IsBoolean()
-  nace: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  counterFlanges: boolean;
 
   @IsOptional()
   @IsString()
