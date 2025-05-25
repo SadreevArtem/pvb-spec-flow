@@ -12,9 +12,10 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { flangesMap, materialMap, staticOptions } from "./static";
+import { flangesMap, lengthTable, materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
+import { getLength } from "../../helpers";
 
 type Props = {
   index: number;
@@ -71,7 +72,13 @@ export const BoltOnLid: React.FC<Props> = ({
   );
   const selectedMaterials = materialMap[selectedMaterial];
   const selectedMaterialFlanges = flangesMap[selectedFlanges];
-  console.log(formData, options, selectedMaterialFlanges);
+  // console.log(formData, options, selectedMaterialFlanges);
+  const constructionLength = getLength(
+    formData.connectionType,
+    formData.classPressure,
+    formData.diameter,
+    lengthTable
+  );
 
   return (
     <>
@@ -297,7 +304,7 @@ export const BoltOnLid: React.FC<Props> = ({
             >
               <MenuItem value="0">Не выбрано</MenuItem>
               {staticOptions.connectionTypes.map((type, i) => (
-                <MenuItem key={i} value={type.id}>
+                <MenuItem key={i} value={type.name}>
                   {type.name}
                 </MenuItem>
               ))}
@@ -359,11 +366,18 @@ export const BoltOnLid: React.FC<Props> = ({
                 ...prev,
                 [index + 1]: {
                   ...prev[index + 1],
-                  constructionLength: e.target.value,
+                  constructionLength:
+                    constructionLength?.toString() || e.target.value,
                 },
               }))
             }
-            // value={formData?.constructionLength || ""}
+            slotProps={{
+              input: { readOnly: true },
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+            value={constructionLength?.toString() || ""}
           />
         </>
       )}

@@ -35,3 +35,66 @@ export const ZraDict: Record<string, string[]> = {
   ],
   "Поворотный затвор": ["TWO_CENTERED", "THREE_CENTERED"],
 };
+
+type ConnectionGroup = "RF|B" | "BW" | "RF|B|BW" | "RTJ|J";
+type PressureClass = "150#" | "300#" | "600#" | "900#" | "1500#" | "2500#";
+
+interface LengthTable {
+  [pressureClass: string]: {
+    [connectionGroup: string]: {
+      [dn: string]: number;
+    };
+  };
+}
+
+export function getLength(
+  connectionTypeName: string,
+  pressureClass: PressureClass | string,
+  dn: string,
+  table: LengthTable
+): number | null {
+  // Карта соответствия типов присоединения группам
+  const connectionMap: Record<string, ConnectionGroup> = {
+    "ASME B16.5 RF": "RF|B",
+    "ASME B16.5 RTJ": "RTJ|J",
+    "ASME B16.47 RF": "RF|B",
+    "ASME B16.47 RTJ": "RTJ|J",
+    "BW TO ASME B16.25": "BW",
+    "ГОСТ 33259-2015 Тип В": "RF|B",
+    "ГОСТ 33259-2015 Тип J": "RTJ|J",
+    "ГОСТ 33259-2015 Тип F": "RF|B",
+    "ГОСТ 33259-2015 Тип D": "RF|B",
+  };
+  console.log(connectionTypeName);
+
+  const group = connectionMap[connectionTypeName];
+  if (!group) {
+    console.warn(`Неизвестный тип соединения: ${connectionTypeName}`);
+    return null;
+  }
+
+  const groupTable = table[pressureClass];
+  if (!groupTable) {
+    console.warn(`Неизвестный класс давления: ${pressureClass}`);
+    return null;
+  }
+
+  // Сначала пытаемся найти точную группу
+  const lengthGroup = groupTable[group];
+  if (lengthGroup && lengthGroup[dn]) {
+    return lengthGroup[dn];
+  }
+
+  // Если группа не найдена, ищем в комбинированных, например RF|B|BW
+  for (const [groupName, values] of Object.entries(groupTable)) {
+    const connectionTypes = groupName.split("|");
+    if (connectionTypes.includes(group.split("|")[0]) && values[dn]) {
+      return values[dn];
+    }
+  }
+
+  console.warn(
+    `Данные не найдены для DN: ${dn} в группе: ${group} (${pressureClass})`
+  );
+  return null;
+}
