@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import {
+  Drive,
   Item,
   OptionsType,
   WorkEnvironment,
@@ -35,6 +36,7 @@ export const BoltOnLid: React.FC<Props> = ({
   >("");
   const [selectedMaterial, setSelectedMaterial] = useState("0");
   const [selectedFlanges, setSelectedFlanges] = useState("0");
+  const [drive, setDrive] = React.useState<Drive | "manual">("manual");
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
@@ -46,6 +48,16 @@ export const BoltOnLid: React.FC<Props> = ({
         },
       }));
     };
+  const handleChangeDrive = (event: SelectChangeEvent) => {
+    setDrive(event.target.value as Drive);
+    setFormData((prev) => ({
+      ...prev,
+      [index + 1]: {
+        ...prev[index + 1],
+        drive: event.target.value as Drive,
+      },
+    }));
+  };
   const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
     setWorkEnvironment(event.target.value as WorkEnvironment);
     setFormData((prev) => ({
@@ -70,6 +82,8 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangeCounterFlangesMaterial = handleChangeField(
     "counterFlangesMaterial"
   );
+  const handleChangeDriveKit = handleChangeField("driveKit");
+  const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];
   const selectedMaterialFlanges = flangesMap[selectedFlanges];
   // console.log(formData, options, selectedMaterialFlanges);
@@ -378,6 +392,104 @@ export const BoltOnLid: React.FC<Props> = ({
               },
             }}
             value={constructionLength?.toString() || ""}
+          />
+          <TextField
+            label="Размер трубы"
+            variant="outlined"
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  pipeSize: e.target.value,
+                },
+              }))
+            }
+            // value={formData?.pipeSize || ""}
+          />
+          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+            <InputLabel id="pipe-material-select-label">
+              {"Материал трубы"}
+            </InputLabel>
+            <Select
+              labelId="pipe-material-select-label"
+              id="pipe-material-select"
+              defaultValue={"0"}
+              label="Материал трубы"
+              onChange={handleChangePipeMaterial}
+            >
+              <MenuItem value="0">Не выбрано</MenuItem>
+              {staticOptions.materials.map((material, i) => (
+                <MenuItem key={i} value={material.name}>
+                  {material.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
+            <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={drive}
+              label="Привод"
+              onChange={handleChangeDrive}
+            >
+              {Object.values(Drive).map((item, i) => (
+                <MenuItem key={i} value={item}>
+                  {t(item)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+            <InputLabel id="demo-simple-select-label">
+              {"Комплект привода"}
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select-kit"
+              defaultValue={"0"}
+              label="Комплект привода"
+              onChange={handleChangeDriveKit}
+            >
+              <MenuItem value="0">Не выбрано</MenuItem>
+              {staticOptions.driveKit.map((type, i) => (
+                <MenuItem key={i} value={type.name}>
+                  {type.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            label="Примечание"
+            variant="outlined"
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  comment: e.target.value,
+                },
+              }))
+            }
+          />
+          <TextField
+            variant="outlined"
+            label={"количество"}
+            className={clsx("!mr-3 !min-w-[220px]", {})}
+            type="number"
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                [index + 1]: {
+                  ...prev[index + 1],
+                  count: +e.target.value,
+                },
+              }))
+            }
           />
         </>
       )}

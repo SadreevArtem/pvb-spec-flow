@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import React from "react";
-import { Drive, Item, OptionsType, TypeZra } from "../../../../../shared/types";
+import { Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
@@ -22,7 +22,7 @@ type Props = {
 const CreateForm: React.FC<Props> = React.memo(
   ({ index, setFormData, formData, options }) => {
     const t = useTranslations("OrderDetail");
-    const [drive, setDrive] = React.useState<Drive | "manual">("manual");
+
     const [typeZra, setTypeZra] = React.useState<TypeZra | "">("");
     const selectedZra = options.productTypes.find(
       (item) => item.id === formData?.productTypeId
@@ -57,16 +57,6 @@ const CreateForm: React.FC<Props> = React.memo(
     };
     const handleChangeConstructions = handleChangeField("constructionId");
 
-    const handleChangeDrive = (event: SelectChangeEvent) => {
-      setDrive(event.target.value as Drive);
-      setFormData((prev) => ({
-        ...prev,
-        [index + 1]: {
-          ...prev[index + 1],
-          drive: event.target.value as Drive,
-        },
-      }));
-    };
     const handleChangeTypeZra = (event: SelectChangeEvent) => {
       setTypeZra(event.target.value as TypeZra);
       setFormData((prev) => ({
@@ -78,7 +68,6 @@ const CreateForm: React.FC<Props> = React.memo(
       }));
     };
 
-    const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
     const renderContent = () => {
       switch (typeZra) {
         case "BOLT_ON_LID":
@@ -338,101 +327,6 @@ const CreateForm: React.FC<Props> = React.memo(
             }
             // value={formData?.nuts || ""}
           /> */}
-          <TextField
-            label="Размер трубы"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  pipeSize: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.pipeSize || ""}
-          />
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="pipe-material-select-label">
-              {"Материал трубы"}
-            </InputLabel>
-            <Select
-              labelId="pipe-material-select-label"
-              id="pipe-material-select"
-              defaultValue={"0"}
-              label="Материал трубы"
-              onChange={handleChangePipeMaterial}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={drive}
-              label="Привод"
-              onChange={handleChangeDrive}
-            >
-              {Object.values(Drive).map((item, i) => (
-                <MenuItem key={i} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            label="Комплект привода"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  driveKit: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.driveKit || ""}
-          />
-          <TextField
-            label="Примечание"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  comment: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.comment || ""}
-          />
-          <TextField
-            variant="outlined"
-            label={"количество"}
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            type="number"
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  count: +e.target.value,
-                },
-              }))
-            }
-          />
         </div>
       </div>
     );

@@ -14,8 +14,10 @@ export enum Drive {
   FLYWHEEL = 'flywheel',
   GEARBOX = 'gearbox',
   PNEUMATIC = 'pneumatic',
+  HYDRAULIC = 'hydraulic',
   ELECTRIC = 'electric',
   ELECTROHYDRAULIC = 'electrohudraulic',
+  CHAIN_DRIVE = 'chain_drive',
 }
 
 export enum TypeZra {
