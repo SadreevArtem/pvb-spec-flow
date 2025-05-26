@@ -35,7 +35,6 @@ export class OrdersService {
           manufacturingStandart: true,
           tightnessClass: true,
           temperatureRange: true,
-          connectionType: true,
         },
       },
     });
