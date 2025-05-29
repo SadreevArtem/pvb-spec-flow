@@ -5,7 +5,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { Drive, WorkEnvironment } from 'src/types';
+import { Drive, TypeZra, WorkEnvironment } from 'src/types';
 
 export class CreateItemDto {
   @IsNumber()
@@ -40,6 +40,10 @@ export class CreateItemDto {
   @IsEnum(WorkEnvironment)
   @IsOptional()
   workEnvironment?: WorkEnvironment;
+
+  @IsEnum(TypeZra)
+  @IsOptional()
+  TypeZra: TypeZra;
 
   @IsOptional()
   @IsString()
