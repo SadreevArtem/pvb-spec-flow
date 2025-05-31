@@ -17,10 +17,8 @@ import {
   Item,
   Order,
   User,
-  ConnectionType,
   ConstructionType,
   ManufacturingStandartType,
-  MaterialType,
   ProductType,
   TemperatureRangeType,
   TightnessClassType,
@@ -65,8 +63,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     api.getAllManufacturingStandartsRequest(token);
   const getTightnessClass = () => api.getAllTightnessClassRequest(token);
   const getTemperatureRanges = () => api.getAllTemperatureRangeRequest(token);
-  const getMaterials = () => api.getAllMaterialsRequest(token);
-  const getConnectionTypes = () => api.getAllConnectionTypesRequest(token);
+  // const getMaterials = () => api.getAllMaterialsRequest(token);
 
   const getCustomers = () => api.getAllCustomersRequest(token);
   const { data: customers = [], isLoading: isLoadingCustomers } = useQuery<
@@ -102,14 +99,10 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     queryKey: ["temperatureRanges"],
     queryFn: getTemperatureRanges,
   });
-  const { data: materials = [] } = useQuery<MaterialType[]>({
-    queryKey: ["materials"],
-    queryFn: getMaterials,
-  });
-  const { data: connectionTypes = [] } = useQuery<ConnectionType[]>({
-    queryKey: ["connectionTypes"],
-    queryFn: getConnectionTypes,
-  });
+  // const { data: materials = [] } = useQuery<MaterialType[]>({
+  //   queryKey: ["materials"],
+  //   queryFn: getMaterials,
+  // });
 
   const getOrderById = () => api.getOrderByIdRequest(id, token);
   const getQueryKey = (id: number) => ["order"].concat(id.toString());
@@ -233,6 +226,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       router.back();
     });
   };
+  console.log(formData);
 
   useEffect(() => {
     if (!order) return;
@@ -267,8 +261,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       manufacturingStandart,
       tightnessClasses,
       temperatureRanges,
-      materials,
-      connectionTypes,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -277,8 +269,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     manufacturingStandart,
     tightnessClasses,
     temperatureRanges,
-    materials,
-    connectionTypes,
   ]);
 
   return (
@@ -616,6 +606,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   <UpdateForm
                     key={index}
                     item={item}
+                    formData={formData[item.id]}
                     index={index}
                     setFormData={setFormData}
                     options={options}

@@ -1,7 +1,7 @@
 import {
   FlangeMaterialEntry,
   MaterialEntry,
-} from "../../../../../../shared/types";
+} from "../../../../../../../../shared/types";
 
 export const staticOptions = {
   manufacturingStandart: [

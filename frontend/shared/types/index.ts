@@ -174,8 +174,6 @@ export type OptionsType = {
   manufacturingStandart: ManufacturingStandartType[];
   tightnessClasses: TightnessClassType[];
   temperatureRanges: TemperatureRangeType[];
-  materials: MaterialType[];
-  connectionTypes: ConnectionType[];
 };
 
 export type FilesModel = {

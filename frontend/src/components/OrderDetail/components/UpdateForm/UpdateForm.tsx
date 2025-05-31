@@ -12,26 +12,44 @@ import {
   Drive,
   Item,
   OptionsType,
+  TypeZra,
   WorkEnvironment,
 } from "../../../../../shared/types";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
+import clsx from "clsx";
+import { ZraDict } from "../../helpers";
+import { BoltOnLid } from "./components/BoltOnLid";
 
 type Props = {
   index: number;
   item: Item;
+  formData: Item & { productTypeId?: number };
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
 };
 
-export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
+export const UpdateForm: React.FC<Props> = ({
+  item,
+  setFormData,
+  formData,
+  options,
+}) => {
   const [workEnvironment, setWorkEnvironment] = React.useState<WorkEnvironment>(
     item.workEnvironment
   );
   const [drive, setDrive] = React.useState<Drive>(item.drive);
-  const [model, setModel] = useState(item.productType.model || "");
+  const [typeZra, setTypeZra] = useState<TypeZra | "">(item.typeZra);
+  const selectedZra = options.productTypes.find(
+    (itemS) => itemS.id === formData?.productType.id
+  )?.name;
+  // console.log(options.productTypes, formData, item);
+
+  const typeZraOptions = selectedZra ? ZraDict[selectedZra] : [];
   // const [selectedMaterial, setSelectedMaterial] = useState(
   //   item.housingMaterial.id.toString() || "0"
   // );
+  const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
       setFormData((prev) => ({
@@ -51,17 +69,12 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
         productTypeId: event.target.value,
       },
     }));
-    const modelName = options.productTypes.find(
-      (productType) => productType.id === +event.target.value
-    );
-    setModel(modelName?.model || "");
   };
   const handleChangeConstructions = handleChangeField("constructionId");
   const handleChangeManufacturingStandart = handleChangeField(
     "manufacturingStandartId"
   );
-  // const handleChangeDiameter = handleChangeField("diameterId");
-  // const handleChangeClassPressure = handleChangeField("classPressureId");
+
   const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
     setWorkEnvironment(event.target.value as WorkEnvironment);
     setFormData((prev) => ({
@@ -82,17 +95,31 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
       },
     }));
   };
+  const handleChangeTypeZra = (event: SelectChangeEvent) => {
+    setTypeZra(event.target.value as TypeZra);
+    setFormData((prev) => ({
+      ...prev,
+      [item.id]: {
+        ...prev[item.id],
+        typeZra: event.target.value as TypeZra,
+      },
+    }));
+  };
   const handleChangeTightnessClass = handleChangeField("tightnessClassId");
   const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
-  // const handleChangeHousingMaterial = handleChangeField("housingMaterialId");
-  // const handleChangeRodMaterial = handleChangeField("rodMaterialId");
-  // const handleChangeWedgeMaterial = handleChangeField("wedgeMaterialId");
-  // const handleChangeSeatMaterial = handleChangeField("seatMaterialId");
-  // const handleChangeCounterFlangesMaterial = handleChangeField(
-  //   "counterFlangesMaterialId"
-  // );
-  // const handleChangeConnectionType = handleChangeField("connectionTypeId");
-  // const handleChangePipeMaterial = handleChangeField("pipeMaterialId");
+  const renderContent = () => {
+    switch (typeZra) {
+      case "BOLT_ON_LID":
+        return (
+          <BoltOnLid
+            index={item.id}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+    }
+  };
   return (
     <div key={item.id} className="w-fit">
       {/* <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
@@ -129,6 +156,23 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
             }))
           }
         />
+        <FormControl required className="!mr-3 !min-w-[220px]">
+          <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            key={item?.construction?.id?.toString() || ""}
+            defaultValue={item?.construction?.id?.toString() || ""}
+            id="demo-simple-select"
+            label="Конструкция"
+            onChange={handleChangeConstructions}
+          >
+            {options.constructions.map((type, i) => (
+              <MenuItem key={i} value={type.id}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormControl required className="!mr-3 !w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Тип продукции"}
@@ -148,31 +192,33 @@ export const UpdateForm: React.FC<Props> = ({ item, setFormData, options }) => {
             ))}
           </Select>
         </FormControl>
-        <TextField
+        {/* <TextField
           label={"Модель"}
           variant="outlined"
           disabled
           className="!mr-3 !min-w-[220px]"
           onChange={(e) => e.preventDefault()}
           value={model}
-        />
-        <FormControl required className="!mr-3 !min-w-[220px]">
-          <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
+        /> */}
+        <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
+          <InputLabel id="demo-simple-select-label">{"Тип ЗРА"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            key={item?.construction?.id?.toString() || ""}
-            defaultValue={item?.construction?.id?.toString() || ""}
             id="demo-simple-select"
-            label="Конструкция"
-            onChange={handleChangeConstructions}
+            value={typeZra}
+            label="Тип ЗРА"
+            defaultValue={item.typeZra}
+            onChange={handleChangeTypeZra}
           >
-            {options.constructions.map((type, i) => (
-              <MenuItem key={i} value={type.id}>
-                {type.name}
+            {typeZraOptions.map((item, i) => (
+              <MenuItem key={i} value={item}>
+                {t(item)}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
+        {renderContent()}
+
         <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Стандарт изготовления"}

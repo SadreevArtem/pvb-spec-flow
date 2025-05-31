@@ -11,7 +11,7 @@ import { Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
-import { BoltOnLid } from "../BoltOnLid";
+import { BoltOnLid } from "./components/BoltOnLid";
 
 type Props = {
   index: number;
@@ -29,7 +29,7 @@ const CreateForm: React.FC<Props> = React.memo(
     )?.name;
 
     const typeZraOptions = selectedZra ? ZraDict[selectedZra] : [];
-    console.log(typeZraOptions);
+    // console.log(typeZraOptions);
 
     const handleChangeField =
       (fieldName: string) => (event: SelectChangeEvent) => {
@@ -194,15 +194,6 @@ const CreateForm: React.FC<Props> = React.memo(
             </Select>
           </FormControl>
 
-          {/* 
-          <TextField
-            label={"Модель"}
-            variant="outlined"
-            disabled
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) => e.preventDefault()}
-            value={model}
-          /> */}
           {renderContent()}
 
           {/* <TextField

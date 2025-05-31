@@ -43,7 +43,7 @@ export class CreateItemDto {
 
   @IsEnum(TypeZra)
   @IsOptional()
-  TypeZra: TypeZra;
+  typeZra: TypeZra;
 
   @IsOptional()
   @IsString()

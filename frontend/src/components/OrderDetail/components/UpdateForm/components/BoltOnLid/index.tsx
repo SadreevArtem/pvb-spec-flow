@@ -1,10 +1,5 @@
 import clsx from "clsx";
-import {
-  Drive,
-  Item,
-  OptionsType,
-  WorkEnvironment,
-} from "../../../../../shared/types";
+
 import {
   FormControl,
   InputLabel,
@@ -13,10 +8,21 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { flangesMap, lengthTable, materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
-import { getLength } from "../../helpers";
+import { getLength } from "@/components/OrderDetail/helpers";
+import {
+  Drive,
+  Item,
+  OptionsType,
+  WorkEnvironment,
+} from "../../../../../../../shared/types";
+import {
+  flangesMap,
+  lengthTable,
+  materialMap,
+  staticOptions,
+} from "../../../CreateForm/components/BoltOnLid/static";
 
 type Props = {
   index: number;
