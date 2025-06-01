@@ -76,7 +76,7 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangeDiameter = handleChangeField("diameter");
   const handleChangeClassPressure = handleChangeField("classPressure");
   const handleChangeTemperature = handleChangeField("temperature");
-  const handleChangeHousingMaterial = handleChangeField("housingMateria");
+  const handleChangeHousingMaterial = handleChangeField("housingMaterial");
   const handleChangeTightnessClass = handleChangeField("tightnessClassId");
   const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
   const handleChangeConnectionType = handleChangeField("connectionType");
@@ -94,6 +94,7 @@ export const BoltOnLid: React.FC<Props> = ({
     formData.diameter,
     lengthTable
   );
+  console.log(selectedFlanges);
 
   return (
     <>

@@ -226,7 +226,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
       router.back();
     });
   };
-  console.log(formData);
 
   useEffect(() => {
     if (!order) return;

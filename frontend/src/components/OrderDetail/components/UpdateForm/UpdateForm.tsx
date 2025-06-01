@@ -1,21 +1,13 @@
 import {
-  Checkbox,
   FormControl,
-  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import {
-  Drive,
-  Item,
-  OptionsType,
-  TypeZra,
-  WorkEnvironment,
-} from "../../../../../shared/types";
-import React, { useState } from "react";
+import { Item, OptionsType, TypeZra } from "../../../../../shared/types";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
@@ -35,17 +27,13 @@ export const UpdateForm: React.FC<Props> = ({
   formData,
   options,
 }) => {
-  const [workEnvironment, setWorkEnvironment] = React.useState<WorkEnvironment>(
-    item.workEnvironment
-  );
-  const [drive, setDrive] = React.useState<Drive>(item.drive);
   const [typeZra, setTypeZra] = useState<TypeZra | "">(item.typeZra);
-  const selectedZra = options.productTypes.find(
-    (itemS) => itemS.id === formData?.productType.id
-  )?.name;
-  // console.log(options.productTypes, formData, item);
+  const [productType, setProductType] = useState<string>(
+    options.productTypes.find((itemS) => itemS.id === item?.productType.id)
+      ?.name || ""
+  );
 
-  const typeZraOptions = selectedZra ? ZraDict[selectedZra] : [];
+  const typeZraOptions = productType !== "" ? ZraDict[productType] : [];
   // const [selectedMaterial, setSelectedMaterial] = useState(
   //   item.housingMaterial.id.toString() || "0"
   // );
@@ -60,8 +48,32 @@ export const UpdateForm: React.FC<Props> = ({
         },
       }));
     };
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      [item.id]: {
+        ...prev[item.id],
+        productTypeId: item.productType.id,
+      },
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // const handleChangeProductType = (event: SelectChangeEvent) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [item.id]: {
+  //       ...prev[item.id],
+  //       productTypeId: event.target.value,
+  //     },
+  //   }));
+  // };
+  const handleChangeConstructions = handleChangeField("constructionId");
 
   const handleChangeProductType = (event: SelectChangeEvent) => {
+    setProductType(
+      options.productTypes.find((itemS) => itemS.id === +event.target.value)
+        ?.name || ""
+    );
     setFormData((prev) => ({
       ...prev,
       [item.id]: {
@@ -70,31 +82,18 @@ export const UpdateForm: React.FC<Props> = ({
       },
     }));
   };
-  const handleChangeConstructions = handleChangeField("constructionId");
-  const handleChangeManufacturingStandart = handleChangeField(
-    "manufacturingStandartId"
-  );
 
-  const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
-    setWorkEnvironment(event.target.value as WorkEnvironment);
-    setFormData((prev) => ({
-      ...prev,
-      [item.id]: {
-        ...prev[item.id],
-        workEnvironment: event.target.value as WorkEnvironment,
-      },
-    }));
-  };
-  const handleChangeDrive = (event: SelectChangeEvent) => {
-    setDrive(event.target.value as Drive);
-    setFormData((prev) => ({
-      ...prev,
-      [item.id]: {
-        ...prev[item.id],
-        drive: event.target.value as Drive,
-      },
-    }));
-  };
+  // const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
+  //   setWorkEnvironment(event.target.value as WorkEnvironment);
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [item.id]: {
+  //       ...prev[item.id],
+  //       workEnvironment: event.target.value as WorkEnvironment,
+  //     },
+  //   }));
+  // };
+
   const handleChangeTypeZra = (event: SelectChangeEvent) => {
     setTypeZra(event.target.value as TypeZra);
     setFormData((prev) => ({
@@ -105,14 +104,14 @@ export const UpdateForm: React.FC<Props> = ({
       },
     }));
   };
-  const handleChangeTightnessClass = handleChangeField("tightnessClassId");
-  const handleChangeTemperatureRange = handleChangeField("temperatureRangeId");
+
   const renderContent = () => {
     switch (typeZra) {
       case "BOLT_ON_LID":
         return (
           <BoltOnLid
             index={item.id}
+            item={item}
             setFormData={setFormData}
             formData={formData}
             options={options}
@@ -120,6 +119,7 @@ export const UpdateForm: React.FC<Props> = ({
         );
     }
   };
+
   return (
     <div key={item.id} className="w-fit">
       {/* <span className="bg-green-300 rounded-xl mb-2 inline-block px-3 sticky left-0">{`${
@@ -210,7 +210,7 @@ export const UpdateForm: React.FC<Props> = ({
             defaultValue={item.typeZra}
             onChange={handleChangeTypeZra}
           >
-            {typeZraOptions.map((item, i) => (
+            {typeZraOptions?.map((item, i) => (
               <MenuItem key={i} value={item}>
                 {t(item)}
               </MenuItem>
@@ -219,7 +219,7 @@ export const UpdateForm: React.FC<Props> = ({
         </FormControl>
         {renderContent()}
 
-        <FormControl required className="!mr-3 !min-w-[220px]">
+        {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Стандарт изготовления"}
           </InputLabel>
@@ -236,7 +236,7 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
           <Select
@@ -269,7 +269,7 @@ export const UpdateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl> */}
-        <FormControl className="!mr-3 !min-w-[220px]">
+        {/* <FormControl className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Рабочая среда"}
           </InputLabel>
@@ -286,8 +286,8 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <TextField
+        </FormControl> */}
+        {/* <TextField
           label="Температура рабочей среды"
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -301,8 +301,8 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
           value={item?.temperature || ""}
-        />
-        <FormControl className="!mr-3 !min-w-[220px]">
+        /> */}
+        {/* <FormControl className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">
             {"Класс герметичности"}
           </InputLabel>
@@ -319,8 +319,8 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <FormControl required className="!mr-3 !w-[220px]">
+        </FormControl> */}
+        {/* <FormControl required className="!mr-3 !w-[220px]">
           <InputLabel id="temperature-range-select-label">
             {"Температурный диапазон"}
           </InputLabel>
@@ -337,7 +337,7 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="housing-material-select-label">
             {"Материал корпуса"}
@@ -452,7 +452,7 @@ export const UpdateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl> */}
-        <TextField
+        {/* <TextField
           label="Строительная длина"
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -483,8 +483,8 @@ export const UpdateForm: React.FC<Props> = ({
             />
           }
           label="NACE"
-        />
-        <FormControlLabel
+        /> */}
+        {/* <FormControlLabel
           control={
             <Checkbox
               checked={item?.counterFlanges || false}
@@ -500,7 +500,7 @@ export const UpdateForm: React.FC<Props> = ({
             />
           }
           label="Ответные фланцы"
-        />
+        /> */}
         {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="seat-material-select-label">
             {"Материал ответных фланцев"}
@@ -519,7 +519,7 @@ export const UpdateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl> */}
-        <TextField
+        {/* <TextField
           label="Шпильки"
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -548,8 +548,8 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
           value={item?.nuts || ""}
-        />
-        <TextField
+        /> */}
+        {/* <TextField
           label="Размер трубы"
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -563,7 +563,7 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
           value={item?.pipeSize || ""}
-        />
+        /> */}
         {/* <FormControl required className="!mr-3 !min-w-[220px]">
           <InputLabel id="pipe-material-select-label">
             {"Материал трубы"}
@@ -582,7 +582,7 @@ export const UpdateForm: React.FC<Props> = ({
             ))}
           </Select>
         </FormControl> */}
-        <FormControl className="!mr-3 !min-w-[220px]">
+        {/* <FormControl className="!mr-3 !min-w-[220px]">
           <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -597,8 +597,8 @@ export const UpdateForm: React.FC<Props> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-        <TextField
+        </FormControl> */}
+        {/* <TextField
           label="Комплект привода"
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -627,8 +627,8 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
           value={item?.comment || ""}
-        />
-        <TextField
+        /> */}
+        {/* <TextField
           variant="outlined"
           label={"количество"}
           className="!mr-3 !min-w-[220px]"
@@ -643,7 +643,7 @@ export const UpdateForm: React.FC<Props> = ({
             }))
           }
           value={item?.count || ""}
-        />
+        /> */}
       </div>
     </div>
   );
