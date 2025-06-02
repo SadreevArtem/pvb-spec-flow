@@ -39,7 +39,7 @@ export class ExcelServiceService {
       row.getCell(10).value = item.manufacturingStandart.name; //Стандарт изготовления
       row.getCell(11).value = item.diameter; // ДУ
       row.getCell(12).value = item.classPressure; // Класс давления
-      row.getCell(13).value = item.workEnvironment; // Рабочая среда
+      row.getCell(13).value = translate(item.workEnvironment); // Рабочая среда
       row.getCell(14).value = item.temperature; // Температура рабочей среды
       row.getCell(15).value = item.tightnessClass.name; // Класс герметичности
       row.getCell(16).value = item.temperatureRange.name; // Температурный диапазон
@@ -232,7 +232,7 @@ export class ExcelServiceService {
         item.manufacturingStandart.name || '',
         item.diameter || '',
         item.classPressure || '',
-        item.workEnvironment || '',
+        translate(item.workEnvironment) || '',
         item.temperature || '',
         item.tightnessClass.name || '',
         item.temperatureRange.name || '',
