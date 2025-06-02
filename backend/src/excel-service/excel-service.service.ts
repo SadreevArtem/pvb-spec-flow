@@ -31,34 +31,33 @@ export class ExcelServiceService {
       row.getCell(3).value = index + 1; // Номер позиции
       row.getCell(4).value = item.tagNumber; // TAG
       row.getCell(5).value = item.techTaskNumber; // Номер технологического задания
-      row.getCell(6).value = order.equipmentType.name; // Наименование ЗРА
-      row.getCell(7).value = item.productType.name; // Тип продукции
-      row.getCell(8).value = item.productType.model; // Модель
-      row.getCell(9).value = item.construction.name; // Конструкция
-      row.getCell(10).value = item.manufacturingStandart.name; //Стандарт изготовления
-      row.getCell(11).value = item.diameter.name; // ДУ
-      row.getCell(12).value = item.classPressure.name; // Класс давления
-      row.getCell(13).value = item.workEnvironment; // Рабочая среда
-      row.getCell(14).value = item.temperature; // Температура рабочей среды
-      row.getCell(15).value = item.tightnessClass.name; // Класс герметичности
-      row.getCell(16).value = item.temperatureRange.name; // Температурный диапазон
-      row.getCell(17).value = item.housingMaterial.name; // Материал корпуса
-      row.getCell(18).value = item.rodMaterial.name; // Материал штока
-      row.getCell(19).value = item.wedgeMaterial.name; // Материал клина
-      row.getCell(20).value = item.housingMaterial.name; // Материал седла
-      row.getCell(21).value = item.connectionType.name; // Тип соединения
-      row.getCell(22).value = item.constructionLength; // Строительная длина
-      row.getCell(23).value = item.nace ? 'да' : 'нет'; // насе
-      row.getCell(24).value = item.counterFlanges ? 'да' : 'нет'; // ответный фланцы
-      row.getCell(25).value = item.counterFlangesMaterial.name; // Материал ответных фланцев
-      row.getCell(26).value = item.hairpins; // шпильки
-      row.getCell(27).value = item.nuts; // Гайки
-      row.getCell(28).value = item.pipeSize; // Размер трубы
-      row.getCell(29).value = item.pipeMaterial.name; // Материал трубы
-      row.getCell(30).value = item.drive; // привод
-      row.getCell(31).value = item.driveKit; // комплект привода
-      row.getCell(32).value = item.comment; // Примечание
-      row.getCell(33).value = item.count; // Количество
+      row.getCell(6).value = item.construction.name; // Конструкция
+      row.getCell(7).value = order.equipmentType.name; // Наименование ЗРА
+      row.getCell(8).value = item.productType.name; // Тип продукции
+      row.getCell(9).value = item.typeZra; // Тип ЗРА
+      row.getCell(10).value = item.typeOfOrgan; // Тип запорного органа
+      row.getCell(11).value = item.manufacturingStandart.name; //Стандарт изготовления
+      row.getCell(12).value = item.diameter; // ДУ
+      row.getCell(13).value = item.classPressure; // Класс давления
+      row.getCell(14).value = item.workEnvironment; // Рабочая среда
+      row.getCell(15).value = item.temperature; // Температура рабочей среды
+      row.getCell(16).value = item.tightnessClass.name; // Класс герметичности
+      row.getCell(17).value = item.temperatureRange.name; // Температурный диапазон
+      row.getCell(18).value = item.housingMaterial; // Материал корпуса
+      row.getCell(19).value = item.rodMaterial; // Материал штока
+      row.getCell(20).value = item.wedgeMaterial; // Материал клина
+      row.getCell(21).value = item.housingMaterial; // Материал седла
+      row.getCell(22).value = item.connectionType; // Тип соединения
+      row.getCell(23).value = item.counterFlangesMaterial; // Материал ответных фланцев
+      row.getCell(24).value = item.hairpins; // шпильки
+      row.getCell(25).value = item.nuts; // Гайки
+      row.getCell(26).value = item.constructionLength; // Строительная длина
+      row.getCell(27).value = item.pipeSize; // Размер трубы
+      row.getCell(28).value = item.pipeMaterial; // Материал трубы
+      row.getCell(29).value = item.drive; // привод
+      row.getCell(30).value = item.driveKit; // комплект привода
+      row.getCell(31).value = item.comment; // Примечание
+      row.getCell(32).value = item.count; // Количество
     });
 
     const lastFilledRow = worksheet.lastRow?.number || 0;
@@ -192,10 +191,11 @@ export class ExcelServiceService {
         { text: '№' },
         { text: 'TAG' },
         { text: 'Номер по ТЗ' },
-        { text: 'Наименование ЗРА' },
-        { text: 'Тип ЗРА' },
-        { text: 'Модель' },
         { text: 'Конструкция' },
+        { text: 'Наименование ЗРА' },
+        { text: 'Тип продукции' },
+        { text: 'Тип ЗРА' },
+        { text: 'Тип запорного органа' },
         { text: 'Стандарт изготовления' },
         { text: 'ДУ' },
         { text: 'Ру' },
@@ -208,12 +208,10 @@ export class ExcelServiceService {
         { text: 'Материал клина' },
         { text: 'Материал седла' },
         { text: 'Тип соединения' },
-        { text: 'Строительная длина' },
-        { text: 'NACE' },
-        { text: 'Ответные фланцы' },
         { text: 'Материал ответных фланцев' },
         { text: 'Шпильки' },
         { text: 'Гайки' },
+        { text: 'Строительная длина' },
         { text: 'Размер трубы' },
         { text: 'Материал трубы' },
         { text: 'Привод' },
@@ -228,28 +226,27 @@ export class ExcelServiceService {
         index + 1,
         item.tagNumber || '',
         item.techTaskNumber || '',
+        item.construction.name || '',
         order.equipmentType.name || '',
         item.productType.name || '',
-        item.productType.model || '',
-        item.construction.name || '',
+        item.typeZra || '',
+        item.typeOfOrgan || '',
         item.manufacturingStandart.name || '',
-        item.diameter.name || '',
-        item.classPressure.name || '',
+        item.diameter || '',
+        item.classPressure || '',
         item.workEnvironment || '',
         item.temperature || '',
         item.tightnessClass.name || '',
         item.temperatureRange.name || '',
-        item.housingMaterial.name || '',
-        item.rodMaterial.name || '',
-        item.wedgeMaterial.name || '',
-        item.housingMaterial.name || '',
-        item.connectionType.name || '',
-        item.constructionLength || '',
-        item.nace ? 'да' : 'нет',
-        item.counterFlanges ? 'да' : 'нет',
+        item.housingMaterial || '',
+        item.rodMaterial || '',
+        item.wedgeMaterial || '',
+        item.housingMaterial || '',
+        item.connectionType || '',
         item.counterFlangesMaterial.name || '',
         item.hairpins || '',
         item.nuts || '',
+        item.constructionLength || '',
         item.pipeSize || '',
         item.pipeMaterial.name || '',
         item.drive || '',
