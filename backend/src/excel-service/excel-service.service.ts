@@ -46,7 +46,7 @@ export class ExcelServiceService {
       row.getCell(17).value = item.housingMaterial; // Материал корпуса
       row.getCell(18).value = item.rodMaterial; // Материал штока
       row.getCell(19).value = item.wedgeMaterial; // Материал клина
-      row.getCell(20).value = item.housingMaterial; // Материал седла
+      row.getCell(20).value = item.seatMaterial; // Материал седла
       row.getCell(21).value = item.connectionType; // Тип соединения
       row.getCell(22).value = item.counterFlangesMaterial; // Материал ответных фланцев
       row.getCell(23).value = item.hairpins; // шпильки
@@ -239,7 +239,7 @@ export class ExcelServiceService {
         item.housingMaterial || '',
         item.rodMaterial || '',
         item.wedgeMaterial || '',
-        item.housingMaterial || '',
+        item.seatMaterial || '',
         item.connectionType || '',
         item.counterFlangesMaterial || '',
         item.hairpins || '',

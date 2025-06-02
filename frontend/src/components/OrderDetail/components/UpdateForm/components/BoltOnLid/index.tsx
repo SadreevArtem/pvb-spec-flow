@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getLength } from "@/components/OrderDetail/helpers";
 import {
   Drive,
@@ -104,17 +104,28 @@ export const BoltOnLid: React.FC<Props> = ({
     formData.diameter,
     lengthTable
   );
-
-  // useEffect(() => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [item.id]: {
-  //       ...prev[item.id],
-  //       workEnvironment: item.workEnvironment,
-  //     },
-  //   }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      [item.id]: {
+        ...prev[item.id],
+        rodMaterial: selectedMaterials?.rod,
+        wedgeMaterial: selectedMaterials?.wedge,
+        seatMaterial: selectedMaterials?.seat,
+        constructionLength: constructionLength
+          ? constructionLength.toString()
+          : "",
+        hairpins: selectedMaterialFlanges?.studs,
+        nuts: selectedMaterialFlanges?.nuts,
+      },
+    }));
+  }, [
+    selectedMaterials,
+    setFormData,
+    item.id,
+    constructionLength,
+    selectedMaterialFlanges,
+  ]);
 
   return (
     <>

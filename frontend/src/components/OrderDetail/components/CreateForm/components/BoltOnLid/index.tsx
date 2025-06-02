@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { flangesMap, lengthTable, materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getLength } from "@/components/OrderDetail/helpers";
 import {
   Drive,
@@ -94,7 +94,28 @@ export const BoltOnLid: React.FC<Props> = ({
     formData.diameter,
     lengthTable
   );
-  console.log(selectedFlanges);
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      [index + 1]: {
+        ...prev[index + 1],
+        rodMaterial: selectedMaterials?.rod,
+        wedgeMaterial: selectedMaterials?.wedge,
+        seatMaterial: selectedMaterials?.seat,
+        constructionLength: constructionLength
+          ? constructionLength.toString()
+          : "",
+        hairpins: selectedMaterialFlanges?.studs,
+        nuts: selectedMaterialFlanges?.nuts,
+      },
+    }));
+  }, [
+    selectedMaterials,
+    setFormData,
+    index,
+    constructionLength,
+    selectedMaterialFlanges,
+  ]);
 
   return (
     <>
