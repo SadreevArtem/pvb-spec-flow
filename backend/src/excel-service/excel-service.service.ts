@@ -243,7 +243,7 @@ export class ExcelServiceService {
         item.wedgeMaterial || '',
         item.housingMaterial || '',
         item.connectionType || '',
-        item.counterFlangesMaterial.name || '',
+        item.counterFlangesMaterial || '',
         item.hairpins || '',
         item.nuts || '',
         item.constructionLength || '',
