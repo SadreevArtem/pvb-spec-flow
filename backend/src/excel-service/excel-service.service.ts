@@ -191,7 +191,6 @@ export class ExcelServiceService {
         { text: 'TAG' },
         { text: 'Номер по ТЗ' },
         { text: 'Конструкция' },
-        { text: 'Наименование ЗРА' },
         { text: 'Тип продукции' },
         { text: 'Тип ЗРА' },
         { text: 'Тип запорного органа' },
@@ -246,7 +245,7 @@ export class ExcelServiceService {
         item.nuts || '',
         item.constructionLength || '',
         item.pipeSize || '',
-        item.pipeMaterial.name || '',
+        item.pipeMaterial || '',
         item.drive || '',
         item.driveKit || '',
         item.comment || '',
@@ -327,8 +326,6 @@ export class ExcelServiceService {
           table: {
             headerRows: 1,
             widths: [
-              'auto',
-              'auto',
               'auto',
               'auto',
               'auto',
