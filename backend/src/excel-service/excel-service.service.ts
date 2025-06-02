@@ -6,6 +6,7 @@ import * as fs from 'fs';
 
 import * as https from 'https';
 import * as http from 'http';
+import { translate } from './dictionary';
 
 @Injectable()
 export class ExcelServiceService {
@@ -33,7 +34,7 @@ export class ExcelServiceService {
       row.getCell(5).value = item.techTaskNumber; // Номер технологического задания
       row.getCell(6).value = item.construction.name; // Конструкция
       row.getCell(7).value = item.productType.name; // Тип продукции
-      row.getCell(8).value = item.typeZra; // Тип ЗРА
+      row.getCell(8).value = translate(item.typeZra); // Тип ЗРА
       row.getCell(9).value = item.typeOfOrgan; // Тип запорного органа
       row.getCell(10).value = item.manufacturingStandart.name; //Стандарт изготовления
       row.getCell(11).value = item.diameter; // ДУ
@@ -53,7 +54,7 @@ export class ExcelServiceService {
       row.getCell(25).value = item.constructionLength; // Строительная длина
       row.getCell(26).value = item.pipeSize; // Размер трубы
       row.getCell(27).value = item.pipeMaterial; // Материал трубы
-      row.getCell(28).value = item.drive; // привод
+      row.getCell(28).value = translate(item.drive); // привод
       row.getCell(29).value = item.driveKit; // комплект привода
       row.getCell(30).value = item.comment; // Примечание
       row.getCell(31).value = item.count; // Количество
@@ -226,7 +227,7 @@ export class ExcelServiceService {
         item.techTaskNumber || '',
         item.construction.name || '',
         item.productType.name || '',
-        item.typeZra || '',
+        translate(item.typeZra) || '',
         item.typeOfOrgan || '',
         item.manufacturingStandart.name || '',
         item.diameter || '',
@@ -246,7 +247,7 @@ export class ExcelServiceService {
         item.constructionLength || '',
         item.pipeSize || '',
         item.pipeMaterial || '',
-        item.drive || '',
+        translate(item.drive) || '',
         item.driveKit || '',
         item.comment || '',
         item.count || '',
