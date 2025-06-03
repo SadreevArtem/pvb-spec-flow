@@ -14,6 +14,8 @@ import { ZraDict } from "../../helpers";
 import { BoltOnLid } from "./components/BoltOnLid";
 import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
 import { Bellows } from "./components/Bellows";
+import { PressureSealGate } from "./components/PressureSealGate";
+import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
 
 type Props = {
   index: number;
@@ -111,6 +113,26 @@ export const UpdateForm: React.FC<Props> = ({
       case "BELLOWS":
         return (
           <Bellows
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "PRESSURE_SEAL_GATE":
+        return (
+          <PressureSealGate
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "HIGH_PRESSURE_PARALLEL_SLIDING":
+        return (
+          <HighPressureParallelSliding
             index={item.id}
             item={item}
             setFormData={setFormData}

@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import { BoltOnLid } from "./components/BoltOnLid";
 import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
 import { Bellows } from "./components/Bellows";
+import { PressureSealGate } from "./components/PressureSealGate";
+import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
 
 type Props = {
   index: number;
@@ -89,6 +91,24 @@ const CreateForm: React.FC<Props> = React.memo(
         case "BELLOWS":
           return (
             <Bellows
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "PRESSURE_SEAL_GATE":
+          return (
+            <PressureSealGate
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "HIGH_PRESSURE_PARALLEL_SLIDING":
+          return (
+            <HighPressureParallelSliding
               index={index}
               setFormData={setFormData}
               formData={formData}
