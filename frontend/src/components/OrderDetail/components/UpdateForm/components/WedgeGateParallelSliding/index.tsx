@@ -8,7 +8,6 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { flangesMap, lengthTable, materialMap, staticOptions } from "./static";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { getLength } from "@/components/OrderDetail/helpers";
@@ -18,33 +17,45 @@ import {
   OptionsType,
   WorkEnvironment,
 } from "../../../../../../../shared/types";
+import {
+  flangesMap,
+  lengthTable,
+  materialMap,
+  staticOptions,
+} from "../../../CreateForm/components/WedgeGateParallelSliding/static";
 
 type Props = {
   index: number;
+  item: Item;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
   formData: Item & { productTypeId?: number };
 };
 
-export const BoltOnLid: React.FC<Props> = ({
+export const WedgeGateParallelSliding: React.FC<Props> = ({
   index,
+  item,
   setFormData,
   formData,
   options,
 }) => {
   const [workEnvironment, setWorkEnvironment] = React.useState<
     WorkEnvironment | ""
-  >("");
-  const [selectedMaterial, setSelectedMaterial] = useState("0");
-  const [selectedFlanges, setSelectedFlanges] = useState("0");
-  const [drive, setDrive] = React.useState<Drive | "manual">("manual");
+  >(item.workEnvironment);
+  const [selectedMaterial, setSelectedMaterial] = useState(
+    item.housingMaterial
+  );
+  const [selectedFlanges, setSelectedFlanges] = useState(
+    item.counterFlangesMaterial
+  );
+  const [drive, setDrive] = React.useState<Drive | "manual">(item.drive);
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
       setFormData((prev) => ({
         ...prev,
-        [index + 1]: {
-          ...prev[index + 1],
+        [index]: {
+          ...prev[index],
           [fieldName]: event.target.value,
         },
       }));
@@ -53,8 +64,8 @@ export const BoltOnLid: React.FC<Props> = ({
     setDrive(event.target.value as Drive);
     setFormData((prev) => ({
       ...prev,
-      [index + 1]: {
-        ...prev[index + 1],
+      [index]: {
+        ...prev[index],
         drive: event.target.value as Drive,
       },
     }));
@@ -63,8 +74,8 @@ export const BoltOnLid: React.FC<Props> = ({
     setWorkEnvironment(event.target.value as WorkEnvironment);
     setFormData((prev) => ({
       ...prev,
-      [index + 1]: {
-        ...prev[index + 1],
+      [index]: {
+        ...prev[index],
         workEnvironment: event.target.value as WorkEnvironment,
       },
     }));
@@ -87,7 +98,6 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];
   const selectedMaterialFlanges = flangesMap[selectedFlanges];
-
   const constructionLength = getLength(
     formData.connectionType,
     formData.classPressure,
@@ -97,8 +107,8 @@ export const BoltOnLid: React.FC<Props> = ({
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      [index + 1]: {
-        ...prev[index + 1],
+      [item.id]: {
+        ...prev[item.id],
         rodMaterial: selectedMaterials?.rod,
         wedgeMaterial: selectedMaterials?.wedge,
         seatMaterial: selectedMaterials?.seat,
@@ -112,7 +122,7 @@ export const BoltOnLid: React.FC<Props> = ({
   }, [
     selectedMaterials,
     setFormData,
-    index,
+    item.id,
     constructionLength,
     selectedMaterialFlanges,
   ]);
@@ -126,7 +136,8 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          key={item?.typeOfOrgan?.toString() || ""}
+          defaultValue={item?.typeOfOrgan || ""}
           label="Тип запорного органа"
           onChange={handleChangeTypeOfOrgan}
         >
@@ -145,7 +156,8 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="dss-simple-select-label"
           id="dss-simple-select"
-          defaultValue={"0"}
+          key={item?.manufacturingStandart?.toString() || ""}
+          defaultValue={item?.manufacturingStandart?.id?.toString()}
           label="Стандарт изготовления"
           onChange={handleChangeManufacturingStandart}
         >
@@ -162,7 +174,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={item?.diameter}
           label="Ду"
           onChange={handleChangeDiameter}
         >
@@ -179,7 +191,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={item?.classPressure}
           label="Pу"
           onChange={handleChangeClassPressure}
         >
@@ -197,6 +209,7 @@ export const BoltOnLid: React.FC<Props> = ({
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={workEnvironment}
+          defaultValue={item?.workEnvironment}
           label="Рабочая среда"
           onChange={handleChangeWorkEnvironment}
         >
@@ -214,7 +227,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={item?.temperature}
           label="Температура рабочей среды"
           onChange={handleChangeTemperature}
         >
@@ -233,7 +246,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={item?.tightnessClass?.id.toString()}
           label="Класс герметичности"
           onChange={handleChangeTightnessClass}
         >
@@ -252,7 +265,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="temperature-range-select-label"
           id="temperature-range-select"
-          defaultValue={"0"}
+          defaultValue={item?.temperatureRange?.id.toString()}
           label="Температурный диапазон"
           onChange={handleChangeTemperatureRange}
         >
@@ -271,7 +284,7 @@ export const BoltOnLid: React.FC<Props> = ({
         <Select
           labelId="housing-material-select-label"
           id="housing-material-select"
-          defaultValue={"0"}
+          defaultValue={item?.housingMaterial}
           label="Материал корпуса"
           onChange={(e) => {
             handleChangeHousingMaterial(e);
@@ -335,7 +348,7 @@ export const BoltOnLid: React.FC<Props> = ({
             <Select
               labelId="connection-type-select-label"
               id="connection-type-select"
-              defaultValue={"0"}
+              defaultValue={item?.connectionType}
               label="Тип соединения"
               onChange={handleChangeConnectionType}
             >
@@ -354,7 +367,7 @@ export const BoltOnLid: React.FC<Props> = ({
             <Select
               labelId="flanges-material-select-label"
               id="seat-material-select"
-              defaultValue={"0"}
+              defaultValue={item?.counterFlangesMaterial}
               label="Материал ответных фланцев"
               onChange={(e) => {
                 handleChangeCounterFlangesMaterial(e);
@@ -423,13 +436,13 @@ export const BoltOnLid: React.FC<Props> = ({
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
+                [item.id]: {
+                  ...prev[item.id],
                   pipeSize: e.target.value,
                 },
               }))
             }
-            // value={formData?.pipeSize || ""}
+            defaultValue={item?.pipeSize || ""}
           />
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="pipe-material-select-label">
@@ -438,7 +451,7 @@ export const BoltOnLid: React.FC<Props> = ({
             <Select
               labelId="pipe-material-select-label"
               id="pipe-material-select"
-              defaultValue={"0"}
+              defaultValue={item?.pipeMaterial}
               label="Материал трубы"
               onChange={handleChangePipeMaterial}
             >
@@ -473,7 +486,7 @@ export const BoltOnLid: React.FC<Props> = ({
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-kit"
-              defaultValue={"0"}
+              defaultValue={item.driveKit}
               label="Комплект привода"
               onChange={handleChangeDriveKit}
             >
@@ -489,11 +502,12 @@ export const BoltOnLid: React.FC<Props> = ({
             label="Примечание"
             variant="outlined"
             className={clsx("!mr-3 !min-w-[220px]", {})}
+            defaultValue={item?.comment}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
+                [item.id]: {
+                  ...prev[item.id],
                   comment: e.target.value,
                 },
               }))
@@ -504,11 +518,12 @@ export const BoltOnLid: React.FC<Props> = ({
             label={"количество"}
             className={clsx("!mr-3 !min-w-[220px]", {})}
             type="number"
+            defaultValue={item?.count}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
+                [item.id]: {
+                  ...prev[item.id],
                   count: +e.target.value,
                 },
               }))

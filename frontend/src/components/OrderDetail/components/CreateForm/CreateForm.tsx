@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
 import { BoltOnLid } from "./components/BoltOnLid";
+import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
 
 type Props = {
   index: number;
@@ -50,10 +51,6 @@ const CreateForm: React.FC<Props> = React.memo(
           productTypeId: event.target.value,
         },
       }));
-      // const modelName = options.productTypes.find(
-      //   (productType) => productType.id === +event.target.value
-      // );
-      // setModel(modelName?.model || "");
     };
     const handleChangeConstructions = handleChangeField("constructionId");
 
@@ -73,6 +70,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "BOLT_ON_LID":
           return (
             <BoltOnLid
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "WEDGE_GATE_PARALLEL_SLIDING":
+          return (
+            <WedgeGateParallelSliding
               index={index}
               setFormData={setFormData}
               formData={formData}

@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { BoltOnLid } from "./components/BoltOnLid";
+import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
 
 type Props = {
   index: number;
@@ -34,9 +35,7 @@ export const UpdateForm: React.FC<Props> = ({
   );
 
   const typeZraOptions = productType !== "" ? ZraDict[productType] : [];
-  // const [selectedMaterial, setSelectedMaterial] = useState(
-  //   item.housingMaterial.id.toString() || "0"
-  // );
+
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
@@ -58,15 +57,7 @@ export const UpdateForm: React.FC<Props> = ({
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const handleChangeProductType = (event: SelectChangeEvent) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [item.id]: {
-  //       ...prev[item.id],
-  //       productTypeId: event.target.value,
-  //     },
-  //   }));
-  // };
+
   const handleChangeConstructions = handleChangeField("constructionId");
 
   const handleChangeProductType = (event: SelectChangeEvent) => {
@@ -82,17 +73,6 @@ export const UpdateForm: React.FC<Props> = ({
       },
     }));
   };
-
-  // const handleChangeWorkEnvironment = (event: SelectChangeEvent) => {
-  //   setWorkEnvironment(event.target.value as WorkEnvironment);
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [item.id]: {
-  //       ...prev[item.id],
-  //       workEnvironment: event.target.value as WorkEnvironment,
-  //     },
-  //   }));
-  // };
 
   const handleChangeTypeZra = (event: SelectChangeEvent) => {
     setTypeZra(event.target.value as TypeZra);
@@ -110,6 +90,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "BOLT_ON_LID":
         return (
           <BoltOnLid
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "WEDGE_GATE_PARALLEL_SLIDING":
+        return (
+          <WedgeGateParallelSliding
             index={item.id}
             item={item}
             setFormData={setFormData}
