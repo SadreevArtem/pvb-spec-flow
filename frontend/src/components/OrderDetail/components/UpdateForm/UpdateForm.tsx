@@ -13,6 +13,7 @@ import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { BoltOnLid } from "./components/BoltOnLid";
 import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
+import { Bellows } from "./components/Bellows";
 
 type Props = {
   index: number;
@@ -100,6 +101,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "WEDGE_GATE_PARALLEL_SLIDING":
         return (
           <WedgeGateParallelSliding
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "BELLOWS":
+        return (
+          <Bellows
             index={item.id}
             item={item}
             setFormData={setFormData}

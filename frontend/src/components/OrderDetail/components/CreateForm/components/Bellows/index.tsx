@@ -26,7 +26,7 @@ type Props = {
   formData: Item & { productTypeId?: number };
 };
 
-export const BoltOnLid: React.FC<Props> = ({
+export const Bellows: React.FC<Props> = ({
   index,
   setFormData,
   formData,

@@ -13,6 +13,7 @@ import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
 import { BoltOnLid } from "./components/BoltOnLid";
 import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
+import { Bellows } from "./components/Bellows";
 
 type Props = {
   index: number;
@@ -79,6 +80,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "WEDGE_GATE_PARALLEL_SLIDING":
           return (
             <WedgeGateParallelSliding
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "BELLOWS":
+          return (
+            <Bellows
               index={index}
               setFormData={setFormData}
               formData={formData}
@@ -183,7 +193,7 @@ const CreateForm: React.FC<Props> = React.memo(
               ))}
             </Select>
           </FormControl>
-          <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
+          <FormControl className="!mr-3 !w-[240px]">
             <InputLabel id="demo-simple-select-label">{"Тип ЗРА"}</InputLabel>
             <Select
               labelId="demo-simple-select-label"

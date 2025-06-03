@@ -119,7 +119,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
 
   return (
     <>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
           {"Тип запорного органа"}
         </InputLabel>
@@ -138,7 +138,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="dss-simple-select-label">
           {"Стандарт изготовления"}
         </InputLabel>
@@ -157,7 +157,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -174,7 +174,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">{"Pу"}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -191,7 +191,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">{"Рабочая среда"}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -207,7 +207,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
           {"Температура рабочей среды"}
         </InputLabel>
@@ -226,7 +226,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
           {"Класс герметичности"}
         </InputLabel>
@@ -264,7 +264,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+      <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="housing-material-select-label">
           {"Материал корпуса"}
         </InputLabel>
@@ -292,7 +292,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Материал штока"
             required
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterials?.rod}
             id="outlined-multiline-static"
             slotProps={{
@@ -305,7 +305,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
 
           <TextField
             label="Материал клина"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterials?.wedge}
             id="outlined-multiline-static-wedge"
             slotProps={{
@@ -318,7 +318,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Материал седла"
             variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterials?.seat}
             id="outlined-multiline-static-seat"
             slotProps={{
@@ -328,7 +328,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
               },
             }}
           />
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="connection-type-select-label">
               {"Тип соединения"}
             </InputLabel>
@@ -347,7 +347,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
               ))}
             </Select>
           </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="seat-material-select-label">
               {"Материал ответных фланцев"}
             </InputLabel>
@@ -371,7 +371,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           </FormControl>
           <TextField
             label="Шпильки"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterialFlanges?.studs}
             id="outlined-multiline-static-wedge"
             slotProps={{
@@ -384,7 +384,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Гайки"
             variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterialFlanges?.nuts}
             id="outlined-multiline-static-seat"
             slotProps={{
@@ -397,7 +397,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Строительная длина"
             variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
@@ -419,7 +419,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Размер трубы"
             variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
@@ -431,7 +431,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
             }
             // value={formData?.pipeSize || ""}
           />
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="pipe-material-select-label">
               {"Материал трубы"}
             </InputLabel>
@@ -450,7 +450,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
               ))}
             </Select>
           </FormControl>
-          <FormControl className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -466,7 +466,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
               ))}
             </Select>
           </FormControl>
-          <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
+          <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="demo-simple-select-label">
               {"Комплект привода"}
             </InputLabel>
@@ -488,7 +488,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             label="Примечание"
             variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
@@ -502,7 +502,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
           <TextField
             variant="outlined"
             label={"количество"}
-            className={clsx("!mr-3 !min-w-[220px]", {})}
+            className={clsx("!mr-3 !w-[240px]", {})}
             type="number"
             onChange={(e) =>
               setFormData((prev) => ({
