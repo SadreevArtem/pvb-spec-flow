@@ -49,6 +49,10 @@ export const Bellows: React.FC<Props> = ({
     item.counterFlangesMaterial
   );
   const [drive, setDrive] = React.useState<Drive | "manual">(item.drive);
+  const [driveKit, setDriveKit] = React.useState<string[]>(
+    item.driveKit.split(",")
+  );
+
   const t = useTranslations("OrderDetail");
   const handleChangeField =
     (fieldName: string) => (event: SelectChangeEvent) => {
@@ -94,7 +98,24 @@ export const Bellows: React.FC<Props> = ({
   const handleChangeCounterFlangesMaterial = handleChangeField(
     "counterFlangesMaterial"
   );
-  const handleChangeDriveKit = handleChangeField("driveKit");
+  const handleChangeDriveKit = (event: SelectChangeEvent<typeof driveKit>) => {
+    const {
+      target: { value },
+    } = event;
+    setDriveKit(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+    const stringValue = typeof value === "string" ? value : value.join(",");
+
+    setFormData((prev) => ({
+      ...prev,
+      [index]: {
+        ...prev[index],
+        driveKit: stringValue,
+      },
+    }));
+  };
   const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];
   const selectedMaterialFlanges = flangesMap[selectedFlanges];
@@ -486,11 +507,12 @@ export const Bellows: React.FC<Props> = ({
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-kit"
-              defaultValue={item.driveKit}
+              defaultValue={item.driveKit.split(",")}
               label="Комплект привода"
+              multiple
+              value={driveKit}
               onChange={handleChangeDriveKit}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
               {staticOptions.driveKit.map((type, i) => (
                 <MenuItem key={i} value={type.name}>
                   {type.name}

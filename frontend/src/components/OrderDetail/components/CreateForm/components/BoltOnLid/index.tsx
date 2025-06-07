@@ -37,6 +37,7 @@ export const BoltOnLid: React.FC<Props> = ({
   >("");
   const [selectedMaterial, setSelectedMaterial] = useState("0");
   const [selectedFlanges, setSelectedFlanges] = useState("0");
+  const [driveKit, setDriveKit] = React.useState<string[]>([]);
   const [drive, setDrive] = React.useState<Drive | "manual">("manual");
   const t = useTranslations("OrderDetail");
   const handleChangeField =
@@ -83,7 +84,25 @@ export const BoltOnLid: React.FC<Props> = ({
   const handleChangeCounterFlangesMaterial = handleChangeField(
     "counterFlangesMaterial"
   );
-  const handleChangeDriveKit = handleChangeField("driveKit");
+  const handleChangeDriveKit = (event: SelectChangeEvent<typeof driveKit>) => {
+    const {
+      target: { value },
+    } = event;
+    setDriveKit(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+    const stringValue = typeof value === "string" ? value : value.join(",");
+
+    setFormData((prev) => ({
+      ...prev,
+      [index + 1]: {
+        ...prev[index + 1],
+        driveKit: stringValue,
+      },
+    }));
+  };
+
   const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];
   const selectedMaterialFlanges = flangesMap[selectedFlanges];
@@ -466,6 +485,7 @@ export const BoltOnLid: React.FC<Props> = ({
               ))}
             </Select>
           </FormControl>
+
           <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="demo-simple-select-label">
               {"Комплект привода"}
@@ -473,11 +493,11 @@ export const BoltOnLid: React.FC<Props> = ({
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-kit"
-              defaultValue={"0"}
+              multiple
+              value={driveKit}
               label="Комплект привода"
               onChange={handleChangeDriveKit}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
               {staticOptions.driveKit.map((type, i) => (
                 <MenuItem key={i} value={type.name}>
                   {type.name}
