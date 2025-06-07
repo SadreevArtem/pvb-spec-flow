@@ -1,7 +1,9 @@
 import clsx from "clsx";
 
 import {
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -44,6 +46,9 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
   >(item.workEnvironment);
   const [selectedMaterial, setSelectedMaterial] = useState(
     item.housingMaterial
+  );
+  const [selectedMaterialsSeat, setSelectedMaterialsSeat] = useState(
+    item.seatMaterial
   );
   const [selectedFlanges, setSelectedFlanges] = useState(
     item.counterFlangesMaterial
@@ -323,6 +328,28 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
 
       {selectedMaterial && (
         <>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedMaterialsSeat === "PTFE"}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    [index]: {
+                      ...prev[index],
+                      seatMaterial: e.target.checked
+                        ? "PTFE"
+                        : selectedMaterials.seat,
+                    },
+                  }));
+                  setSelectedMaterialsSeat(
+                    e.target.checked ? "PTFE" : selectedMaterials.seat
+                  );
+                }}
+              />
+            }
+            label="Мягкое седло"
+          />
           <TextField
             label="Материал штока"
             required
@@ -353,7 +380,7 @@ export const WedgeGateParallelSliding: React.FC<Props> = ({
             label="Материал седла"
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
-            value={selectedMaterials?.seat}
+            value={selectedMaterialsSeat}
             id="outlined-multiline-static-seat"
             slotProps={{
               input: { readOnly: true },

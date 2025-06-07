@@ -1,7 +1,9 @@
 import clsx from "clsx";
 
 import {
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -37,6 +39,7 @@ export const HighPressureParallelSliding: React.FC<Props> = ({
   >("");
   const [selectedMaterial, setSelectedMaterial] = useState("0");
   const [selectedFlanges, setSelectedFlanges] = useState("0");
+  const [selectedMaterialsSeat, setSelectedMaterialsSeat] = useState("");
   const [drive, setDrive] = React.useState<Drive | "manual">("manual");
   const [driveKit, setDriveKit] = React.useState<string[]>([]);
   const t = useTranslations("OrderDetail");
@@ -127,6 +130,7 @@ export const HighPressureParallelSliding: React.FC<Props> = ({
         nuts: selectedMaterialFlanges?.nuts,
       },
     }));
+    setSelectedMaterialsSeat(selectedMaterials?.seat);
   }, [
     selectedMaterials,
     setFormData,
@@ -307,6 +311,28 @@ export const HighPressureParallelSliding: React.FC<Props> = ({
 
       {selectedMaterial && (
         <>
+          <FormControlLabel
+            control={
+              <Checkbox
+                // checked={false}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    [index + 1]: {
+                      ...prev[index + 1],
+                      seatMaterial: e.target.checked
+                        ? "PTFE"
+                        : selectedMaterials.seat,
+                    },
+                  }));
+                  setSelectedMaterialsSeat(
+                    e.target.checked ? "PTFE" : selectedMaterials.seat
+                  );
+                }}
+              />
+            }
+            label="Мягкое седло"
+          />
           <TextField
             label="Материал штока"
             required
@@ -337,7 +363,7 @@ export const HighPressureParallelSliding: React.FC<Props> = ({
             label="Материал седла"
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
-            value={selectedMaterials?.seat}
+            value={selectedMaterialsSeat}
             id="outlined-multiline-static-seat"
             slotProps={{
               input: { readOnly: true },
