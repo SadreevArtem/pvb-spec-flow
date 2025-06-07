@@ -134,11 +134,9 @@ export const materialMap: Record<string, MaterialEntry> = {
   CF8C: { rod: "F321", wedge: "F321", seat: "F321" },
   CF8M: { rod: "F316", wedge: "F316", seat: "F316" },
   CF3M: { rod: "F316L", wedge: "F316L", seat: "F316L" },
-  "09Г2С": { rod: "09Г2С", wedge: "09Г2С", seat: "09Г2С" },
-  "13ХФА": { rod: "13ХФА", wedge: "13ХФА", seat: "13ХФА" },
-  "20": { rod: "20", wedge: "20", seat: "20" },
-  "20Л": { rod: "20Л", wedge: "20Л", seat: "20Л" },
-  "20ГЛ": { rod: "20ГЛ", wedge: "20ГЛ", seat: "20ГЛ" },
+  "09Г2С": { rod: "30Х13", wedge: "30Х13+ТО", seat: "30Х13+ТО" },
+  "08Х18Н10": { rod: "08Х18Н10", wedge: "08Х18Н10", seat: "08Х18Н10" },
+  "20": { rod: "30Х13", wedge: "30Х13+ТО", seat: "20Х13" },
 };
 
 export const flangesMap: Record<string, FlangeMaterialEntry> = {

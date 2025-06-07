@@ -112,20 +112,14 @@ export const staticOptions = {
 };
 
 export const materialMap: Record<string, MaterialEntry> = {
-  WCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
-  LCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
-  WC6: { rod: "F6A", wedge: "F6A", seat: "F6A" },
-  C5: { rod: "F6A", wedge: "F6A", seat: "F6A" },
-  C12: { rod: "F6A", wedge: "F6A", seat: "F6A" },
-  CF8: { rod: "F304", wedge: "F304", seat: "F304" },
-  CF8C: { rod: "F321", wedge: "F321", seat: "F321" },
-  CF8M: { rod: "F316", wedge: "F316", seat: "F316" },
-  CF3M: { rod: "F316L", wedge: "F316L", seat: "F316L" },
-  "09Г2С": { rod: "09Г2С", wedge: "09Г2С", seat: "09Г2С" },
-  "13ХФА": { rod: "13ХФА", wedge: "13ХФА", seat: "13ХФА" },
-  "20": { rod: "20", wedge: "20", seat: "20" },
-  "20Л": { rod: "20Л", wedge: "20Л", seat: "20Л" },
-  "20ГЛ": { rod: "20ГЛ", wedge: "20ГЛ", seat: "20ГЛ" },
+  WCB: { rod: "F6A", wedge: "WCB+HF", seat: "А105+HF" },
+  WC1: { rod: "F6A", wedge: "WC1+HF", seat: "F6A+HF" },
+  WC6: { rod: "F6A", wedge: "WC6+HF", seat: "F6A+HF" },
+  WC9: { rod: "F6A", wedge: "WC9+HF", seat: "F6A+HF" },
+  CF8M: { rod: "F316", wedge: "CF8M=HF", seat: "F316+HF" },
+  "09Г2С": { rod: "30Х13", wedge: "30Х13+ТО", seat: "30Х13+ТО" },
+  "08Х18Н10": { rod: "08Х18Н10", wedge: "08Х18Н10", seat: "08Х18Н10" },
+  "20": { rod: "30Х13", wedge: "30Х13+ТО", seat: "20Х13" },
 };
 
 export const flangesMap: Record<string, FlangeMaterialEntry> = {
