@@ -148,11 +148,11 @@ export const flangesMap: Record<string, FlangeMaterialEntry> = {
   "A 182 Gr. F316": { studs: "B8", nuts: "G8" },
   "A 182 Gr. F316L": { studs: "B8", nuts: "G8" },
   "A 182 Gr. F321": { studs: "B8", nuts: "G8" },
-  "09Г2С": { studs: "09Г2С", nuts: "09Г2С" },
-  "13ХФА": { studs: "13ХФА", nuts: "13ХФА" },
-  "20": { studs: "20", nuts: "20" },
-  "20Л": { studs: "20Л", nuts: "20Л" },
-  "20ГЛ": { studs: "20ГЛ", nuts: "20ГЛ" },
+  "09Г2С": { studs: "35ХМ", nuts: "35" },
+  "13ХФА": { studs: "35ХМ", nuts: "35" },
+  "20": { studs: "35ХМ", nuts: "35" },
+  "20Л": { studs: "35ХМ", nuts: "35" },
+  "20ГЛ": { studs: "35ХМ", nuts: "35" },
   "-": { studs: "-", nuts: "-" },
 };
 
