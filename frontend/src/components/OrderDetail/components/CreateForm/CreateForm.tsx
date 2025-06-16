@@ -16,6 +16,7 @@ import { BoltOnLid } from "./components/BoltOnLid";
 import { Bellows } from "./components/Bellows";
 import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
+import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 
 type Props = {
   index: number;
@@ -108,6 +109,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "HIGH_PRESSURE_PARALLEL_SLIDING":
           return (
             <HighPressureParallelSliding
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "SPHERICAL_PIPELINE_GATE":
+          return (
+            <SphericalPipelineGate
               index={index}
               setFormData={setFormData}
               formData={formData}

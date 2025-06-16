@@ -16,6 +16,7 @@ import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding"
 import { Bellows } from "./components/Bellows";
 import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
+import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 
 type Props = {
   index: number;
@@ -133,6 +134,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "HIGH_PRESSURE_PARALLEL_SLIDING":
         return (
           <HighPressureParallelSliding
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "SPHERICAL_PIPELINE_GATE":
+        return (
+          <SphericalPipelineGate
             index={item.id}
             item={item}
             setFormData={setFormData}
