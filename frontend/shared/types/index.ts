@@ -166,8 +166,6 @@ export type TemperatureRangeType = EquipmentType;
 
 export type MaterialType = EquipmentType;
 
-export type ConnectionType = EquipmentType;
-
 export type OptionsType = {
   productTypes: ProductType[];
   constructions: ConstructionType[];
@@ -191,4 +189,19 @@ export type MaterialEntry = {
 export type FlangeMaterialEntry = {
   studs: string; // Шпильки
   nuts: string; // Гайки
+};
+
+type Size = string; // Например: '1/2"', '3/4"'
+type Length = number;
+
+export type ConnectionType = {
+  [key in Size]: Length;
+};
+
+type PressureClass = {
+  [key: string]: ConnectionType; // Например: "RF|B", "BW", "RF|B|BW", "RTJ|J"
+};
+
+export type LengthTable = {
+  [key: string]: PressureClass; // Например: "150#", "300#", "600#"
 };

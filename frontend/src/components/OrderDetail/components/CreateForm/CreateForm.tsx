@@ -11,8 +11,8 @@ import { Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
 import { useTranslations } from "next-intl";
-import { BoltOnLid } from "./components/BoltOnLid";
 import { WedgeGateParallelSliding } from "./components/WedgeGateParallelSliding";
+import { BoltOnLid } from "./components/BoltOnLid";
 import { Bellows } from "./components/Bellows";
 import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
@@ -33,7 +33,6 @@ const CreateForm: React.FC<Props> = React.memo(
     )?.name;
 
     const typeZraOptions = selectedZra ? ZraDict[selectedZra] : [];
-    // console.log(typeZraOptions);
 
     const handleChangeField =
       (fieldName: string) => (event: SelectChangeEvent) => {
@@ -231,129 +230,6 @@ const CreateForm: React.FC<Props> = React.memo(
           </FormControl>
 
           {renderContent()}
-
-          {/* <TextField
-            label="Температура рабочей среды"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  temperature: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.temperature || ""}
-          /> */}
-
-          {/* <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="wedge-material-select-label">
-              {"Материал клина"}
-            </InputLabel>
-            <Select
-              labelId="wedge-material-select-label"
-              id="wedge-material-select"
-              defaultValue={"0"}
-              label="Материал клина"
-              onChange={handleChangeWedgeMaterial}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
-          {/* <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
-            <InputLabel id="seat-material-select-label">
-              {"Материал седла"}
-            </InputLabel>
-            <Select
-              labelId="seat-material-select-label"
-              id="seat-material-select"
-              defaultValue={"0"}
-              value={selectedMaterial}
-              disabled
-              label="Материал седла"
-              onChange={handleChangeSeatMaterial}
-            >
-              <MenuItem value="0">Не выбрано</MenuItem>
-              {options.materials.map((material, i) => (
-                <MenuItem key={i} value={material.id}>
-                  {material.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
-
-          {/* <FormControlLabel
-            control={
-              <Checkbox
-                // checked={false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    [index + 1]: {
-                      ...prev[index + 1],
-                      nace: e.target.checked,
-                    },
-                  }))
-                }
-              />
-            }
-            label="NACE"
-          /> */}
-          {/* <FormControlLabel
-            control={
-              <Checkbox
-                // checked={false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    [index + 1]: {
-                      ...prev[index + 1],
-                      counterFlanges: e.target.checked,
-                    },
-                  }))
-                }
-              />
-            }
-            label="Ответные фланцы"
-          /> */}
-          {/* 
-          <TextField
-            label="Шпильки"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  hairpins: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.hairpins || ""}
-          /> */}
-          {/* <TextField
-            label="Гайки"
-            variant="outlined"
-            className={clsx("!mr-3 !min-w-[220px]", {})}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                [index + 1]: {
-                  ...prev[index + 1],
-                  nuts: e.target.value,
-                },
-              }))
-            }
-            // value={formData?.nuts || ""}
-          /> */}
         </div>
       </div>
     );
