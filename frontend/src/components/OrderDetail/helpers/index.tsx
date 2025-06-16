@@ -36,7 +36,7 @@ export const ZraDict: Record<string, string[]> = {
   "Поворотный затвор": ["TWO_CENTERED", "THREE_CENTERED"],
 };
 
-type ConnectionGroup = "RF|B" | "BW" | "RF|B|BW" | "RTJ|J";
+type ConnectionGroup = "RF|B" | "BW|SW" | "RF|B|BW" | "RTJ|J";
 type PressureClass = "150#" | "300#" | "600#" | "900#" | "1500#" | "2500#";
 
 interface LengthTable {
@@ -59,13 +59,14 @@ export function getLength(
     "ASME B16.5 RTJ": "RTJ|J",
     "ASME B16.47 RF": "RF|B",
     "ASME B16.47 RTJ": "RTJ|J",
-    "BW TO ASME B16.25": "BW",
+    "BW TO ASME B16.25": "BW|SW",
+    "SW  ASME B16.11": "BW|SW",
+    "NPT ASME B1.20.1": "RF|B",
     "ГОСТ 33259-2015 Тип В": "RF|B",
     "ГОСТ 33259-2015 Тип J": "RTJ|J",
     "ГОСТ 33259-2015 Тип F": "RF|B",
     "ГОСТ 33259-2015 Тип D": "RF|B",
   };
-  console.log(connectionTypeName);
 
   const group = connectionMap[connectionTypeName];
   if (!group) {

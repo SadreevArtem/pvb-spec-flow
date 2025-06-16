@@ -49,8 +49,6 @@ export const ZraComponent: React.FC<Props> = ({
     WorkEnvironment | ""
   >("");
   const [selectedMaterial, setSelectedMaterial] = useState("0");
-  console.log(formData);
-
   const [selectedFlanges, setSelectedFlanges] = useState("0");
   const [selectedMaterialsSeat, setSelectedMaterialsSeat] = useState("");
   const [driveKit, setDriveKit] = React.useState<string[]>([]);

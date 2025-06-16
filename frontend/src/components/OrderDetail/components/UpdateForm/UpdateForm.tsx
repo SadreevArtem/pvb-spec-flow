@@ -17,6 +17,7 @@ import { Bellows } from "./components/Bellows";
 import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
 import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
+import { BoltedCover } from "./components/BoltedCover";
 
 type Props = {
   index: number;
@@ -144,6 +145,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "SPHERICAL_PIPELINE_GATE":
         return (
           <SphericalPipelineGate
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "BOLTED_COVER":
+        return (
+          <BoltedCover
             index={item.id}
             item={item}
             setFormData={setFormData}
