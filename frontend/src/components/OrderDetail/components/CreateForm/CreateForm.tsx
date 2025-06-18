@@ -29,6 +29,7 @@ import { Piston } from "./components/Piston";
 import { PistonTypeY } from "./components/PistonTypeY";
 import { SwingCheckPressureSeal } from "./components/SwingCheckPressureSeal";
 import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSealStraight";
+import { LiftCheckPressureSealTypeY } from "./components/LiftCheckPressureSealTypeY";
 
 type Props = {
   index: number;
@@ -242,6 +243,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "LIFT_CHECK_PRESSURE_SEAL_STRAIGHT":
           return (
             <LiftCheckPressureSealStraight
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "LIFT_CHECK_PRESSURE_SEAL_Y_PATTERN":
+          return (
+            <LiftCheckPressureSealTypeY
               index={index}
               setFormData={setFormData}
               formData={formData}
