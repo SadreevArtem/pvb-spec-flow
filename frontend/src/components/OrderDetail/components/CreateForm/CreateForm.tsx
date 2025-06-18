@@ -20,6 +20,8 @@ import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 import { BoltedCover } from "./components/BoltedCover";
 import { TypeY } from "./components/TypeY";
 import { Angular } from "./components/Angular";
+import { BelowsValve } from "./components/BelowsValve";
+import { BelowsValveTypeY } from "./components/BelowsValveTypeY";
 
 type Props = {
   index: number;
@@ -149,6 +151,25 @@ const CreateForm: React.FC<Props> = React.memo(
         case "ANGULAR":
           return (
             <Angular
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "BELLOWS_VALVE":
+          return (
+            <BelowsValve
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "BELLOWS_TYPE_Y":
+          return (
+            <BelowsValveTypeY
               index={index}
               setFormData={setFormData}
               formData={formData}

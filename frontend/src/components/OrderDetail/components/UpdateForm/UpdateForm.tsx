@@ -20,6 +20,8 @@ import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 import { BoltedCover } from "./components/BoltedCover";
 import { TypeY } from "./components/TypeY";
 import { Angular } from "./components/Angular";
+import { BelowsValve } from "./components/BelowsValve";
+import { BelowsValveTypeY } from "./components/BelowsValveTypeY";
 
 type Props = {
   index: number;
@@ -177,6 +179,26 @@ export const UpdateForm: React.FC<Props> = ({
       case "ANGULAR":
         return (
           <Angular
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "BELLOWS_VALVE":
+        return (
+          <BelowsValve
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "BELLOWS_TYPE_Y":
+        return (
+          <BelowsValveTypeY
             index={item.id}
             item={item}
             setFormData={setFormData}
