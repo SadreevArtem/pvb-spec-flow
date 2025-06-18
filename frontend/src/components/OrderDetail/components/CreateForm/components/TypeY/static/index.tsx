@@ -97,7 +97,7 @@ export const materialMap: Record<string, MaterialEntry> = {
   C12: { rod: "F6A", wedge: "F6A", seat: "F6A" },
   CF8: { rod: "F304", wedge: "F304", seat: "F304" },
   CF8C: { rod: "F321", wedge: "F321", seat: "F321" },
-  CF8M: { rod: "F316", wedge: "F316", seat: "F316" },
+  CF8M: { rod: "F304", wedge: "F304", seat: "F304" },
   CF3M: { rod: "F316L", wedge: "F316L", seat: "F316L" },
   "09Г2С": { rod: "30Х13", wedge: "30Х13+ТО", seat: "30Х13+ТО" },
   "08Х18Н10": { rod: "08Х18Н10", wedge: "08Х18Н10", seat: "08Х18Н10" },

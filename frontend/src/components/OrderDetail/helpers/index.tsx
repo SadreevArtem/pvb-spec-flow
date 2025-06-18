@@ -7,7 +7,7 @@ export const ZraDict: Record<string, string[]> = {
     "HIGH_PRESSURE_PARALLEL_SLIDING",
   ],
   "Задвижка шиберная": ["SPHERICAL_PIPELINE_GATE"],
-  "Клапан запорный": ["BOLTED_COVER", "TYPE_Y"],
+  "Клапан запорный": ["BOLTED_COVER"],
   Клапан: [
     "TYPE_Y",
     "BELLOWS_VALVE",

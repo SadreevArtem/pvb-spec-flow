@@ -18,6 +18,8 @@ import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
 import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 import { BoltedCover } from "./components/BoltedCover";
+import { TypeY } from "./components/TypeY";
+import { Angular } from "./components/Angular";
 
 type Props = {
   index: number;
@@ -155,6 +157,26 @@ export const UpdateForm: React.FC<Props> = ({
       case "BOLTED_COVER":
         return (
           <BoltedCover
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "TYPE_Y":
+        return (
+          <TypeY
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "ANGULAR":
+        return (
+          <Angular
             index={item.id}
             item={item}
             setFormData={setFormData}

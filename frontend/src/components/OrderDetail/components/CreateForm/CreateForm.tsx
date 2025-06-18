@@ -18,6 +18,8 @@ import { PressureSealGate } from "./components/PressureSealGate";
 import { HighPressureParallelSliding } from "./components/HighPressureParallelSliding";
 import { SphericalPipelineGate } from "./components/SphericalPipelineGate";
 import { BoltedCover } from "./components/BoltedCover";
+import { TypeY } from "./components/TypeY";
+import { Angular } from "./components/Angular";
 
 type Props = {
   index: number;
@@ -128,6 +130,25 @@ const CreateForm: React.FC<Props> = React.memo(
         case "BOLTED_COVER":
           return (
             <BoltedCover
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "TYPE_Y":
+          return (
+            <TypeY
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "ANGULAR":
+          return (
+            <Angular
               index={index}
               setFormData={setFormData}
               formData={formData}
