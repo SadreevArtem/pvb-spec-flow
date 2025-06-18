@@ -28,6 +28,7 @@ import { Turning } from "./components/Turning";
 import { Piston } from "./components/Piston";
 import { PistonTypeY } from "./components/PistonTypeY";
 import { SwingCheckPressureSeal } from "./components/SwingCheckPressureSeal";
+import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSealStraight";
 
 type Props = {
   index: number;
@@ -265,6 +266,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "SWING_CHECK_PRESSURE_SEAL":
         return (
           <SwingCheckPressureSeal
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "LIFT_CHECK_PRESSURE_SEAL_STRAIGHT":
+        return (
+          <LiftCheckPressureSealStraight
             index={item.id}
             item={item}
             setFormData={setFormData}
