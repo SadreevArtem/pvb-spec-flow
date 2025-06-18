@@ -22,6 +22,8 @@ import { TypeY } from "./components/TypeY";
 import { Angular } from "./components/Angular";
 import { BelowsValve } from "./components/BelowsValve";
 import { BelowsValveTypeY } from "./components/BelowsValveTypeY";
+import { PressureSealGlobe } from "./components/PressureSealGlobe";
+import { PressureSealGlobeTypeY } from "./components/PressureSealGlobeTypeY";
 
 type Props = {
   index: number;
@@ -170,6 +172,25 @@ const CreateForm: React.FC<Props> = React.memo(
         case "BELLOWS_TYPE_Y":
           return (
             <BelowsValveTypeY
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "PRESSURE_SEAL_GLOBE":
+          return (
+            <PressureSealGlobe
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "PRESSURE_SEAL_GLOBE_TYPE_Y":
+          return (
+            <PressureSealGlobeTypeY
               index={index}
               setFormData={setFormData}
               formData={formData}
