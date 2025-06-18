@@ -25,6 +25,7 @@ import { BelowsValveTypeY } from "./components/BelowsValveTypeY";
 import { PressureSealGlobe } from "./components/PressureSealGlobe";
 import { PressureSealGlobeTypeY } from "./components/PressureSealGlobeTypeY";
 import { Turning } from "./components/Turning";
+import { Piston } from "./components/Piston";
 
 type Props = {
   index: number;
@@ -232,6 +233,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "TURNING":
         return (
           <Turning
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "PISTON":
+        return (
+          <Piston
             index={item.id}
             item={item}
             setFormData={setFormData}
