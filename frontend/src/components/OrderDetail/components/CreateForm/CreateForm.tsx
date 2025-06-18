@@ -30,6 +30,7 @@ import { PistonTypeY } from "./components/PistonTypeY";
 import { SwingCheckPressureSeal } from "./components/SwingCheckPressureSeal";
 import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSealStraight";
 import { LiftCheckPressureSealTypeY } from "./components/LiftCheckPressureSealTypeY";
+import { InclinedDisk } from "./components/InclinedDisk";
 
 type Props = {
   index: number;
@@ -252,6 +253,16 @@ const CreateForm: React.FC<Props> = React.memo(
         case "LIFT_CHECK_PRESSURE_SEAL_Y_PATTERN":
           return (
             <LiftCheckPressureSealTypeY
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "INCLINED_DISK":
+          return (
+            <InclinedDisk
               index={index}
               setFormData={setFormData}
               formData={formData}
