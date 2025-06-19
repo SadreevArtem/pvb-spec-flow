@@ -1,23 +1,31 @@
 import { Item, OptionsType } from "../../../../../../../shared/types";
-import { ZraComponent } from "../ZraComponent";
-import { flangesMap, lengthTable, materialMap, staticOptions } from "./static";
+import {
+  flangesMap,
+  lengthTable,
+  materialMap,
+  staticOptions,
+} from "../../../CreateForm/components/TrunnionBallSideEntry/static";
+import { ZraComponentUpdate } from "../ZraComponentUpdate";
 
 type Props = {
   index: number;
+  item: Item;
   setFormData: React.Dispatch<React.SetStateAction<Record<number, Item>>>;
   options: OptionsType;
   formData: Item & { productTypeId?: number };
 };
 
-export const FloatingBallSideEntry: React.FC<Props> = ({
+export const TrunnionBallSideEntry: React.FC<Props> = ({
   index,
+  item,
   setFormData,
   formData,
   options,
 }) => {
   return (
-    <ZraComponent
+    <ZraComponentUpdate
       index={index}
+      item={item}
       setFormData={setFormData}
       formData={formData}
       options={options}

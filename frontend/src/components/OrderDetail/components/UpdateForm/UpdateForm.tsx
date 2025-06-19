@@ -32,7 +32,8 @@ import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSea
 import { LiftCheckPressureSealTypeY } from "./components/LiftCheckPressureSealTypeY";
 import { InclinedDisk } from "./components/InclinedDisk";
 import { FloatingPlugSideEntry } from "./components/FloatingPlugSideEntry";
-import { FloatingBallSideEntry } from "./components/FloatingBallSideEntry";
+import { TrunnionBallSideEntry } from "./components/TrunnionBallSideEntry";
+import { TrunnionBallTopEntry } from "./components/TrunnionBallTopEntry";
 
 type Props = {
   index: number;
@@ -319,7 +320,17 @@ export const UpdateForm: React.FC<Props> = ({
         );
       case "TRUNNION_BALL_SIDE_ENTRY":
         return (
-          <FloatingBallSideEntry
+          <TrunnionBallSideEntry
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "TRUNNION_BALL_TOP_ENTRY":
+        return (
+          <TrunnionBallTopEntry
             index={item.id}
             item={item}
             setFormData={setFormData}
