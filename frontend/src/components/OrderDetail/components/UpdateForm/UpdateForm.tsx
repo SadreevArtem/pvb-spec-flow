@@ -36,6 +36,7 @@ import { TrunnionBallSideEntry } from "./components/TrunnionBallSideEntry";
 import { TrunnionBallTopEntry } from "./components/TrunnionBallTopEntry";
 import { Monoblock } from "./components/Monoblock";
 import { FloatingTwin } from "./components/FloatingTwin";
+import { ThreeWay } from "./components/ThreeWay";
 
 type Props = {
   index: number;
@@ -353,6 +354,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "FLOATING_TWIN":
         return (
           <FloatingTwin
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "THREE_WAY":
+        return (
+          <ThreeWay
             index={item.id}
             item={item}
             setFormData={setFormData}
