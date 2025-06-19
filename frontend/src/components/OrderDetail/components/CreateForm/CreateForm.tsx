@@ -34,6 +34,7 @@ import { InclinedDisk } from "./components/InclinedDisk";
 import { FloatingPlugSideEntry } from "./components/FloatingPlugSideEntry";
 import { TrunnionBallSideEntry } from "./components/TrunnionBallSideEntry";
 import { TrunnionBallTopEntry } from "./components/TrunnionBallTopEntry";
+import { Monoblock } from "./components/Monoblock";
 
 type Props = {
   index: number;
@@ -293,6 +294,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "TRUNNION_BALL_TOP_ENTRY":
           return (
             <TrunnionBallTopEntry
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "MONOBLOCK":
+          return (
+            <Monoblock
               index={index}
               setFormData={setFormData}
               formData={formData}
