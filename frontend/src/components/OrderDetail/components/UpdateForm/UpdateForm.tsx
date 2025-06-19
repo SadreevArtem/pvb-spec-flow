@@ -38,6 +38,7 @@ import { Monoblock } from "./components/Monoblock";
 import { FloatingTwin } from "./components/FloatingTwin";
 import { ThreeWay } from "./components/ThreeWay";
 import { TwoCentered } from "./components/TwoCentered";
+import { ThreeCentered } from "./components/ThreeCentered";
 
 type Props = {
   index: number;
@@ -375,6 +376,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "TWO_CENTERED":
         return (
           <TwoCentered
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "THREE_CENTERED":
+        return (
+          <ThreeCentered
             index={item.id}
             item={item}
             setFormData={setFormData}

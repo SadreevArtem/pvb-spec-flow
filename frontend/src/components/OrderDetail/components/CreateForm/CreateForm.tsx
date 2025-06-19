@@ -38,6 +38,7 @@ import { Monoblock } from "./components/Monoblock";
 import { FloatingTwin } from "./components/FloatingTwin";
 import { ThreeWay } from "./components/ThreeWay";
 import { TwoCentered } from "./components/TwoCentered";
+import { ThreeCentered } from "./components/ThreeCentered";
 
 type Props = {
   index: number;
@@ -331,10 +332,19 @@ const CreateForm: React.FC<Props> = React.memo(
               options={options}
             />
           );
-
         case "TWO_CENTERED":
           return (
             <TwoCentered
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "THREE_CENTERED":
+          return (
+            <ThreeCentered
               index={index}
               setFormData={setFormData}
               formData={formData}
