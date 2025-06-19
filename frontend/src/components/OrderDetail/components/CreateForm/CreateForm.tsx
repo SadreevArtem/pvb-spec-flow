@@ -35,6 +35,7 @@ import { FloatingPlugSideEntry } from "./components/FloatingPlugSideEntry";
 import { TrunnionBallSideEntry } from "./components/TrunnionBallSideEntry";
 import { TrunnionBallTopEntry } from "./components/TrunnionBallTopEntry";
 import { Monoblock } from "./components/Monoblock";
+import { FloatingTwin } from "./components/FloatingTwin";
 
 type Props = {
   index: number;
@@ -303,6 +304,16 @@ const CreateForm: React.FC<Props> = React.memo(
         case "MONOBLOCK":
           return (
             <Monoblock
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+
+        case "FLOATING_TWIN":
+          return (
+            <FloatingTwin
               index={index}
               setFormData={setFormData}
               formData={formData}
