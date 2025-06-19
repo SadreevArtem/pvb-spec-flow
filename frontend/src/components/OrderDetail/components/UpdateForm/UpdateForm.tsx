@@ -31,6 +31,7 @@ import { SwingCheckPressureSeal } from "./components/SwingCheckPressureSeal";
 import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSealStraight";
 import { LiftCheckPressureSealTypeY } from "./components/LiftCheckPressureSealTypeY";
 import { InclinedDisk } from "./components/InclinedDisk";
+import { FloatingPlugSideEntry } from "./components/FloatingPlugSideEntry";
 
 type Props = {
   index: number;
@@ -298,6 +299,16 @@ export const UpdateForm: React.FC<Props> = ({
       case "INCLINED_DISK":
         return (
           <InclinedDisk
+            index={item.id}
+            item={item}
+            setFormData={setFormData}
+            formData={formData}
+            options={options}
+          />
+        );
+      case "FLOATING_PLUG_SIDE_ENTRY":
+        return (
+          <FloatingPlugSideEntry
             index={item.id}
             item={item}
             setFormData={setFormData}

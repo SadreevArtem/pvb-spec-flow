@@ -31,6 +31,7 @@ import { SwingCheckPressureSeal } from "./components/SwingCheckPressureSeal";
 import { LiftCheckPressureSealStraight } from "./components/LiftCheckPressureSealStraight";
 import { LiftCheckPressureSealTypeY } from "./components/LiftCheckPressureSealTypeY";
 import { InclinedDisk } from "./components/InclinedDisk";
+import { FloatingPlugSideEntry } from "./components/FloatingPlugSideEntry";
 
 type Props = {
   index: number;
@@ -263,6 +264,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "INCLINED_DISK":
           return (
             <InclinedDisk
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "FLOATING_PLUG_SIDE_ENTRY":
+          return (
+            <FloatingPlugSideEntry
               index={index}
               setFormData={setFormData}
               formData={formData}
