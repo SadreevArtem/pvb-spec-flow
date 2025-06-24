@@ -114,6 +114,7 @@
     "hydraulic": "Гидравлический",
     "electric": "Электрический",
     "electrohudraulic": "Электрогидравлический",
-    "chain_drive": "Цепной привод"
+    "chain_drive": "Цепной привод",
+    "documentation_sheet": "Лист документации"
   }
 }

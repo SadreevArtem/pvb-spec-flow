@@ -47,9 +47,9 @@ type Inputs = Order & {
 type InputItem = Item & { orderId: number };
 
 export const OrderDetail: React.FC<Props> = ({ id }) => {
+  const t = useTranslations("OrderDetail");
   const isEdit = id !== 0;
   const token = useAuthStore((state) => state.token);
-  const t = useTranslations("OrderDetail");
   const queryClient = useQueryClient();
   const [customer, setCustomer] = React.useState<number>(0);
   const [owner, setOwner] = React.useState<number>(0);
@@ -412,7 +412,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Лист документации"
+                    label={t("documentation_sheet")}
                   />
                   <FormControlLabel
                     control={
