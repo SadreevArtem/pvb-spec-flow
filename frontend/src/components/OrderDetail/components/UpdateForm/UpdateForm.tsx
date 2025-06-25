@@ -403,7 +403,7 @@ export const UpdateForm: React.FC<Props> = ({
       } ${index + 1}`}</span> */}
       <div className="flex my-3">
         <TextField
-          label="TAG номер"
+          label={t("tag_number")}
           value={item.tagNumber}
           className="!mr-3 !min-w-[220px]"
           variant="outlined"
@@ -418,7 +418,7 @@ export const UpdateForm: React.FC<Props> = ({
           }
         />
         <TextField
-          label="Номер по ТЗ"
+          label={t("tech_task_number")}
           defaultValue={item.techTaskNumber}
           variant="outlined"
           className="!mr-3 !min-w-[220px]"
@@ -433,13 +433,15 @@ export const UpdateForm: React.FC<Props> = ({
           }
         />
         <FormControl required className="!mr-3 !min-w-[220px]">
-          <InputLabel id="demo-simple-select-label">{"Конструкция"}</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            {t("construction")}
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             key={item?.construction?.id?.toString() || ""}
             defaultValue={item?.construction?.id?.toString() || ""}
             id="demo-simple-select"
-            label="Конструкция"
+            label={t("construction")}
             onChange={handleChangeConstructions}
           >
             {options.constructions.map((type, i) => (
@@ -451,14 +453,14 @@ export const UpdateForm: React.FC<Props> = ({
         </FormControl>
         <FormControl required className="!mr-3 !w-[220px]">
           <InputLabel id="demo-simple-select-label">
-            {"Тип продукции"}
+            {t("product_type")}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             key={item?.productType?.id?.toString() || ""}
             defaultValue={item?.productType?.id?.toString() || ""}
             id="demo-simple-select"
-            label="Тип продукции"
+            label={t("product_type")}
             onChange={handleChangeProductType}
           >
             {options.productTypes.map((type, i) => (
@@ -477,12 +479,12 @@ export const UpdateForm: React.FC<Props> = ({
           value={model}
         /> */}
         <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
-          <InputLabel id="demo-simple-select-label">{"Тип ЗРА"}</InputLabel>
+          <InputLabel id="demo-simple-select-label">{t("type_zra")}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={typeZra}
-            label="Тип ЗРА"
+            label={t("type_zra")}
             defaultValue={item.typeZra}
             onChange={handleChangeTypeZra}
           >

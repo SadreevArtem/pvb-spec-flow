@@ -155,16 +155,16 @@ export const ZraComponent: React.FC<Props> = ({
     <>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
-          {"Тип запорного органа"}
+          {t("type_of_organ")}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"0"}
-          label="Тип запорного органа"
+          label={t("type_of_organ")}
           onChange={handleChangeTypeOfOrgan}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.typeOfOrgan.map((type, i) => (
             <MenuItem key={i} value={type.name}>
               {type.name}
@@ -174,16 +174,16 @@ export const ZraComponent: React.FC<Props> = ({
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="dss-simple-select-label">
-          {"Стандарт изготовления"}
+          {t("manufacturing_standard")}
         </InputLabel>
         <Select
           labelId="dss-simple-select-label"
           id="dss-simple-select"
           defaultValue={"0"}
-          label="Стандарт изготовления"
+          label={t("manufacturing_standard")}
           onChange={handleChangeManufacturingStandart}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.manufacturingStandart.map((type, i) => (
             <MenuItem key={i} value={type.id}>
               {type.name}
@@ -192,15 +192,15 @@ export const ZraComponent: React.FC<Props> = ({
         </Select>
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
-        <InputLabel id="demo-simple-select-label">{"Ду"}</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t("diameter")}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"0"}
-          label="Ду"
+          label={t("diameter")}
           onChange={handleChangeDiameter}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.diameters.map((type, i) => (
             <MenuItem key={i} value={type.name}>
               {type.name}
@@ -209,15 +209,17 @@ export const ZraComponent: React.FC<Props> = ({
         </Select>
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
-        <InputLabel id="demo-simple-select-label">{"Pу"}</InputLabel>
+        <InputLabel id="demo-simple-select-label">
+          {t("class_pressure")}
+        </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"0"}
-          label="Pу"
+          label={t("class_pressure")}
           onChange={handleChangeClassPressure}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.classPressures.map((type, i) => (
             <MenuItem key={i} value={type.name}>
               {type.name}
@@ -226,12 +228,14 @@ export const ZraComponent: React.FC<Props> = ({
         </Select>
       </FormControl>
       <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
-        <InputLabel id="demo-simple-select-label">{"Рабочая среда"}</InputLabel>
+        <InputLabel id="demo-simple-select-label">
+          {t("work_environment")}
+        </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={workEnvironment}
-          label="Рабочая среда"
+          label={t("work_environment")}
           onChange={handleChangeWorkEnvironment}
         >
           {Object.values(WorkEnvironment).map((item, i) => (
@@ -243,16 +247,16 @@ export const ZraComponent: React.FC<Props> = ({
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
-          {"Температура рабочей среды"}
+          {t("temperature")}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"0"}
-          label="Температура рабочей среды"
+          label={t("temperature")}
           onChange={handleChangeTemperature}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.temperature.map((type, i) => (
             <MenuItem key={i} value={type.name}>
               {type.name}
@@ -262,16 +266,16 @@ export const ZraComponent: React.FC<Props> = ({
       </FormControl>
       <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="demo-simple-select-label">
-          {"Класс герметичности"}
+          {t("tightness_class")}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"0"}
-          label="Класс герметичности"
+          label={t("tightness_class")}
           onChange={handleChangeTightnessClass}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {options.tightnessClasses.map((type, i) => (
             <MenuItem key={i} value={type.id}>
               {type.name}
@@ -281,16 +285,16 @@ export const ZraComponent: React.FC<Props> = ({
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="temperature-range-select-label">
-          {"Температурный диапазон"}
+          {t("temperature_range")}
         </InputLabel>
         <Select
           labelId="temperature-range-select-label"
           id="temperature-range-select"
           defaultValue={"0"}
-          label="Температурный диапазон"
+          label={t("temperature_range")}
           onChange={handleChangeTemperatureRange}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {options.temperatureRanges.map((range, i) => (
             <MenuItem key={i} value={range.id}>
               {range.name}
@@ -300,19 +304,19 @@ export const ZraComponent: React.FC<Props> = ({
       </FormControl>
       <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
         <InputLabel id="housing-material-select-label">
-          {"Материал корпуса"}
+          {t("housing_material")}
         </InputLabel>
         <Select
           labelId="housing-material-select-label"
           id="housing-material-select"
           defaultValue={"0"}
-          label="Материал корпуса"
+          label={t("housing_material")}
           onChange={(e) => {
             handleChangeHousingMaterial(e);
             setSelectedMaterial(e.target.value);
           }}
         >
-          <MenuItem value="0">Не выбрано</MenuItem>
+          <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.materials.map((material, i) => (
             <MenuItem key={i} value={material.name}>
               {material.name}
@@ -343,10 +347,10 @@ export const ZraComponent: React.FC<Props> = ({
                 }}
               />
             }
-            label="Мягкое седло"
+            label={t("soft_seat")}
           />
           <TextField
-            label="Материал штока"
+            label={t("rod_material")}
             required
             className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterials?.rod}
@@ -360,7 +364,7 @@ export const ZraComponent: React.FC<Props> = ({
           />
 
           <TextField
-            label="Материал клина"
+            label={t("wedge_material")}
             className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterials?.wedge}
             id="outlined-multiline-static-wedge"
@@ -372,7 +376,7 @@ export const ZraComponent: React.FC<Props> = ({
             }}
           />
           <TextField
-            label="Материал седла"
+            label={t("seat_material")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterialsSeat}
@@ -386,16 +390,16 @@ export const ZraComponent: React.FC<Props> = ({
           />
           <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="connection-type-select-label">
-              {"Тип соединения"}
+              {t("connection_type")}
             </InputLabel>
             <Select
               labelId="connection-type-select-label"
               id="connection-type-select"
               defaultValue={"0"}
-              label="Тип соединения"
+              label={t("connection_type")}
               onChange={handleChangeConnectionType}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
+              <MenuItem value="0">{t("not_selected")}</MenuItem>
               {staticOptions.connectionTypes.map((type, i) => (
                 <MenuItem key={i} value={type.name}>
                   {type.name}
@@ -405,19 +409,19 @@ export const ZraComponent: React.FC<Props> = ({
           </FormControl>
           <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="seat-material-select-label">
-              {"Материал ответных фланцев"}
+              {t("counter_flanges_material")}
             </InputLabel>
             <Select
               labelId="flanges-material-select-label"
               id="seat-material-select"
               defaultValue={"0"}
-              label="Материал ответных фланцев"
+              label={t("counter_flanges_material")}
               onChange={(e) => {
                 handleChangeCounterFlangesMaterial(e);
                 setSelectedFlanges(e.target.value);
               }}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
+              <MenuItem value="0">{t("not_selected")}</MenuItem>
               {staticOptions.materialsFlanges.map((material, i) => (
                 <MenuItem key={i} value={material.name}>
                   {material.name}
@@ -426,7 +430,7 @@ export const ZraComponent: React.FC<Props> = ({
             </Select>
           </FormControl>
           <TextField
-            label="Шпильки"
+            label={t("studs")}
             className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterialFlanges?.studs}
             id="outlined-multiline-static-wedge"
@@ -438,7 +442,7 @@ export const ZraComponent: React.FC<Props> = ({
             }}
           />
           <TextField
-            label="Гайки"
+            label={t("nuts")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             value={selectedMaterialFlanges?.nuts}
@@ -451,7 +455,7 @@ export const ZraComponent: React.FC<Props> = ({
             }}
           />
           <TextField
-            label="Строительная длина"
+            label={t("construction_length")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
@@ -473,7 +477,7 @@ export const ZraComponent: React.FC<Props> = ({
             value={constructionLength?.toString() || ""}
           />
           <TextField
-            label="Размер трубы"
+            label={t("pipe_size")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
@@ -489,16 +493,16 @@ export const ZraComponent: React.FC<Props> = ({
           />
           <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="pipe-material-select-label">
-              {"Материал трубы"}
+              {t("pipe_material")}
             </InputLabel>
             <Select
               labelId="pipe-material-select-label"
               id="pipe-material-select"
               defaultValue={"0"}
-              label="Материал трубы"
+              label={t("pipe_material")}
               onChange={handleChangePipeMaterial}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
+              <MenuItem value="0">{t("not_selected")}</MenuItem>
               {staticOptions.materials.map((material, i) => (
                 <MenuItem key={i} value={material.name}>
                   {material.name}
@@ -507,12 +511,12 @@ export const ZraComponent: React.FC<Props> = ({
             </Select>
           </FormControl>
           <FormControl className={clsx("!mr-3 !w-[240px]", {})}>
-            <InputLabel id="demo-simple-select-label">{"Привод"}</InputLabel>
+            <InputLabel id="demo-simple-select-label">{t("drive")}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={drive}
-              label="Привод"
+              label={t("drive")}
               onChange={handleChangeDrive}
             >
               {Object.values(Drive).map((item, i) => (
@@ -525,14 +529,14 @@ export const ZraComponent: React.FC<Props> = ({
 
           <FormControl required className={clsx("!mr-3 !w-[240px]", {})}>
             <InputLabel id="demo-simple-select-label">
-              {"Комплект привода"}
+              {t("drive_kit")}
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-kit"
               multiple
               value={driveKit}
-              label="Комплект привода"
+              label={t("drive_kit")}
               onChange={handleChangeDriveKit}
             >
               {staticOptions.driveKit.map((type, i) => (
@@ -543,7 +547,7 @@ export const ZraComponent: React.FC<Props> = ({
             </Select>
           </FormControl>
           <TextField
-            label="Примечание"
+            label={t("comment")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
@@ -558,7 +562,7 @@ export const ZraComponent: React.FC<Props> = ({
           />
           <TextField
             variant="outlined"
-            label={"количество"}
+            label={t("quantity")}
             className={clsx("!mr-3 !w-[240px]", {})}
             type="number"
             onChange={(e) =>

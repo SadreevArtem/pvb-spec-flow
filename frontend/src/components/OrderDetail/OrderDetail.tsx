@@ -423,7 +423,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Монтажные чертежи"
+                    label={t("installation_drawings")}
                   />
                   <FormControlLabel
                     control={
@@ -434,7 +434,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Сборочный чертеж"
+                    label={t("assembly_drawing")}
                   />
                   <FormControlLabel
                     control={
@@ -445,7 +445,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Протокол согласования"
+                    label={t("agreement_protocol")}
                   />
                   <FormControlLabel
                     control={
@@ -458,7 +458,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Инструкции по монтажу"
+                    label={t("installation_instructions")}
                   />
                   <FormControlLabel
                     control={
@@ -469,7 +469,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="План качества"
+                    label={t("quality_plan")}
                   />
                   <FormControlLabel
                     control={
@@ -480,7 +480,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Сертификат на материалы"
+                    label={t("materials_certificate")}
                   />
                   <FormControlLabel
                     control={
@@ -491,7 +491,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Декларация ТР ТС"
+                    label={t("declaration_of_trtc")}
                   />
                   <FormControlLabel
                     control={
@@ -507,7 +507,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Плата за присутствие заказчика во время испытаний"
+                    label={t("presence_of_customer_during_testing")}
                   />
                   <FormControlLabel
                     control={
@@ -523,7 +523,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Испытание газом высокого давления"
+                    label={t("gas_inspection_high_pressure")}
                   />
                   <FormControlLabel
                     control={
@@ -534,7 +534,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                         }
                       />
                     }
-                    label="Инспекция третьей стороны"
+                    label={t("third_side_inspection")}
                   />
                 </div>
               </form>

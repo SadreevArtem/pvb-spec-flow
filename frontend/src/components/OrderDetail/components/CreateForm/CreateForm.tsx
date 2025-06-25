@@ -362,7 +362,7 @@ const CreateForm: React.FC<Props> = React.memo(
         )} */}
         <div className="flex my-3 gap-4">
           <TextField
-            label={"TAG номер"}
+            label={t("tag_number")}
             className="!mr-3 !min-w-[220px]"
             variant="outlined"
             required
@@ -396,7 +396,7 @@ const CreateForm: React.FC<Props> = React.memo(
               }}
             /> */}
           <TextField
-            label={"Номер по ТЗ"}
+            label={t("tech_task_number")}
             variant="outlined"
             // defaultValue={formData?.techTaskNumber || undefined}
             className="!mr-3 !min-w-[220px]"
@@ -413,16 +413,16 @@ const CreateForm: React.FC<Props> = React.memo(
           />
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
             <InputLabel id="demo-simple-select-label">
-              {"Конструкция"}
+              {t("construction")}
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               defaultValue={"0"}
-              label="Конструкция"
+              label={t("construction")}
               onChange={handleChangeConstructions}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
+              <MenuItem value="0">{t("not_selected")}</MenuItem>
               {options.constructions.map((type, i) => (
                 <MenuItem key={i} value={type.id}>
                   {type.name}
@@ -432,16 +432,16 @@ const CreateForm: React.FC<Props> = React.memo(
           </FormControl>
           <FormControl required className="!mr-3 !w-[240px]">
             <InputLabel id="demo-simple-select-label">
-              {"Тип продукции"}
+              {t("product_type")}
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               defaultValue={"0"}
-              label="Тип продукции"
+              label={t("product_type")}
               onChange={handleChangeProductType}
             >
-              <MenuItem value="0">Не выбрано</MenuItem>
+              <MenuItem value="0">{t("not_selected")}</MenuItem>
               {options.productTypes.map((type, i) => (
                 <MenuItem key={i} value={type.id}>
                   {type.name}
@@ -450,12 +450,14 @@ const CreateForm: React.FC<Props> = React.memo(
             </Select>
           </FormControl>
           <FormControl className="!mr-3 !w-[240px]">
-            <InputLabel id="demo-simple-select-label">{"Тип ЗРА"}</InputLabel>
+            <InputLabel id="demo-simple-select-label">
+              {t("type_zra")}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={typeZra}
-              label="Тип ЗРА"
+              label={t("type_zra")}
               onChange={handleChangeTypeZra}
             >
               {typeZraOptions.map((item, i) => (
