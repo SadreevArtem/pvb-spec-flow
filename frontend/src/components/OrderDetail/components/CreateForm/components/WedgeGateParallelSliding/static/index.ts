@@ -72,10 +72,8 @@ export const staticOptions = {
     { id: 8, name: "CF8M" },
     { id: 9, name: "CF3M" },
     { id: 10, name: "09Г2С" },
-    { id: 11, name: "13ХФА" },
+    { id: 11, name: "08Х18Н10" },
     { id: 12, name: "20" },
-    { id: 13, name: "20Л" },
-    { id: 14, name: "20ГЛ" },
   ],
   connectionTypes: [
     { id: 1, name: "ASME B16.5 RF" },
@@ -112,11 +110,15 @@ export const staticOptions = {
 };
 
 export const materialMap: Record<string, MaterialEntry> = {
-  WCB: { rod: "F6A", wedge: "WCB+HF", seat: "А105+HF" },
-  WC1: { rod: "F6A", wedge: "WC1+HF", seat: "F6A+HF" },
-  WC6: { rod: "F6A", wedge: "WC6+HF", seat: "F6A+HF" },
-  WC9: { rod: "F6A", wedge: "WC9+HF", seat: "F6A+HF" },
-  CF8M: { rod: "F316", wedge: "CF8M=HF", seat: "F316+HF" },
+  WCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  LCB: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  WC6: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  C5: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  C12: { rod: "F6A", wedge: "F6A", seat: "F6A" },
+  CF8: { rod: "F304", wedge: "F304", seat: "F304" },
+  CF8C: { rod: "F321", wedge: "F321", seat: "F321" },
+  CF8M: { rod: "F316", wedge: "F316", seat: "F316" },
+  CF3M: { rod: "F316L", wedge: "F316L", seat: "F316L" },
   "09Г2С": { rod: "30Х13", wedge: "30Х13+ТО", seat: "30Х13+ТО" },
   "08Х18Н10": { rod: "08Х18Н10", wedge: "08Х18Н10", seat: "08Х18Н10" },
   "20": { rod: "30Х13", wedge: "30Х13+ТО", seat: "20Х13" },

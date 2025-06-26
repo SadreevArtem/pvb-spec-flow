@@ -334,7 +334,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                     label={t("customerName")}
                     onChange={handleChangeCustomer}
                   >
-                    <MenuItem value="0">{"Не выбрано"}</MenuItem>
+                    <MenuItem value="0">{t("not_selected")}</MenuItem>
                     {customers.map((customer, i) => (
                       <MenuItem key={i} value={customer.id}>
                         {customer.name}
@@ -377,7 +377,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                     label={t("owner")}
                     onChange={handleChangeOwner}
                   >
-                    <MenuItem value="0">{"Не выбрано"}</MenuItem>
+                    <MenuItem value="0">{t("not_selected")}</MenuItem>
                     {owners.map((owner, i) => (
                       <MenuItem key={i} value={owner.id}>
                         {owner.about}

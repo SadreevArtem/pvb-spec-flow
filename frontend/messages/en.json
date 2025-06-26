@@ -152,6 +152,23 @@
     "drive": "Drive",
     "drive_kit": "Drive Kit",
     "comment": "Comment",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "нет": "-",
+    "Кабельные вводы": "Cable entries",
+    "Электрообогрев": "Electric heating",
+    "ДИСК": "DISC",
+    "ДВУХДИСКОВАЯ": "TWO-DISC",
+    "ЖЕСТКИЙ КЛИН": "HARD WEDGE",
+    "ПОДВИЖНЫЙ КЛИН": "MOVING WEDGE",
+    "ПАРАЛЛЕЛЬНЫЙ ДИСК": "PARALLEL DISK",
+    "ШАР": "BALL",
+    "Задвижка клиновая": "Wedge gate valve",
+    "Задвижка шиберная": "Gate valve",
+    "Клапан запорный": "Shut-off valve",
+    "Клапан": "Valve",
+    "Шаровый клапан": "Ball valve",
+    "Обратный клапан": "Check valve",
+    "Кран шаровой": "Ball valve(Кран)",
+    "Поворотный затвор": "Rotary shutter"
   }
 }

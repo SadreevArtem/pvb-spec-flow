@@ -167,7 +167,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.typeOfOrgan.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {type.name}
+              {t(type.name)}
             </MenuItem>
           ))}
         </Select>
@@ -186,7 +186,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.manufacturingStandart.map((type, i) => (
             <MenuItem key={i} value={type.id}>
-              {type.name}
+              {t(type.name)}
             </MenuItem>
           ))}
         </Select>
@@ -203,7 +203,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.diameters.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {type.name}
+              {t(type.name)}
             </MenuItem>
           ))}
         </Select>
@@ -222,7 +222,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.classPressures.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {type.name}
+              {t(type.name)}
             </MenuItem>
           ))}
         </Select>
@@ -541,7 +541,7 @@ export const ZraComponent: React.FC<Props> = ({
             >
               {staticOptions.driveKit.map((type, i) => (
                 <MenuItem key={i} value={type.name}>
-                  {type.name}
+                  {t(type.name)}
                 </MenuItem>
               ))}
             </Select>

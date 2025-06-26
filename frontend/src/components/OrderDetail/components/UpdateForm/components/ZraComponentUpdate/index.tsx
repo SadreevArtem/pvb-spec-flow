@@ -62,7 +62,7 @@ export const ZraComponentUpdate: React.FC<Props> = ({
   );
   const [drive, setDrive] = React.useState<Drive | "manual">(item.drive);
   const [driveKit, setDriveKit] = React.useState<string[]>(
-    item.driveKit.split(",")
+    item.driveKit?.split(",")
   );
 
   const t = useTranslations("OrderDetail");
@@ -177,7 +177,7 @@ export const ZraComponentUpdate: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.typeOfOrgan.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {type.name}
+              {t(type.name)}
             </MenuItem>
           ))}
         </Select>
@@ -545,7 +545,7 @@ export const ZraComponentUpdate: React.FC<Props> = ({
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-kit"
-              defaultValue={item.driveKit.split(",")}
+              defaultValue={item.driveKit?.split(",") || []}
               label={t("drive_kit")}
               multiple
               value={driveKit}
@@ -553,7 +553,7 @@ export const ZraComponentUpdate: React.FC<Props> = ({
             >
               {staticOptions.driveKit.map((type, i) => (
                 <MenuItem key={i} value={type.name}>
-                  {type.name}
+                  {t(type.name)}
                 </MenuItem>
               ))}
             </Select>

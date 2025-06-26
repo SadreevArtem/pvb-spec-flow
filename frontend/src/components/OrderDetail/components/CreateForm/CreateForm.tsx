@@ -444,7 +444,7 @@ const CreateForm: React.FC<Props> = React.memo(
               <MenuItem value="0">{t("not_selected")}</MenuItem>
               {options.productTypes.map((type, i) => (
                 <MenuItem key={i} value={type.id}>
-                  {type.name}
+                  {t(type.name)}
                 </MenuItem>
               ))}
             </Select>

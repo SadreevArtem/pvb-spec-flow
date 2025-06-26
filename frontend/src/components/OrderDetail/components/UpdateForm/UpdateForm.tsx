@@ -465,7 +465,7 @@ export const UpdateForm: React.FC<Props> = ({
           >
             {options.productTypes.map((type, i) => (
               <MenuItem key={i} value={type.id}>
-                {type.name}
+                {t(type.name)}
               </MenuItem>
             ))}
           </Select>
