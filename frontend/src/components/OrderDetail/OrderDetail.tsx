@@ -400,7 +400,9 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                       type="button"
                     />
                   )}
-                  <Button title="export" onButtonClick={onGenerateClick} />
+                  {isEdit && (
+                    <Button title="export" onButtonClick={onGenerateClick} />
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <FormControlLabel
