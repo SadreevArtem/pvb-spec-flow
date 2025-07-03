@@ -186,7 +186,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.manufacturingStandart.map((type, i) => (
             <MenuItem key={i} value={type.id}>
-              {t(type.name)}
+              {type.name}
             </MenuItem>
           ))}
         </Select>
@@ -203,7 +203,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.diameters.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {t(type.name)}
+              {type.name}
             </MenuItem>
           ))}
         </Select>
@@ -222,7 +222,7 @@ export const ZraComponent: React.FC<Props> = ({
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.classPressures.map((type, i) => (
             <MenuItem key={i} value={type.name}>
-              {t(type.name)}
+              {type.name}
             </MenuItem>
           ))}
         </Select>
