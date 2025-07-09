@@ -60,9 +60,10 @@ export function getLength(
     "ASME B16.47 RF": "RF|B",
     "ASME B16.47 RTJ": "RTJ|J",
     "BW TO ASME B16.25": "BW|SW",
+    "BW ASME B16.25": "BW|SW",
     "SW ASME B16.11": "BW|SW",
     "NPT ASME B1.20.1": "NPT",
-    "ГОСТ 33259-2015 Тип В": "RF|B",
+    "ГОСТ 33259-2015 Тип B": "RF|B",
     "ГОСТ 33259-2015 Тип J": "RTJ|J",
     "ГОСТ 33259-2015 Тип F": "RF|B",
   };
