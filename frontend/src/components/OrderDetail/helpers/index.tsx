@@ -66,6 +66,8 @@ export function getLength(
     "ГОСТ 33259-2015 Тип B": "RF|B",
     "ГОСТ 33259-2015 Тип J": "RTJ|J",
     "ГОСТ 33259-2015 Тип F": "RF|B",
+    "ГОСТ 33259-2015 Тип E": "RF|B",
+    "ГОСТ 33259-2015 Тип C": "RF|B",
   };
 
   const group = connectionMap[connectionTypeName];

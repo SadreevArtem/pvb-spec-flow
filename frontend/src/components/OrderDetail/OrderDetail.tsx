@@ -113,6 +113,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     enabled: id !== 0,
   });
   const [formData, setFormData] = React.useState<Record<number, Item>>({});
+
   const {
     register,
     handleSubmit,
@@ -206,7 +207,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     }
     mutation({
       ...data,
-      ...(Boolean(order?.owner.id) && { ownerId: order?.owner.id }),
+      ...(Boolean(order?.owner.id) && { ownerId: owner }),
     }).then(async (data) => {
       // await Promise.all(
       //   Array.from(Object.values(formData), (item) =>

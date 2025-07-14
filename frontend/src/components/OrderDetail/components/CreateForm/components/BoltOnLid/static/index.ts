@@ -96,10 +96,9 @@ export const staticOptions = {
     { id: 3, name: "ASME B16.47 RF" },
     { id: 4, name: "ASME B16.47 RTJ" },
     { id: 5, name: "BW TO ASME B16.25" },
-    { id: 6, name: "ГОСТ 33259-2015 Тип В" },
+    { id: 6, name: "ГОСТ 33259-2015 Тип B" },
     { id: 7, name: "ГОСТ 33259-2015 Тип J" },
     { id: 8, name: "ГОСТ 33259-2015 Тип F" },
-    { id: 9, name: "ГОСТ 33259-2015 Тип D" },
   ],
   materialsFlanges: [
     { id: 1, name: "-" },

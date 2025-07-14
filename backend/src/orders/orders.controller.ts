@@ -79,7 +79,7 @@ export class OrdersController {
 
     // Сохранение пути к файлу в сущность
     // order.filePath = excelPath;
-    await this.ordersService.update(+id, {
+    await this.ordersService.updateLinks(+id, {
       filePath: `https://api.pvb-university.com/uploads/${excelName}`,
       filePathPdf: `https://api.pvb-university.com/uploads/${pdfName}`,
     });

@@ -51,6 +51,10 @@ export class OrdersService {
       customer,
     });
   }
+  async updateLinks(id: number, updateOrderDto: UpdateOrderDto) {
+    // Обновляем заказ, передавая только нужные поля из rest
+    return this.orderRepository.update(id, updateOrderDto);
+  }
   async create(createOrderDto: CreateOrderDto, userId: number) {
     const { customerId } = createOrderDto;
     const owner = await this.usersService.findById(userId);
