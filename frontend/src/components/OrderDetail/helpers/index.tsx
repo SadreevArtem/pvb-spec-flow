@@ -36,7 +36,13 @@ export const ZraDict: Record<string, string[]> = {
   "Поворотный затвор": ["TWO_CENTERED", "THREE_CENTERED"],
 };
 
-type ConnectionGroup = "RF|B" | "BW|SW" | "RF|B|BW" | "RTJ|J" | "NPT";
+type ConnectionGroup =
+  | "RF|B"
+  | "BW|SW"
+  | "RF|B|BW"
+  | "RTJ|J"
+  | "NPT"
+  | "w/Nipple";
 type PressureClass = "150#" | "300#" | "600#" | "900#" | "1500#" | "2500#";
 
 interface LengthTable {
@@ -68,6 +74,8 @@ export function getLength(
     "ГОСТ 33259-2015 Тип F": "RF|B",
     "ГОСТ 33259-2015 Тип E": "RF|B",
     "ГОСТ 33259-2015 Тип C": "RF|B",
+    "w/Nipple": "w/Nipple",
+    "ГОСТ 9400-81": "NPT",
   };
 
   const group = connectionMap[connectionTypeName];

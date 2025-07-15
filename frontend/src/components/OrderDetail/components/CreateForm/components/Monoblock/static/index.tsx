@@ -45,8 +45,7 @@ export const staticOptions = {
     { id: 10, name: "20" },
   ],
   connectionTypes: [
-    { id: 1, name: "BW ASME B16.25" },
-    { id: 2, name: "SW ASME B16.11" },
+    { id: 2, name: "w/Nipple" },
     { id: 3, name: "NPT ASME B1.20.1" },
     { id: 4, name: "ГОСТ 9400-81" },
   ],
@@ -117,7 +116,7 @@ export const lengthTable = {
       '1"1/2': 130,
       '2"': 155,
     },
-    "BW w/Nipple": {
+    "w/Nipple": {
       "1/2": 285,
       "3/4": 290,
       '1"': 310,
@@ -135,7 +134,7 @@ export const lengthTable = {
       '1"1/2': 130,
       '2"': 155,
     },
-    "BW w/Nipple": {
+    "w/Nipple": {
       "1/2": 285,
       "3/4": 290,
       '1"': 310,
@@ -153,7 +152,7 @@ export const lengthTable = {
       '1"1/2': 130,
       '2"': 155,
     },
-    "BW w/Nipple": {
+    "w/Nipple": {
       "1/2": 285,
       "3/4": 290,
       '1"': 310,
