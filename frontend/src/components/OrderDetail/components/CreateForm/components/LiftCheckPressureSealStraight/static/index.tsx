@@ -52,9 +52,10 @@ export const staticOptions = {
     { id: 2, name: "ASME B16.5 RTJ" },
     { id: 3, name: "BW ASME B16.25" },
     { id: 4, name: "SW ASME B16.11" },
-    { id: 6, name: "ГОСТ 33259-2015 Тип B" },
-    { id: 7, name: "ГОСТ 33259-2015 Тип J" },
-    { id: 8, name: "ГОСТ 33259-2015 Тип F" },
+    { id: 5, name: "ГОСТ 33259-2015 Тип B" },
+    { id: 6, name: "ГОСТ 33259-2015 Тип E" },
+    { id: 7, name: "ГОСТ 33259-2015 Тип F" },
+    { id: 8, name: "ГОСТ 33259-2015 Тип J" },
   ],
   materialsFlanges: [
     { id: 1, name: "-" },

@@ -63,8 +63,9 @@ export const staticOptions = {
     { id: 6, name: "SW ASME B16.11" },
     { id: 7, name: "NPT ASME B1.20.1" },
     { id: 8, name: "ГОСТ 33259-2015 Тип B" },
-    { id: 9, name: "ГОСТ 33259-2015 Тип J" },
+    { id: 9, name: "ГОСТ 33259-2015 Тип E" },
     { id: 10, name: "ГОСТ 33259-2015 Тип F" },
+    { id: 11, name: "ГОСТ 33259-2015 Тип J" },
   ],
   materialsFlanges: [
     { id: 1, name: "-" },
