@@ -36,7 +36,7 @@ export class ExcelServiceService {
       row.getCell(7).value = item.productType.name; // Тип продукции
       row.getCell(8).value = translate(item.typeZra); // Тип ЗРА
       row.getCell(9).value = item.typeOfOrgan; // Тип запорного органа
-      row.getCell(10).value = item.manufacturingStandart.name; //Стандарт изготовления
+      row.getCell(10).value = item.manufacturingStandart; //Стандарт изготовления
       row.getCell(11).value = item.diameter; // ДУ
       row.getCell(12).value = item.classPressure; // Класс давления
       row.getCell(13).value = translate(item.workEnvironment); // Рабочая среда
@@ -229,7 +229,7 @@ export class ExcelServiceService {
         item.productType.name || '',
         translate(item.typeZra) || '',
         item.typeOfOrgan || '',
-        item.manufacturingStandart.name || '',
+        item.manufacturingStandart || '',
         item.diameter || '',
         item.classPressure || '',
         translate(item.workEnvironment) || '',
