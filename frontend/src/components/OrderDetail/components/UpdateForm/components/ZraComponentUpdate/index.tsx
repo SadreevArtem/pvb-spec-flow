@@ -97,7 +97,7 @@ export const ZraComponentUpdate: React.FC<Props> = ({
     }));
   };
   const handleChangeManufacturingStandart = handleChangeField(
-    "manufacturingStandartId"
+    "manufacturingStandart"
   );
   const handleChangeTypeOfOrgan = handleChangeField("typeOfOrgan");
   const handleChangeDiameter = handleChangeField("diameter");
@@ -190,13 +190,13 @@ export const ZraComponentUpdate: React.FC<Props> = ({
           labelId="dss-simple-select-label"
           id="dss-simple-select"
           key={item?.manufacturingStandart?.toString() || ""}
-          defaultValue={item?.manufacturingStandart?.id?.toString()}
+          defaultValue={item?.manufacturingStandart}
           label={t("manufacturing_standard")}
           onChange={handleChangeManufacturingStandart}
         >
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.manufacturingStandart.map((type, i) => (
-            <MenuItem key={i} value={type.id}>
+            <MenuItem key={i} value={type.name}>
               {type.name}
             </MenuItem>
           ))}

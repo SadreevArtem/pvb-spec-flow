@@ -32,7 +32,6 @@ export class OrdersService {
         items: {
           productType: true,
           construction: true,
-          manufacturingStandart: true,
           tightnessClass: true,
           temperatureRange: true,
         },

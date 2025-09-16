@@ -158,7 +158,7 @@ export type ProductType = {
 
 export type ConstructionType = EquipmentType;
 
-export type ManufacturingStandartType = EquipmentType;
+export type ManufacturingStandartType = string;
 
 export type TightnessClassType = EquipmentType;
 

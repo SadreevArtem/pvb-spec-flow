@@ -13,7 +13,6 @@ import { User } from 'src/users/entities/user.entity';
 import { UserRole } from 'src/types';
 import { ProductTypesService } from 'src/product-types/product-types.service';
 import { ConstructionsService } from 'src/constructions/constructions.service';
-import { ManufacturingStandartsService } from 'src/manufacturing-standarts/manufacturing-standarts.service';
 import { TightnessClassesService } from 'src/tightness-classes/tightness-classes.service';
 import { TemperatureRangesService } from 'src/temperature-ranges/temperature-ranges.service';
 
@@ -25,7 +24,6 @@ export class ItemsService {
     private readonly ordersService: OrdersService,
     private readonly productTypeService: ProductTypesService,
     private readonly constructionsService: ConstructionsService,
-    private readonly manufacturingStandartsService: ManufacturingStandartsService,
     private readonly tightnessClassesService: TightnessClassesService,
     private readonly temperatureRangesService: TemperatureRangesService,
   ) {}
@@ -34,7 +32,6 @@ export class ItemsService {
     const {
       orderId,
       productTypeId,
-      manufacturingStandartId,
       constructionId,
       classPressure,
       typeZra,
@@ -64,13 +61,6 @@ export class ItemsService {
     if (!construction) {
       throw new NotFoundException('Construction not found');
     }
-    const manufacturingStandart =
-      await this.manufacturingStandartsService.findById(
-        manufacturingStandartId,
-      );
-    if (!manufacturingStandart) {
-      throw new NotFoundException('Manufacturing Standart not found');
-    }
     const tightnessClass =
       await this.tightnessClassesService.findById(tightnessClassId);
     if (!tightnessClass) {
@@ -86,7 +76,6 @@ export class ItemsService {
       order,
       productType,
       construction,
-      manufacturingStandart,
       diameter,
       typeZra,
       tightnessClass,
@@ -122,7 +111,6 @@ export class ItemsService {
     const {
       orderId,
       productTypeId,
-      manufacturingStandartId,
       diameter,
       classPressure,
       constructionId,
@@ -151,13 +139,6 @@ export class ItemsService {
     if (!construction) {
       throw new NotFoundException('Construction not found');
     }
-    const manufacturingStandart =
-      await this.manufacturingStandartsService.findById(
-        manufacturingStandartId,
-      );
-    if (!manufacturingStandart) {
-      throw new NotFoundException('Manufacturing Standart not found');
-    }
     const tightnessClass =
       await this.tightnessClassesService.findById(tightnessClassId);
     if (!tightnessClass) {
@@ -173,7 +154,6 @@ export class ItemsService {
       order,
       productType,
       construction,
-      manufacturingStandart,
       diameter,
       typeZra,
       classPressure,

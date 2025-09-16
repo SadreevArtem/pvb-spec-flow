@@ -1,6 +1,5 @@
 import { Length } from 'class-validator';
 import { Construction } from 'src/constructions/entities/construction.entity';
-import { ManufacturingStandart } from 'src/manufacturing-standarts/entities/manufacturing-standart.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { ProductType } from 'src/product-types/entities/product-type.entity';
 import { TemperatureRange } from 'src/temperature-ranges/entities/temperature-range.entity';
@@ -36,11 +35,8 @@ export class Item {
   @ManyToOne(() => Construction, (construction) => construction.items)
   construction: Construction; //Справочник конструкции
 
-  @ManyToOne(
-    () => ManufacturingStandart,
-    (manufacturingStandart) => manufacturingStandart.items,
-  )
-  manufacturingStandart: ManufacturingStandart; //Справочник конструкции
+  @Column({ nullable: true })
+  manufacturingStandart: string; //Стандарт изготовления
 
   @Column({ nullable: true })
   diameter: string; // ДУ

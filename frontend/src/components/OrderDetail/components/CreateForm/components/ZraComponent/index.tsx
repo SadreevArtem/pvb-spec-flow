@@ -85,7 +85,7 @@ export const ZraComponent: React.FC<Props> = ({
     }));
   };
   const handleChangeManufacturingStandart = handleChangeField(
-    "manufacturingStandartId"
+    "manufacturingStandart"
   );
   const handleChangeTypeOfOrgan = handleChangeField("typeOfOrgan");
   const handleChangeDiameter = handleChangeField("diameter");
@@ -185,7 +185,7 @@ export const ZraComponent: React.FC<Props> = ({
         >
           <MenuItem value="0">{t("not_selected")}</MenuItem>
           {staticOptions.manufacturingStandart.map((type, i) => (
-            <MenuItem key={i} value={type.id}>
+            <MenuItem key={i} value={type.name}>
               {type.name}
             </MenuItem>
           ))}
