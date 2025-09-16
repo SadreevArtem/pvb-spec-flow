@@ -169,7 +169,6 @@ export type MaterialType = EquipmentType;
 export type OptionsType = {
   productTypes: ProductType[];
   constructions: ConstructionType[];
-  manufacturingStandart: ManufacturingStandartType[];
   tightnessClasses: TightnessClassType[];
   temperatureRanges: TemperatureRangeType[];
 };

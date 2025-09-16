@@ -26,7 +26,7 @@ export class CreateItemDto {
   constructionId: number;
 
   @IsOptional()
-  manufacturingStandartId: number;
+  manufacturingStandart: string;
 
   @IsOptional()
   typeOfOrgan: string;

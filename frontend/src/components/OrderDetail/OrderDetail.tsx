@@ -18,7 +18,6 @@ import {
   Order,
   User,
   ConstructionType,
-  ManufacturingStandartType,
   ProductType,
   TemperatureRangeType,
   TightnessClassType,
@@ -59,8 +58,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
 
   const getProductTypes = () => api.getAllProductTypesRequest(token);
   const getConstructions = () => api.getAllConstructionsRequest(token);
-  const getManufacturingStandart = () =>
-    api.getAllManufacturingStandartsRequest(token);
   const getTightnessClass = () => api.getAllTightnessClassRequest(token);
   const getTemperatureRanges = () => api.getAllTemperatureRangeRequest(token);
   // const getMaterials = () => api.getAllMaterialsRequest(token);
@@ -84,12 +81,6 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   const { data: constructions = [] } = useQuery<ConstructionType[]>({
     queryKey: ["constructions"],
     queryFn: getConstructions,
-  });
-  const { data: manufacturingStandart = [] } = useQuery<
-    ManufacturingStandartType[]
-  >({
-    queryKey: ["manufacturingStandart"],
-    queryFn: getManufacturingStandart,
   });
   const { data: tightnessClasses = [] } = useQuery<TightnessClassType[]>({
     queryKey: ["tightnessClass"],
@@ -258,18 +249,11 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
     return {
       productTypes,
       constructions,
-      manufacturingStandart,
       tightnessClasses,
       temperatureRanges,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    productTypes,
-    constructions,
-    manufacturingStandart,
-    tightnessClasses,
-    temperatureRanges,
-  ]);
+  }, [productTypes, constructions, tightnessClasses, temperatureRanges]);
 
   return (
     <>
