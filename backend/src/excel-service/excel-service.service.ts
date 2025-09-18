@@ -27,38 +27,40 @@ export class ExcelServiceService {
     worksheet.getCell('A2').value = order.customer?.name || 'Не указан'; // Заказчик
     worksheet.getCell('B2').value = order.contractNumber; // Номер договора
 
-    order.items.forEach((item, index) => {
-      const row = worksheet.getRow(index + 2);
-      row.getCell(3).value = index + 1; // Номер позиции
-      row.getCell(4).value = item.tagNumber; // TAG
-      row.getCell(5).value = item.techTaskNumber; // Номер технологического задания
-      row.getCell(6).value = item.construction.name; // Конструкция
-      row.getCell(7).value = item.productType.name; // Тип продукции
-      row.getCell(8).value = translate(item.typeZra); // Тип ЗРА
-      row.getCell(9).value = item.typeOfOrgan; // Тип запорного органа
-      row.getCell(10).value = item.manufacturingStandart; //Стандарт изготовления
-      row.getCell(11).value = item.diameter; // ДУ
-      row.getCell(12).value = item.classPressure; // Класс давления
-      row.getCell(13).value = translate(item.workEnvironment); // Рабочая среда
-      row.getCell(14).value = item.temperature; // Температура рабочей среды
-      row.getCell(15).value = item.tightnessClass.name; // Класс герметичности
-      row.getCell(16).value = item.temperatureRange.name; // Температурный диапазон
-      row.getCell(17).value = item.housingMaterial; // Материал корпуса
-      row.getCell(18).value = item.rodMaterial; // Материал штока
-      row.getCell(19).value = item.wedgeMaterial; // Материал клина
-      row.getCell(20).value = item.seatMaterial; // Материал седла
-      row.getCell(21).value = item.connectionType; // Тип соединения
-      row.getCell(22).value = item.counterFlangesMaterial; // Материал ответных фланцев
-      row.getCell(23).value = item.hairpins; // шпильки
-      row.getCell(24).value = item.nuts; // Гайки
-      row.getCell(25).value = item.constructionLength; // Строительная длина
-      row.getCell(26).value = item.pipeSize; // Размер трубы
-      row.getCell(27).value = item.pipeMaterial; // Материал трубы
-      row.getCell(28).value = translate(item.drive); // привод
-      row.getCell(29).value = item.driveKit; // комплект привода
-      row.getCell(30).value = item.comment; // Примечание
-      row.getCell(31).value = item.count; // Количество
-    });
+    order.items
+      .sort((a, b) => a.id - b.id)
+      .forEach((item, index) => {
+        const row = worksheet.getRow(index + 2);
+        row.getCell(3).value = index + 1; // Номер позиции
+        row.getCell(4).value = item.tagNumber; // TAG
+        row.getCell(5).value = item.techTaskNumber; // Номер технологического задания
+        row.getCell(6).value = item.construction.name; // Конструкция
+        row.getCell(7).value = item.productType.name; // Тип продукции
+        row.getCell(8).value = translate(item.typeZra); // Тип ЗРА
+        row.getCell(9).value = item.typeOfOrgan; // Тип запорного органа
+        row.getCell(10).value = item.manufacturingStandart; //Стандарт изготовления
+        row.getCell(11).value = item.diameter; // ДУ
+        row.getCell(12).value = item.classPressure; // Класс давления
+        row.getCell(13).value = translate(item.workEnvironment); // Рабочая среда
+        row.getCell(14).value = item.temperature; // Температура рабочей среды
+        row.getCell(15).value = item.tightnessClass.name; // Класс герметичности
+        row.getCell(16).value = item.temperatureRange.name; // Температурный диапазон
+        row.getCell(17).value = item.housingMaterial; // Материал корпуса
+        row.getCell(18).value = item.rodMaterial; // Материал штока
+        row.getCell(19).value = item.wedgeMaterial; // Материал клина
+        row.getCell(20).value = item.seatMaterial; // Материал седла
+        row.getCell(21).value = item.connectionType; // Тип соединения
+        row.getCell(22).value = item.counterFlangesMaterial; // Материал ответных фланцев
+        row.getCell(23).value = item.hairpins; // шпильки
+        row.getCell(24).value = item.nuts; // Гайки
+        row.getCell(25).value = item.constructionLength; // Строительная длина
+        row.getCell(26).value = item.pipeSize; // Размер трубы
+        row.getCell(27).value = item.pipeMaterial; // Материал трубы
+        row.getCell(28).value = translate(item.drive); // привод
+        row.getCell(29).value = item.driveKit; // комплект привода
+        row.getCell(30).value = item.comment; // Примечание
+        row.getCell(31).value = item.count; // Количество
+      });
 
     const lastFilledRow = worksheet.lastRow?.number || 0;
     let currentRow = lastFilledRow + 2;
@@ -220,39 +222,41 @@ export class ExcelServiceService {
       ],
     ];
 
-    order.items.forEach((item, index) => {
-      tableBody.push([
-        index + 1,
-        item.tagNumber || '',
-        item.techTaskNumber || '',
-        item.construction.name || '',
-        item.productType.name || '',
-        translate(item.typeZra) || '',
-        item.typeOfOrgan || '',
-        item.manufacturingStandart || '',
-        item.diameter || '',
-        item.classPressure || '',
-        translate(item.workEnvironment) || '',
-        item.temperature || '',
-        item.tightnessClass.name || '',
-        item.temperatureRange.name || '',
-        item.housingMaterial || '',
-        item.rodMaterial || '',
-        item.wedgeMaterial || '',
-        item.seatMaterial || '',
-        item.connectionType || '',
-        item.counterFlangesMaterial || '',
-        item.hairpins || '',
-        item.nuts || '',
-        item.constructionLength || '',
-        item.pipeSize || '',
-        item.pipeMaterial || '',
-        translate(item.drive) || '',
-        item.driveKit || '',
-        item.comment || '',
-        item.count || '',
-      ]);
-    });
+    order.items
+      .sort((a, b) => a.id - b.id)
+      .forEach((item, index) => {
+        tableBody.push([
+          index + 1,
+          item.tagNumber || '',
+          item.techTaskNumber || '',
+          item.construction.name || '',
+          item.productType.name || '',
+          translate(item.typeZra) || '',
+          item.typeOfOrgan || '',
+          item.manufacturingStandart || '',
+          item.diameter || '',
+          item.classPressure || '',
+          translate(item.workEnvironment) || '',
+          item.temperature || '',
+          item.tightnessClass.name || '',
+          item.temperatureRange.name || '',
+          item.housingMaterial || '',
+          item.rodMaterial || '',
+          item.wedgeMaterial || '',
+          item.seatMaterial || '',
+          item.connectionType || '',
+          item.counterFlangesMaterial || '',
+          item.hairpins || '',
+          item.nuts || '',
+          item.constructionLength || '',
+          item.pipeSize || '',
+          item.pipeMaterial || '',
+          translate(item.drive) || '',
+          item.driveKit || '',
+          item.comment || '',
+          item.count || '',
+        ]);
+      });
 
     // Добавляем дополнительные данные
     // if (additionalData1.some((data) => data.condition)) {
