@@ -39,6 +39,7 @@ import { FloatingTwin } from "./components/FloatingTwin";
 import { ThreeWay } from "./components/ThreeWay";
 import { TwoCentered } from "./components/TwoCentered";
 import { ThreeCentered } from "./components/ThreeCentered";
+import { FloatingPlugTopEntry } from "./components/FloatingPlugTopEntry";
 
 type Props = {
   index: number;
@@ -280,6 +281,15 @@ const CreateForm: React.FC<Props> = React.memo(
         case "FLOATING_PLUG_SIDE_ENTRY":
           return (
             <FloatingPlugSideEntry
+              index={index}
+              setFormData={setFormData}
+              formData={formData}
+              options={options}
+            />
+          );
+        case "FLOATING_PLUG_TOP_ENTRY":
+          return (
+            <FloatingPlugTopEntry
               index={index}
               setFormData={setFormData}
               formData={formData}

@@ -27,6 +27,7 @@ export const ZraDict: Record<string, string[]> = {
   ],
   "Кран шаровой": [
     "FLOATING_PLUG_SIDE_ENTRY",
+    "FLOATING_PLUG_TOP_ENTRY",
     "TRUNNION_BALL_SIDE_ENTRY",
     "TRUNNION_BALL_TOP_ENTRY",
     "MONOBLOCK",

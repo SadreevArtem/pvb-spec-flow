@@ -22,6 +22,7 @@ export const dictionary = {
     "LIFT CHECK VALVES PRESSURE SEAL 'Y' PATTERN",
   INCLINED_DISK: 'С наклонным диском',
   FLOATING_PLUG_SIDE_ENTRY: 'Плавающая пробка боковой вход',
+  FLOATING_PLUG_TOP_ENTRY: 'Плавающая пробка верхний вход',
   TRUNNION_BALL_SIDE_ENTRY: 'Шар на цапфе боковой вход',
   TRUNNION_BALL_TOP_ENTRY: 'Шар на цапфе, верхний вход',
   MONOBLOCK: 'Моноблок',

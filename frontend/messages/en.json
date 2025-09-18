@@ -94,6 +94,7 @@
     "LIFT_CHECK_PRESSURE_SEAL_Y_PATTERN": "Lift Check Valves Pressure Seal Y Pattern",
     "INCLINED_DISK": "Inclined Disk",
     "FLOATING_PLUG_SIDE_ENTRY": "Floating Plug Side Entry",
+    "FLOATING_PLUG_TOP_ENTRY": "Floating Plug Top Entry",
     "TRUNNION_BALL_SIDE_ENTRY": "Trunnion Mounted Ball Valve Side Entry",
     "TRUNNION_BALL_TOP_ENTRY": "Trunnion Mounted Ball Valve Top Entry",
     "MONOBLOCK": "Monoblock",
