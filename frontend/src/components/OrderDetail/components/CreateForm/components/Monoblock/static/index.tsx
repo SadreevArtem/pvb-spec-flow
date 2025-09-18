@@ -43,6 +43,9 @@ export const staticOptions = {
     { id: 8, name: "09Г2С" },
     { id: 9, name: "08Х18Н10" },
     { id: 10, name: "20" },
+    { id: 11, name: "CF8" },
+    { id: 12, name: "CF8M" },
+    { id: 13, name: "AISI 316" },
   ],
   connectionTypes: [
     { id: 2, name: "w/Nipple" },
