@@ -105,6 +105,9 @@ export const materialMap: Record<string, MaterialEntry> = {
   "09Г2С": { rod: "20Х13", wedge: "08Х18Н10", seat: "08Х18Н10" },
   "08Х18Н10": { rod: "08Х18Н10", wedge: "08Х18Н10", seat: "08Х18Н10" },
   "20": { rod: "20Х13", wedge: "30Х13+ТО", seat: "30Х13+ТО" },
+  CF8: { rod: "CF8", wedge: "CF8", seat: "CF8" },
+  CF8M: { rod: "CF8M", wedge: "CF8M", seat: "CF8M" },
+  "AISI 316": { rod: "AISI 316", wedge: "AISI 316", seat: "AISI 316" },
 };
 
 export const flangesMap: Record<string, FlangeMaterialEntry> = {
@@ -116,11 +119,11 @@ export const flangesMap: Record<string, FlangeMaterialEntry> = {
   "A 182 Gr. F316": { studs: "B8", nuts: "G8" },
   "A 182 Gr. F316L": { studs: "B8", nuts: "G8" },
   "A 182 Gr. F321": { studs: "B8", nuts: "G8" },
-  "09Г2С": { studs: "35ХМ", nuts: "35" },
-  "13ХФА": { studs: "35ХМ", nuts: "35" },
-  "20": { studs: "35ХМ", nuts: "35" },
-  "20Л": { studs: "35ХМ", nuts: "35" },
-  "20ГЛ": { studs: "35ХМ", nuts: "35" },
+  "09Г2С": { studs: "35ХМ", nuts: "35X" },
+  "13ХФА": { studs: "35ХМ", nuts: "35X" },
+  "20": { studs: "35ХМ", nuts: "35X" },
+  "20Л": { studs: "35ХМ", nuts: "35X" },
+  "20ГЛ": { studs: "35ХМ", nuts: "35X" },
   "-": { studs: "-", nuts: "-" },
 };
 
