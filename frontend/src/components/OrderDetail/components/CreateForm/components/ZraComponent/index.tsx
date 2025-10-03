@@ -23,6 +23,8 @@ import {
   WorkEnvironment,
 } from "../../../../../../../shared/types";
 import { staticOptions } from "../Bellows/static";
+import { useMaterialStore } from "../../../../../../../shared/stores/materials";
+import { useMaterialFlangesStore } from "../../../../../../../shared/stores/materialsFlanges";
 
 type Props = {
   index: number;
@@ -48,8 +50,16 @@ export const ZraComponent: React.FC<Props> = ({
   const [workEnvironment, setWorkEnvironment] = React.useState<
     WorkEnvironment | ""
   >("");
-  const [selectedMaterial, setSelectedMaterial] = useState("0");
-  const [selectedFlanges, setSelectedFlanges] = useState("0");
+  const { selectedMaterialStore, setSelectedMaterialStore } =
+    useMaterialStore();
+  const { selectedMaterialFlangesStore, setSelectedMaterialFlangesStore } =
+    useMaterialFlangesStore();
+  const [selectedMaterial, setSelectedMaterial] = useState(
+    selectedMaterialStore || "0"
+  );
+  const [selectedFlanges, setSelectedFlanges] = useState(
+    selectedMaterialFlangesStore || "0"
+  );
   const [selectedMaterialsSeat, setSelectedMaterialsSeat] = useState("");
   const [driveKit, setDriveKit] = React.useState<string[]>([]);
   const [drive, setDrive] = React.useState<Drive | "manual">("manual");
@@ -116,6 +126,7 @@ export const ZraComponent: React.FC<Props> = ({
       },
     }));
   };
+  console.log(formData);
 
   const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];
@@ -150,6 +161,36 @@ export const ZraComponent: React.FC<Props> = ({
     constructionLength,
     selectedMaterialFlanges,
   ]);
+  useEffect(() => {
+    if (formData?.workEnvironment) {
+      setWorkEnvironment(formData.workEnvironment);
+    }
+    if (formData?.seatMaterial === "PTFE") {
+      setFormData((prev) => ({
+        ...prev,
+        [index + 1]: {
+          ...prev[index + 1],
+
+          seatMaterial: "PTFE",
+        },
+      }));
+      setSelectedMaterialsSeat("PTFE");
+    }
+    if (formData?.drive) {
+      setDrive(formData?.drive);
+    }
+    if (formData?.driveKit) {
+      setDriveKit(formData?.driveKit.split(","));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    setSelectedMaterialStore(selectedMaterial);
+  }, [selectedMaterial, setSelectedMaterialStore]);
+
+  useEffect(() => {
+    setSelectedMaterialFlangesStore(selectedFlanges);
+  }, [selectedFlanges, setSelectedMaterialFlangesStore]);
 
   return (
     <>
@@ -160,7 +201,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={formData?.typeOfOrgan}
           label={t("type_of_organ")}
           onChange={handleChangeTypeOfOrgan}
         >
@@ -179,7 +220,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="dss-simple-select-label"
           id="dss-simple-select"
-          defaultValue={"0"}
+          defaultValue={formData?.manufacturingStandart}
           label={t("manufacturing_standard")}
           onChange={handleChangeManufacturingStandart}
         >
@@ -196,7 +237,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={formData?.diameter}
           label={t("diameter")}
           onChange={handleChangeDiameter}
         >
@@ -215,7 +256,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={formData?.classPressure}
           label={t("class_pressure")}
           onChange={handleChangeClassPressure}
         >
@@ -252,7 +293,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={formData?.temperature}
           label={t("temperature")}
           onChange={handleChangeTemperature}
         >
@@ -271,7 +312,9 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={"0"}
+          defaultValue={options.tightnessClasses
+            .find((item) => item.id === formData?.tightnessClassId)
+            ?.id.toString()}
           label={t("tightness_class")}
           onChange={handleChangeTightnessClass}
         >
@@ -290,7 +333,9 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="temperature-range-select-label"
           id="temperature-range-select"
-          defaultValue={"0"}
+          defaultValue={options.temperatureRanges
+            .find((item) => item.id === formData?.temperatureRangeId)
+            ?.id.toString()}
           label={t("temperature_range")}
           onChange={handleChangeTemperatureRange}
         >
@@ -309,7 +354,7 @@ export const ZraComponent: React.FC<Props> = ({
         <Select
           labelId="housing-material-select-label"
           id="housing-material-select"
-          defaultValue={"0"}
+          defaultValue={formData?.housingMaterial}
           label={t("housing_material")}
           onChange={(e) => {
             handleChangeHousingMaterial(e);
@@ -330,7 +375,7 @@ export const ZraComponent: React.FC<Props> = ({
           <FormControlLabel
             control={
               <Checkbox
-                // checked={false}
+                defaultChecked={formData?.seatMaterial === "PTFE"}
                 onChange={(e) => {
                   setFormData((prev) => ({
                     ...prev,
@@ -342,7 +387,7 @@ export const ZraComponent: React.FC<Props> = ({
                     },
                   }));
                   setSelectedMaterialsSeat(
-                    e.target.checked ? "PTFE" : selectedMaterials.seat
+                    e.target.checked ? "PTFE" : selectedMaterials?.seat
                   );
                 }}
               />
@@ -353,6 +398,7 @@ export const ZraComponent: React.FC<Props> = ({
             label={t("rod_material")}
             required
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.rodMaterial}
             value={selectedMaterials?.rod}
             id="outlined-multiline-static"
             slotProps={{
@@ -366,6 +412,7 @@ export const ZraComponent: React.FC<Props> = ({
           <TextField
             label={t("wedge_material")}
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.wedgeMaterial}
             value={selectedMaterials?.wedge}
             id="outlined-multiline-static-wedge"
             slotProps={{
@@ -379,6 +426,7 @@ export const ZraComponent: React.FC<Props> = ({
             label={t("seat_material")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.seatMaterial}
             value={selectedMaterialsSeat}
             id="outlined-multiline-static-seat"
             slotProps={{
@@ -395,7 +443,7 @@ export const ZraComponent: React.FC<Props> = ({
             <Select
               labelId="connection-type-select-label"
               id="connection-type-select"
-              defaultValue={"0"}
+              defaultValue={formData?.connectionType}
               label={t("connection_type")}
               onChange={handleChangeConnectionType}
             >
@@ -414,7 +462,7 @@ export const ZraComponent: React.FC<Props> = ({
             <Select
               labelId="flanges-material-select-label"
               id="seat-material-select"
-              defaultValue={"0"}
+              defaultValue={formData?.counterFlangesMaterial}
               label={t("counter_flanges_material")}
               onChange={(e) => {
                 handleChangeCounterFlangesMaterial(e);
@@ -432,6 +480,7 @@ export const ZraComponent: React.FC<Props> = ({
           <TextField
             label={t("studs")}
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.hairpins}
             value={selectedMaterialFlanges?.studs}
             id="outlined-multiline-static-wedge"
             slotProps={{
@@ -445,6 +494,7 @@ export const ZraComponent: React.FC<Props> = ({
             label={t("nuts")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.nuts}
             value={selectedMaterialFlanges?.nuts}
             id="outlined-multiline-static-seat"
             slotProps={{
@@ -480,6 +530,7 @@ export const ZraComponent: React.FC<Props> = ({
             label={t("pipe_size")}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
+            defaultValue={formData?.pipeSize}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
@@ -498,7 +549,7 @@ export const ZraComponent: React.FC<Props> = ({
             <Select
               labelId="pipe-material-select-label"
               id="pipe-material-select"
-              defaultValue={"0"}
+              defaultValue={formData?.pipeMaterial}
               label={t("pipe_material")}
               onChange={handleChangePipeMaterial}
             >
@@ -516,6 +567,7 @@ export const ZraComponent: React.FC<Props> = ({
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={drive}
+              defaultValue={formData?.drive}
               label={t("drive")}
               onChange={handleChangeDrive}
             >
@@ -548,6 +600,7 @@ export const ZraComponent: React.FC<Props> = ({
           </FormControl>
           <TextField
             label={t("comment")}
+            defaultValue={formData?.comment}
             variant="outlined"
             className={clsx("!mr-3 !w-[240px]", {})}
             onChange={(e) =>
@@ -563,6 +616,7 @@ export const ZraComponent: React.FC<Props> = ({
           <TextField
             variant="outlined"
             label={t("quantity")}
+            defaultValue={formData?.count}
             className={clsx("!mr-3 !w-[240px]", {})}
             type="number"
             onChange={(e) =>

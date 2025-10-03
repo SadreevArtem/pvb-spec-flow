@@ -140,6 +140,9 @@ export type Item = {
   workEnvironment: WorkEnvironment;
   pipeMaterial: string;
   count: number;
+  constructionId?: number;
+  tightnessClassId?: number;
+  temperatureRangeId?: number;
 };
 
 export type EquipmentType = {

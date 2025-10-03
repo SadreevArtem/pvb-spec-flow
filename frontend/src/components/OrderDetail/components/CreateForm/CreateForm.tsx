@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Item, OptionsType, TypeZra } from "../../../../../shared/types";
 import clsx from "clsx";
 import { ZraDict } from "../../helpers";
@@ -363,6 +363,12 @@ const CreateForm: React.FC<Props> = React.memo(
           );
       }
     };
+    useEffect(() => {
+      if (formData?.typeZra) {
+        setTypeZra(formData.typeZra);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
       <div key={index} className="w-fit">
         {/* {currentTypes && (
@@ -419,6 +425,7 @@ const CreateForm: React.FC<Props> = React.memo(
                 },
               }))
             }
+            defaultValue={formData?.techTaskNumber || ""}
             // value={formData?.techTaskNumber || ""}
           />
           <FormControl required className={clsx("!mr-3 !min-w-[220px]", {})}>
@@ -428,7 +435,9 @@ const CreateForm: React.FC<Props> = React.memo(
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              defaultValue={"0"}
+              defaultValue={options.constructions
+                .find((item) => item.id === formData?.constructionId)
+                ?.id.toString()}
               label={t("construction")}
               onChange={handleChangeConstructions}
             >
@@ -447,8 +456,10 @@ const CreateForm: React.FC<Props> = React.memo(
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              defaultValue={"0"}
               label={t("product_type")}
+              defaultValue={options.productTypes
+                .find((item) => item.id === formData?.productTypeId)
+                ?.id.toString()}
               onChange={handleChangeProductType}
             >
               <MenuItem value="0">{t("not_selected")}</MenuItem>
@@ -467,7 +478,9 @@ const CreateForm: React.FC<Props> = React.memo(
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={typeZra}
+              defaultValue={formData?.typeZra}
               label={t("type_zra")}
+              // defaultValue={typeZra}
               onChange={handleChangeTypeZra}
             >
               {typeZraOptions.map((item, i) => (
