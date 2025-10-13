@@ -258,7 +258,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
   return (
     <>
       {!isLoading && (
-        <section className="container px-40 rounded-lg pt-4 mt-[60px]">
+        <section className="container max-xl:px-40 rounded-lg pt-4 mt-[60px]">
           <div className="flex mt-8 justify-between gap-4">
             <h2 className="text-xl">{t(isEdit ? "edit" : "add")}</h2>
             <Button
@@ -525,7 +525,7 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
                   />
                 </div>
               </form>
-              <div className="flex w-full mt-8">
+              <div className="flex w-full xl:max-w-[400px] mt-8">
                 {order?.filePath && (
                   <div className="flex w-full justify-center">
                     <div className="relative lg:h-[64px] h-[88px] lg:max-w-[64px] bg-gray-purple z-0 rounded-4 max-md:mx-auto w-full">
@@ -559,7 +559,10 @@ export const OrderDetail: React.FC<Props> = ({ id }) => {
               </div>
             </div>
           }
-          <div style={{ width: "fit", height: "600px" }} className="">
+          <div
+            style={{ width: "fit", height: "800px" }}
+            className="overflow-x-auto"
+          >
             <VirtualizedCreateItems
               count={watch("count")}
               setFormData={setFormData}

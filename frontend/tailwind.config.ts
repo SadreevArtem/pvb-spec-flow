@@ -14,6 +14,13 @@ export default {
         red: "#cd163f",
       },
     },
+    screens: {
+      sm: "320px",
+      md: "768px",
+      lg: "1280px",
+      xl: "1440px",
+      xxl: "2100px",
+    },
   },
   plugins: [],
 } satisfies Config;

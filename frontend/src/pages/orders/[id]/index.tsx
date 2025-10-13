@@ -12,8 +12,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   };
 };
 
-
-
 export default function Customers() {
   const token = useAuthStore((state) => state.token);
   const router = useRouter();

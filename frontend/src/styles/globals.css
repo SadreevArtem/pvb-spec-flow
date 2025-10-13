@@ -32,7 +32,7 @@ body {
 
 @layer components {
   .container {
-    @apply max-w-full h-full px-4 md:px-6 lg:max-w-[1024px] lg:px-0 xl:max-w-[1360px] mx-auto;
+    @apply max-w-full h-full px-4 md:px-6 lg:max-w-[1024px] lg:px-0 xl:max-w-[1360px] xxl:max-w-[2000px] mx-auto;
   }
   * {
     @apply supports-[-webkit-backdrop-filter]:outline-none outline-none;
@@ -40,4 +40,11 @@ body {
   .button {
     @apply text-white bg-primary uppercase text-[18px] rounded-full font-bold border-primary border-2 p-1 px-8 cursor-pointer hover:bg-white hover:text-primary;
   }
+}
+::-webkit-scrollbar {
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 5px;
 }
