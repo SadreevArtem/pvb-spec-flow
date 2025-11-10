@@ -1,4 +1,15 @@
-import { Customer, Item, Order, User } from "../types";
+import {
+  Customer,
+  Item,
+  Order,
+  User,
+  EquipmentType,
+  ProductType,
+  ConstructionType,
+  TightnessClassType,
+  TemperatureRangeType,
+  MaterialType,
+} from "../types";
 
 class API {
   baseUrl: string;
@@ -493,7 +504,7 @@ class API {
   };
 
   //запрос на создание вида оборудования
-  createEquipmentTypeRequest = async (input: Customer, token: string) => {
+  createEquipmentTypeRequest = async (input: EquipmentType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/equipment-types`, {
         method: "POST",
@@ -515,7 +526,7 @@ class API {
     }
   };
   // запрос на обновление вида оборудования
-  updateEquipmentTypeRequest = async (input: Customer, token: string) => {
+  updateEquipmentTypeRequest = async (input: EquipmentType, token: string) => {
     if (!input.id) {
       throw new Error("Equipment type ID is required for updating");
     }
@@ -608,7 +619,7 @@ class API {
   };
 
   //запрос на создание типа оборудования
-  createProductTypeRequest = async (input: Customer, token: string) => {
+  createProductTypeRequest = async (input: ProductType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/product-types`, {
         method: "POST",
@@ -630,7 +641,7 @@ class API {
     }
   };
   // запрос на обновление типа оборудования
-  updateProductTypeRequest = async (input: Customer, token: string) => {
+  updateProductTypeRequest = async (input: ProductType, token: string) => {
     if (!input.id) {
       throw new Error("Product type ID is required for updating");
     }
@@ -725,7 +736,7 @@ class API {
   };
 
   //запрос на создание конструкции оборудования
-  createConstructionRequest = async (input: Customer, token: string) => {
+  createConstructionRequest = async (input: ConstructionType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/constructions`, {
         method: "POST",
@@ -747,7 +758,7 @@ class API {
     }
   };
   // запрос на обновление конструкции оборудования
-  updateConstructionRequest = async (input: Customer, token: string) => {
+  updateConstructionRequest = async (input: ConstructionType, token: string) => {
     if (!input.id) {
       throw new Error("Constructions ID is required for updating");
     }
@@ -846,7 +857,7 @@ class API {
 
   //запрос на создание стандарта изготовления
   createManufacturingStandartRequest = async (
-    input: Customer,
+    input: { id?: number; name: string },
     token: string
   ) => {
     try {
@@ -871,7 +882,7 @@ class API {
   };
   // запрос на обновление стандарта изготовления
   updateManufacturingStandartRequest = async (
-    input: Customer,
+    input: { id: number; name: string },
     token: string
   ) => {
     if (!input.id) {
@@ -971,7 +982,7 @@ class API {
   };
 
   //запрос на создание стандарта изготовления
-  createDiameterRequest = async (input: Customer, token: string) => {
+  createDiameterRequest = async (input: { id?: number; name: string }, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/diameters`, {
         method: "POST",
@@ -993,7 +1004,7 @@ class API {
     }
   };
   // запрос на обновление стандарта изготовления
-  updateDiameterRequest = async (input: Customer, token: string) => {
+  updateDiameterRequest = async (input: { id: number; name: string }, token: string) => {
     if (!input.id) {
       throw new Error("Diameters ID is required for updating");
     }
@@ -1085,7 +1096,7 @@ class API {
   };
 
   //запрос на создание РУ
-  createClassPressureRequest = async (input: Customer, token: string) => {
+  createClassPressureRequest = async (input: { id?: number; name: string }, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/class-pressure`, {
         method: "POST",
@@ -1107,7 +1118,7 @@ class API {
     }
   };
   // запрос на обновление РУ
-  updateClassPressureRequest = async (input: Customer, token: string) => {
+  updateClassPressureRequest = async (input: { id: number; name: string }, token: string) => {
     if (!input.id) {
       throw new Error("ClassPressures ID is required for updating");
     }
@@ -1202,7 +1213,7 @@ class API {
   };
 
   //запрос на создание класса герметичности
-  createTightnessClassRequest = async (input: Customer, token: string) => {
+  createTightnessClassRequest = async (input: TightnessClassType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/tightness-classes`, {
         method: "POST",
@@ -1224,7 +1235,7 @@ class API {
     }
   };
   // запрос на обновление класса герметичности
-  updateTightnessClassRequest = async (input: Customer, token: string) => {
+  updateTightnessClassRequest = async (input: TightnessClassType, token: string) => {
     if (!input.id) {
       throw new Error("TightnessClass ID is required for updating");
     }
@@ -1319,7 +1330,7 @@ class API {
   };
 
   //запрос на создание температурного диапазона
-  createTemperatureRangeRequest = async (input: Customer, token: string) => {
+  createTemperatureRangeRequest = async (input: TemperatureRangeType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/temperature-ranges`, {
         method: "POST",
@@ -1340,8 +1351,8 @@ class API {
       throw error;
     }
   };
-  // запрос на обновление класса герметичности
-  updateTemperatureRangeRequest = async (input: Customer, token: string) => {
+  // запрос на обновление температурного диапазона
+  updateTemperatureRangeRequest = async (input: TemperatureRangeType, token: string) => {
     if (!input.id) {
       throw new Error("TemperatureRange ID is required for updating");
     }
@@ -1436,7 +1447,7 @@ class API {
   };
 
   //запрос на создание материалов
-  createMaterialRequest = async (input: Customer, token: string) => {
+  createMaterialRequest = async (input: MaterialType, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/materials`, {
         method: "POST",
@@ -1458,7 +1469,7 @@ class API {
     }
   };
   // запрос на обновление материалов
-  updateMaterialRequest = async (input: Customer, token: string) => {
+  updateMaterialRequest = async (input: MaterialType, token: string) => {
     if (!input.id) {
       throw new Error("Material ID is required for updating");
     }
@@ -1550,7 +1561,7 @@ class API {
   };
 
   //запрос на создание типов соединения
-  createConnectionTypeRequest = async (input: Customer, token: string) => {
+  createConnectionTypeRequest = async (input: { id?: number; name: string }, token: string) => {
     try {
       const response = await fetch(`${this.baseUrl}/connection-types`, {
         method: "POST",
@@ -1572,7 +1583,7 @@ class API {
     }
   };
   // запрос на обновление типов соединения
-  updateConnectionTypeRequest = async (input: Customer, token: string) => {
+  updateConnectionTypeRequest = async (input: { id: number; name: string }, token: string) => {
     if (!input.id) {
       throw new Error("ConnectionType ID is required for updating");
     }
@@ -1646,6 +1657,6 @@ class API {
   };
 }
 
-// export const api = new API("http://localhost:4000");
-
-export const api = new API("https://api.pvb-university.com");
+export const api = new API(
+  process.env.NEXT_PUBLIC_API_URL || "https://api.pvb-university.com"
+);

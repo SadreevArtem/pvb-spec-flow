@@ -10,6 +10,7 @@ import { getErrorMessage } from "../../../shared/lib/getError";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher/LocaleSwitcher";
 import Link from "next/link";
+import { appToast } from "../AppToast/components/lib/appToast";
 
 type Inputs = {
   username: string;
@@ -38,7 +39,10 @@ export const Login: React.FC = () => {
       }
       auth(token);
     },
-    onError: () => window.alert("Ошибка авторизации"),
+    onError: (error) => {
+      console.error("Authentication error:", error);
+      appToast.error(t("authError"));
+    },
   });
   const getError = getErrorMessage(errors);
   const onSubmit: SubmitHandler<Inputs> = (data) => mutation(data as Inputs);
@@ -103,8 +107,8 @@ export const Login: React.FC = () => {
                   <AppTextField tag="input" label={t("email")} {...field} />
                 )}
               />
-              {errors.username && (
-                <span className="text-red-500">{t("requiredName")}</span>
+              {errors.email && (
+                <span className="text-red-500">{t("requiredEmail")}</span>
               )}
             </>
           )}

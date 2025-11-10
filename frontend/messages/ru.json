@@ -6,7 +6,9 @@
     "email": "Эл. почта",
     "signUp": "Зарегистрироваться",
     "requiredName": "Введите имя пользователя",
-    "requiredPassword": "Введите пароль"
+    "requiredPassword": "Введите пароль",
+    "requiredEmail": "Введите адрес электронной почты",
+    "authError": "Ошибка авторизации"
   },
   "LocaleSwitcher": {
     "switchLocale": "{locale, select, ru {RU} en {EN} other {Unknown}}"

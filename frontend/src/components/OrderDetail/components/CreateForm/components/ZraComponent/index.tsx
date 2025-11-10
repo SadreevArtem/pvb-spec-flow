@@ -126,7 +126,6 @@ export const ZraComponent: React.FC<Props> = ({
       },
     }));
   };
-  console.log(formData);
 
   const handleChangePipeMaterial = handleChangeField("pipeMaterial");
   const selectedMaterials = materialMap[selectedMaterial];

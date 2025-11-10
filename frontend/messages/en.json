@@ -6,7 +6,9 @@
     "signUp": "Sign Up",
     "email": "Email",
     "requiredName": "Enter your username",
-    "requiredPassword": "Enter your password"
+    "requiredPassword": "Enter your password",
+    "requiredEmail": "Enter your email address",
+    "authError": "Authentication error"
   },
   "LocaleSwitcher": {
     "switchLocale": "{locale, select, ru {RU} en {RU} other {Unknown}}"
